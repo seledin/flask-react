@@ -70,10 +70,10 @@ class App extends React.Component {
     };
 
     fetchCallback = (data) => {
-        
-        // this.setState({
-        //     displayResults: true,
-        // });
+
+        this.setState({
+            displayResults: true,
+        });
         this.handleSearch2();
 
     // this.fetchData2(data.keywords, data.selected_state_name, data.selected_time_frame)
