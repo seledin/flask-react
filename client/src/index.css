@@ -1,13 +1,86 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Roboto,Heebo,Arial,sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f8f9fa!important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+} */
+
+.loginform{
+  margin: 0 auto;
+  width: 30%;
+  margin-top: 9%;
+}
+
+.myheader{
+  /* margin-top: 2%;
+  margin-bottom: 2%; */
+
+  background: #007bff;
+  padding: 1%;
+  text-align: right;
+  color: #ffffff;
+}
+
+.btn-flat {
+  background-color: purple;
+  color: white;
+}
+
+.btn-white {
+  background-color: #ffffff !important;
+  color: #007bff !important;
+}
+
+.input_bar{
+  margin-top: 1%;
+}
+
+.main_results{
+  margin: 0 auto;
+}
+
+.center{
+  text-align: center;
+}
+
+.tables{
+  padding: 1%;
+}
+
+.intro{
+  padding: 1%
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+} 
+
+.table_div{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.results_div{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  /* height: 100%; */
+}
+
+/* .container{  */
+  /* height: auto; */
+  /* width: 10% */
+  /* position: absolute; */
+/* } */
+
+tr {
+  /* line-height: 25px;
+  min-height: 25px; */
+  height: 0.5em;
 }

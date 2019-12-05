@@ -1,6 +1,27 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import Header from "./components/Header"
+import Input from './components/Input'
+import Plot  from './components/Plot2'
+import { Row,Col } from 'react-bootstrap';
+import Login from './components/Login';
+import Table from './components/Table';
+import Chart from './components/Chart';
+// import Test_Plot from './Test_Plot';
+// import Test_Plot_Dates from './Test_Plot_Dates';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { appConfig } from './config.js';
+import './styles/plot.css'
 
+
+// function calculateMean(array) {
+//   return (array.reduce((acc, c) => acc + c[1], 0)/array.length).toFixed(2)
+// }
+let dimensions = appConfig.dimensions;
+let ranges = appConfig.ranges_dates;
+
+const MA_Day_5 = "5 Day MA";
+const LOWER_BAND = "Lower Band";
+const UPPER_BAND = "Upper Band";
 
 
 
@@ -10,7 +31,25 @@ class App extends React.Component {
       super(props);
       this.state = {
         repos: [],
-        title: "before"
+        title: "before",
+        username: "user",
+        keywords: [],
+        authenticated: true,
+        displayResults: false,
+        region_state: "US",
+        data: [],
+        futureData: [],
+        selected_time_frame: "today 5-y",
+        dataRanges: [],
+        futureDataRanges: [],
+        rankRates: [],
+        growthRates: [],
+        options: {
+          title: "Trends Forecast",
+          x_label: "Date",
+          y_label: "Search interest (%)",
+          dimensions: dimensions,
+        },
       };
     }
 
@@ -42,13 +81,28 @@ class App extends React.Component {
 //       });
 //     };
     
-    render(){
-      return (
-        <div className="app-container">
-            <h3>{this.state.title}</h3>
-        </div>
-      )
-    }
+    render() {
+
+        if (this.state.authenticated) {
+        return (
+            <div className="main_results">
+                <div>
+                    <Header username={this.state.username} />
+                    <Input callbackFromParent={this.handleSearch2}/>
+
+                    <div className="intro">
+
+                    </div>
+                </div>
+            </div>
+            );
+        } else{
+        return (
+        <div>
+            <Login callbackFromLogin={this.toLoginCallback}/>
+        </div>);      
+        }
+	}
   }
   
   
