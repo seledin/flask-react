@@ -13,7 +13,11 @@ class App extends React.Component {
     };
   }
   componentDidMount(){
+    console.log("@@@")
+    console.log(this.state.title)
     this.fetchData();
+    console.log("###")
+    console.log(this.state.title)
   }
 
   // componentDidUpdate(){
@@ -66,7 +70,7 @@ class App extends React.Component {
   render() {
     
     let title = this.state.title
-    console.log(title)
+    // console.log(title)
 
     return (
       title === "after" ? 
