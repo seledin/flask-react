@@ -16,6 +16,10 @@ class App extends React.Component {
     this.fetchData();
   }
 
+  componentDidUpdate(){
+    this.fetchData();
+  }
+
   fetchData(){
 
     // fetch(`/users/ping`, {
