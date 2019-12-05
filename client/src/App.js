@@ -16,9 +16,9 @@ class App extends React.Component {
     this.fetchData();
   }
 
-  // componentDidUpdate(){
-  //   this.fetchData();
-  // }
+  componentDidUpdate(){
+    this.fetchData();
+  }
 
   fetchData(){
 
@@ -64,8 +64,9 @@ class App extends React.Component {
   }
 
   render() {
-
-    let title = this.state.title
+    
+    const title = this.state.title
+    console.log(title)
 
     return (
       <div >
