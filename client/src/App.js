@@ -16,7 +16,7 @@ class App extends React.Component {
 
   fetchData(){
 
-    fetch(`${process.env.REACT_APP_USERS_SERVICE_URL}/users/ping`, {
+    fetch(`/users/ping`, {
       method: 'GET',
       // headers: {
       //   'Content-type': 'application/json',
