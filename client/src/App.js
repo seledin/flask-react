@@ -6,6 +6,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.fetchData = this.fetchData.bind(this);
+
     this.state = {
       title: "before"
     };
