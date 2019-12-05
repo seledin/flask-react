@@ -22,50 +22,50 @@ class App extends React.Component {
 
   fetchData(){
 
-    // fetch(`/users/ping`, {
-    //   method: 'GET',
-    //   // headers: {
-    //   //   'Content-type': 'application/json',
-    //   // },
-    //   // body: JSON.stringify({
-    //   //   }),
-    // }).then(res => res.json())
-    //   .then(
-    //   (result) => {
-    //     console.log('SUCCESS', result)
-
-    //     console.log(result.message)
-    //     var that = this
-        
-    //     that.setState = {
-    //       title: "after"
-    //     };
-    //   },
-    // )
-
-    fetch(`/users/ping`,{
+    fetch(`/users/ping`, {
       method: 'GET',
-    })
-    .then(result => {
-      // This now refers to your component
-      // this.setState({data: data}); 
-      console.log('SUCCESS', result)
+      // headers: {
+      //   'Content-type': 'application/json',
+      // },
+      // body: JSON.stringify({
+      //   }),
+    }).then(res => res.json())
+      .then(
+      (result) => {
+        console.log('SUCCESS', result)
 
         console.log(result.message)
-        // var that = this
+        var that = this
         
-        this.setState = {
+        that.setState = {
           title: "after"
         };
+      },
+    )
 
-    }).catch(function(error) {
-      // error handling
-    })
+    // fetch(`/users/ping`,{
+    //   method: 'GET',
+    // })
+    // .then(result => {
+    //   // This now refers to your component
+    //   // this.setState({data: data}); 
+    //   console.log('SUCCESS', result)
+
+    //     console.log(result.message)
+    //     // var that = this
+        
+    //     this.setState = {
+    //       title: "after"
+    //     };
+
+    // }).catch(function(error) {
+    //   // error handling
+    // })
   }
 
   render() {
     
-    const title = this.state.title
+    let title = this.state.title
     console.log(title)
 
     return (
