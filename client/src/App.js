@@ -31,7 +31,7 @@ class App extends React.Component {
         var that = this
         
         that.setState = {
-          title: result.message
+          title: "after"
         };
       },
     )
