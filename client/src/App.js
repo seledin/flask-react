@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.fetchData = this.fetchData.bind(this);
+    // this.fetchData = this.fetchData.bind(this);
 
     this.state = {
       title: "before"
@@ -16,9 +16,9 @@ class App extends React.Component {
     this.fetchData();
   }
 
-  componentDidUpdate(){
-    this.fetchData();
-  }
+  // componentDidUpdate(){
+  //   this.fetchData();
+  // }
 
   fetchData(){
 
@@ -65,9 +65,11 @@ class App extends React.Component {
 
   render() {
 
+    let title = this.state.title
+
     return (
       <div >
-        <h2>hello: {this.state.title}</h2>
+        <h2>hello: {title}</h2>
       </div>
     );
   }
