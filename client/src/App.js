@@ -27,7 +27,10 @@ class App extends React.Component {
       .then(
       (result) => {
         console.log('SUCCESS', result)
-        this.state = {
+
+        var that = this
+        
+        that.state = {
           title: result.message
         };
       },
