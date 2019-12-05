@@ -6,7 +6,8 @@ class App extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        repos: []
+        repos: [],
+        title: "before"
       };
     }
 
@@ -14,9 +15,22 @@ class App extends React.Component {
         // console.log("@@@")
         // console.log(this.state.title)
         this.handleSearch("liranfar");
+        this.handleSearch2();
         // console.log("###")
         // console.log(this.state.title)
       }
+
+      handleSearch2 = () =>{
+        let url = '/users/ping';
+     fetch(url).
+      then(response => response.json()).then((data) => {
+        console.log("this data")  
+        console.log(data);
+          this.setState({
+            title: data
+          });
+        });
+      };
     
     handleSearch = (user) =>{
       let url = 'https://api.github.com/users/'+user+'/repos';
