@@ -46,6 +46,10 @@ class App extends React.Component {
         };
       },
     )
+    
+    this.setState = ({
+      title: "after2"
+    });
 
     // fetch(`/users/ping`,{
     //   method: 'GET',
@@ -73,7 +77,7 @@ class App extends React.Component {
     // console.log(title)
 
     return (
-      title === "after" ? 
+      title === "after" || title === "after2" ? 
        <div>
            <h3>after</h3>
        </div> 
