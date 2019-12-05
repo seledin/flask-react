@@ -16,9 +16,9 @@ class App extends React.Component {
     this.fetchData();
   }
 
-  componentDidUpdate(){
-    this.fetchData();
-  }
+  // componentDidUpdate(){
+  //   this.fetchData();
+  // }
 
   fetchData(){
 
@@ -65,14 +65,16 @@ class App extends React.Component {
 
   render() {
     
-    let title = this.state.title
-    console.log(title)
+    // let title = this.state.title
+    // console.log(title)
 
     return (
-      <div >
-        <h2>hello: {title}</h2>
-      </div>
-    );
+      this.state.title === "after" ? 
+       <div>
+           <h3>after</h3>
+       </div> 
+      : 'Initializing'
+   );
   }
 
 }
