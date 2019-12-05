@@ -27,7 +27,7 @@ class App extends React.Component {
         console.log("this data")  
         console.log(data);
           this.setState({
-            title: data
+            title: "after"
           });
         });
       };
@@ -47,6 +47,7 @@ class App extends React.Component {
     render(){
       return (
         <div className="app-container">
+            <h3>{this.state.title}</h3>
           <h3>React fetch example</h3>
           <SearchBar handleSubmit={this.handleSearch} />
           <RepoList repos={this.state.repos}/>
