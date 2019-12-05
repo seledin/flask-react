@@ -65,11 +65,11 @@ class App extends React.Component {
 
   render() {
     
-    // let title = this.state.title
-    // console.log(title)
+    let title = this.state.title
+    console.log(title)
 
     return (
-      this.state.title === "after" ? 
+      title === "after" ? 
        <div>
            <h3>after</h3>
        </div> 
