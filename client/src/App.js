@@ -7,7 +7,7 @@ import Login from './components/Login';
 import Table from './components/Table';
 import Chart from './components/Chart';
 // import Test_Plot from './Test_Plot';
-// import Test_Plot_Dates from './Test_Plot_Dates';
+import Test_Plot_Dates from './Test_Plot_Dates';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { appConfig } from './config.js';
 import './styles/plot.css'
@@ -68,6 +68,17 @@ class App extends React.Component {
           });
         });
       };
+
+      fetchCallback = (data) => {
+
+        this.setState({
+          displayResults: true,
+        });
+    
+        // this.fetchData2(data.keywords, data.selected_state_name, data.selected_time_frame)
+    
+    
+      }
     
 //     handleSearch = (user) =>{
 //       let url = 'https://api.github.com/users/'+user+'/repos';
@@ -86,14 +97,55 @@ class App extends React.Component {
         if (this.state.authenticated) {
         return (
             <div className="main_results">
-                <div>
-                    <Header username={this.state.username} />
-                    <Input callbackFromParent={this.handleSearch2}/>
+            {this.state.displayResults ? (
+            
+            <div>
+              <Header username={this.state.username} />
 
-                    <div className="intro">
+              <Input callbackFromParent={this.fetchCallback}/>
 
+              <div className="results_div">
+              <Row> 
+                  <Col sm={5}>
+                    <div>
+                      <Chart />
+                      {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
-                </div>
+                  </Col>
+                  <Col sm={7}>
+                    <div> 
+                      {/* <Plot keywords={this.state.keywords} data={this.state.data} futureData={this.state.futureData} dataRanges={this.state.dataRanges} futureDataRanges={this.state.futureDataRanges}/>   */}
+                      <Test_Plot_Dates options={this.state.options} number_of_series={5}/>
+                    </div>
+                  </Col>
+              </Row> 
+              </div>
+              <div className="tables">
+                <Row>
+                  <Col sm={6}>
+                    <span className="center"><h3>Growth Rate</h3></span>
+                    <Table />
+                    {/* <Table tableData={this.state.rankRates} /> */}
+                  </Col>
+                  <Col sm={6}>
+                    <span className="center"><h3>Projected growth</h3></span>
+                    {/* <Table tableData={this.state.growthRates}  /> */}
+                    <Table />
+                  </Col>
+                </Row>
+              </div>
+
+            </div>  ) : (
+            
+            <div>
+              <Header username={this.state.username} />
+              <Input callbackFromParent={this.fetchCallback}/>
+
+              <div className="intro">
+              </div>
+            </div>
+            )
+          }
             </div>
             );
         } else{
