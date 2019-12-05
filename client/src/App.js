@@ -28,9 +28,9 @@ class App extends React.Component {
       (result) => {
         console.log('SUCCESS', result)
 
-        var that = this
+        // var that = this
         
-        that.state = {
+        this.setState = {
           title: result.message
         };
       },
