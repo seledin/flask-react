@@ -54,31 +54,32 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-        this.handleSearch2();
-      }
+        // this.handleSearch2();
+    }
 
-      handleSearch2 = () =>{
+    handleSearch2 = () => {
         let url = '/users/ping';
-     fetch(url).
-      then(response => response.json()).then((data) => {
+        fetch(url).
+        then(response => response.json()).then((data) => {
         console.log("this data")  
         console.log(data);
-          this.setState({
+            this.setState({
             title: "after"
-          });
+            });
         });
-      };
+    };
 
-      fetchCallback = (data) => {
+    fetchCallback = (data) => {
+        
+        // this.setState({
+        //     displayResults: true,
+        // });
+        this.handleSearch2();
 
-        this.setState({
-          displayResults: true,
-        });
-    
-        // this.fetchData2(data.keywords, data.selected_state_name, data.selected_time_frame)
-    
-    
-      }
+    // this.fetchData2(data.keywords, data.selected_state_name, data.selected_time_frame)
+
+
+    }
     
 //     handleSearch = (user) =>{
 //       let url = 'https://api.github.com/users/'+user+'/repos';
