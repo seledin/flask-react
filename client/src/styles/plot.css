@@ -1,0 +1,127 @@
+.main{
+    background: slategrey;
+}
+
+.plot{
+    /* background: skyblue; */
+}
+
+.test_plot{
+    background: #ffffff;
+}
+
+.plot_title {
+    font-size: 2em;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+circle {
+    /* stroke-width: 5; */
+    /* stroke: #f00; */
+    /* fill: #ff0; */
+}
+  
+circle:hover {
+    fill: rgb(109, 213, 211);
+/* fill: #fff; */
+}
+
+path:hover {
+
+}
+
+.plot_yaxis_title{
+    color:#666666;
+    fill:#666666;
+    font-size:1em;
+    pointer-events: none;
+} 
+
+.plot_xaxis_title{
+    color:#666666;
+    fill:#666666;
+    font-size: 1em;
+    pointer-events: none;
+}
+
+.plot_ytick{
+    color:#666666;
+    cursor:default;
+    fill:#666666;
+    font-size:0.8em;
+    opacity:1;
+    pointer-events: none;
+}
+
+.plot_xtick{
+    color:#666666;
+    cursor:default;
+    fill:#666666;
+    font-size:0.8em;
+    opacity:1;
+    pointer-events: none;
+}
+
+.plot_xmark {
+    color:#666666;
+    fill:#666666;
+    stroke: #666666;
+    stroke-width: 1;
+    pointer-events: none;
+}
+
+.plot_title {
+    color:#666666;
+    fill:#666666;
+    font-size:1.5em;
+    pointer-events: none;
+}
+
+.plot_mark_line {
+    stroke: #7cb517;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.plot_info_box {
+    opacity: 0.9;
+    font-size:0.8em;
+    fill: rgba(247, 247, 247, 0.85);
+    stroke: rgb(124, 181, 236);
+    pointer-events: none;
+}
+
+.plot_info_box text {
+    pointer-events: none;
+}
+
+.plot_info_box_header {
+    stroke: #343640;
+}
+
+.plot_pointer_line {
+    stroke: red;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.plot_legend {
+    stroke: #343640;
+}
+
+.plot_legend path {
+    stroke-width: 2;
+}
+
+.plot_legend text {
+    color: #333333;
+    font-size: 12px;
+    fill: #333333;
+    font-weight: 100;
+}
+
+.plot_line{
+    stroke: grey;
+    pointer-events: none;
+}
