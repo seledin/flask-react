@@ -9,6 +9,14 @@ class App extends React.Component {
         repos: []
       };
     }
+
+    componentDidMount(){
+        // console.log("@@@")
+        // console.log(this.state.title)
+        this.handleSearch("liranfar");
+        // console.log("###")
+        // console.log(this.state.title)
+      }
     
     handleSearch = (user) =>{
       let url = 'https://api.github.com/users/'+user+'/repos';
