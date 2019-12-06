@@ -48,7 +48,7 @@ def keywords():
 
 #     return json.loads(result.to_json(orient='columns', date_format='iso'))
 
-@app.route('/new', methods=['POST'])
+@app.route('/new', methods=['GET'])
 def echo_new():
     keywords = request.json['keywords']
     d = keyword_forecaster_v1(kw_list_in=keywords)

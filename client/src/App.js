@@ -124,7 +124,7 @@ class App extends React.Component {
         let url = "/new"
         
         fetch(url, {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-type': 'application/json',
           },
