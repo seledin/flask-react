@@ -123,7 +123,7 @@ class App extends React.Component {
         // let url = appConfig.KEYWORDS_NEW;
         let url = "/new"
         
-        fetch(appConfig.KEYWORDS_NEW, {
+        fetch(url, {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
