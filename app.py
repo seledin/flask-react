@@ -52,5 +52,7 @@ def echo_new():
 
     return json.loads(result.to_json(orient='columns', date_format='iso'))
 
+    
+
 if __name__ == '__main__':
     app.run()

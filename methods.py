@@ -131,6 +131,8 @@ def keyword_forecaster_v1(kw_list_in):
     projected_growth_result = projected_growth_result.reset_index(drop=True)
     projected_growth_result.index = projected_growth_result.index + 1
 
+    dictionary["projected_growth_result"] = projected_growth_result
+
     # final_dataframe_forecasted.to_json('output_f.json')
     # final_dataframe_historical.to_json('output_h.json')
 
