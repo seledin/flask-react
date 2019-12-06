@@ -125,7 +125,7 @@ export function get_mark_line(mark_line, height){
 //     </g>`
 // }
 
-export function get_info_box(info_box, box_width, box_height){ 
+export function get_info_box(info_box, box_width, box_height, keywords){ 
 
     let y_data = [];
     // console.log(info_box.value_y)
@@ -133,7 +133,7 @@ export function get_info_box(info_box, box_width, box_height){
     if(info_box !== undefined && info_box.value_y !== undefined) {
         for(let i=0; i<info_box.colors.length; i++){
             y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
-            <text stroke="#343640" opacity="1" x=25 y=${(i + 1)*25 + 25}>Series ${i + 1} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i]}, max: ${info_box.value_y[2][i]}</text>`)
+            <text stroke="#343640" opacity="1" x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i]}, max: ${info_box.value_y[2][i]}</text>`)
         }
     }
 
@@ -146,7 +146,7 @@ export function get_info_box(info_box, box_width, box_height){
     </g>`
 }
 
-export function prepare_legend(width, height, colors){
+export function prepare_legend(width, height, colors, keywords){
 
     let legend = [];
 
@@ -154,8 +154,8 @@ export function prepare_legend(width, height, colors){
         legend.push(`
         
         <g data-z-index="1" transform="translate(${87*i + 8},3)">
-            <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} strokeWidth="3"></path>
-            <text x="35" textAnchor="start" data-z-index="0" y="15">Series ${i + 1}</text>
+            <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} strokeWidth="1"></path>
+            <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="0.9em" stroke="#6c757d">${keywords[i]}</text>
         </g>
 
         `);

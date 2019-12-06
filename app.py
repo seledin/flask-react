@@ -46,7 +46,7 @@ def echo_new():
         k = keyword + "F"
         dictionary[k] = d[k].to_dict()
 
-
+    dictionary["projected_growth_result"] = d["projected_growth_result"].to_dict()
 
     result = pd.DataFrame.from_dict(dictionary)
 

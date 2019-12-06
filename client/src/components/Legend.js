@@ -9,7 +9,7 @@ class Legend extends React.PureComponent {
     render() {
       return (
         <g>
-            <g dangerouslySetInnerHTML={{ __html: prepare_legend((this.props.dimensions.width)/2 - this.props.dimensions.x_trans, this.props.dimensions.height + this.props.dimensions.y_trans/2, this.props.colors) }} /> 
+            <g dangerouslySetInnerHTML={{ __html: prepare_legend((this.props.dimensions.width)/2 - this.props.dimensions.x_trans, this.props.dimensions.height + this.props.dimensions.y_trans/2, this.props.colors, this.props.keywords) }} /> 
         </g>
       );
     }

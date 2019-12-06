@@ -14,25 +14,25 @@ class TableComponent extends Component {
 
   render() {
 
-    // var tableHeaders = this.props.tableData.headers.map(( entity, index ) => {
-    //   return (
-    //     <th key={index}>{entity}</th>
-    //   );
-    // })
+    var tableHeaders = this.props.tableData.headers.map(( entity, index ) => {
+      return (
+        <th key={index}>{entity}</th>
+      );
+    })
 
-    // var tableRows = this.props.tableData.data.map(( entity, index ) => {
-    //   let cells = entity.map((e,i) => {
-    //     return <td key = {i}>{e}</td>
-    //   })
+    var tableRows = this.props.tableData.data.map(( entity, index ) => {
+      let cells = entity.map((e,i) => {
+        return <td key = {i}>{e}</td>
+      })
       
-    //   return (
-    //     <tr key={index}>
-    //       <td>{index + 1}</td>
+      return (
+        <tr key={index}>
+          <td>{index + 1}</td>
 
-    //       {cells}
-    //     </tr>
-    //   );
-    // })
+          {cells}
+        </tr>
+      );
+    })
 
     return (
 		<div className="table_div">
@@ -41,11 +41,11 @@ class TableComponent extends Component {
           <tr>
             <th>#</th>
             <th>Keyword</th>
-            {/* {tableHeaders} */}
+            {tableHeaders}
           </tr>
         </thead>
         <tbody>
-          {/* {tableRows} */}
+          {tableRows}
         </tbody>
       </Table>
 		</div>

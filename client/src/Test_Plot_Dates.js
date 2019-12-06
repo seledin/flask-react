@@ -327,13 +327,13 @@ class Test_Plot_Dates extends React.Component {
                 {/* <AxisX dimensions={dimensions} x_label={this.state.x_label} ticks={10} dates={this.state.data_map_area_DATES} /> */}
                 <AxisX dimensions={dimensions} x_label={this.state.x_label} ticks={10} dates={this.state.data_map_area_DATES} />
                 
-                <Legend dimensions={dimensions} colors={this.state.colors} />
+                <Legend dimensions={dimensions} colors={this.state.colors} keywords={this.props.keywords} />
 
                 <Static_Line dimensions={dimensions} ranges={ranges} />
 
                 <Pointer_Line mark_line={this.state.mark_line} height={dimensions.height} />
 
-                <Info_Box info_box={this.state.info_box} width={dimensions.box_width} height={this.state.info_box_height} />
+                <Info_Box info_box={this.state.info_box} width={dimensions.box_width} height={this.state.info_box_height} keywords={this.props.keywords}  />
                 
               </g>
             </g>

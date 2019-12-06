@@ -9,7 +9,7 @@ class Info_Box extends React.PureComponent {
     render() {
       return (
         <g>
-            <g dangerouslySetInnerHTML={{ __html: get_info_box(this.props.info_box, this.props.width, this.props.height) }} /> 
+            <g dangerouslySetInnerHTML={{ __html: get_info_box(this.props.info_box, this.props.width, this.props.height, this.props.keywords ) }} /> 
         </g>
       );
     }
