@@ -50,7 +50,8 @@ def echo_new():
 
     result = pd.DataFrame.from_dict(dictionary)
 
-    return json.loads(result.to_json(orient='columns', date_format='iso'))
+    # return json.loads(result.to_json(orient='columns', date_format='iso'))
+    return jsonify(result.to_json(orient='columns', date_format='iso'))
 
     
 
