@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from methods import keyword_forecaster_v1
 import pandas as pd
+import json
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__,
