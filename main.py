@@ -7,8 +7,8 @@ import json
 
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/keywords', methods=['POST'])
 @cross_origin()
@@ -48,7 +48,7 @@ def keywords():
 
 #     return json.loads(result.to_json(orient='columns', date_format='iso'))
 
-@app.route('/new', methods=['GET'])
+@app.route('/new', methods=['POST'])
 def echo_new():
     keywords = request.json['keywords']
     d = keyword_forecaster_v1(kw_list_in=keywords)
