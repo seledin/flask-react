@@ -81,7 +81,8 @@ def keyword_forecaster_v1(kw_list_in):
 
         model = Prophet(daily_seasonality=False,
                         weekly_seasonality=False,
-                        yearly_seasonality=True)
+                        yearly_seasonality=True,
+                        seasonality_mode='multiplicative')
         model.fit(tmp_dataframe)
 
         future = model.make_future_dataframe(periods=52, freq='W')
