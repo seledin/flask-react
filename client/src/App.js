@@ -120,8 +120,8 @@ class App extends React.Component {
 
     fetchData2(keywords, state, selected_time_frame){
 
-        // let url = appConfig.KEYWORDS_NEW;
-        let url = "/new"
+        let url = appConfig.KEYWORDS_NEW;
+        // let url = "/new"
         
         fetch(url, {
           method: 'POST',
@@ -149,7 +149,7 @@ class App extends React.Component {
               region_state: state,
               selected_time_frame: selected_time_frame,
               displayResults: true,
-            //   rankRates: this.getRateTableData(result.rateranker),
+              rankRates: this.getRateTableData(result.growth_rate_result),
               growthRates: this.getGrowthTableData(result.projected_growth_result)
             });
                 })
@@ -201,7 +201,7 @@ class App extends React.Component {
                   <Col sm={6}>
                     <span className="center"><h3>Growth Rate</h3></span>
                     {/* <Table /> */}
-                    {/* <Table tableData={this.state.rankRates} /> */}
+                    <Table tableData={this.state.rankRates} />
                   </Col>
                   <Col sm={6}>
                     <span className="center"><h3>Projected growth</h3></span>
@@ -269,7 +269,8 @@ class App extends React.Component {
 
 
       getGrowthTableData(data){
-
+        // console.log(data)
+        // return data
         let headers = ["Projected growth in 5 weeks for US (for all keywords) [%]", "Projected growth in 5 weeks for US (for one keyword) [%]"]
         
         
@@ -289,23 +290,24 @@ class App extends React.Component {
         return result;
       }
     
-    //   getRateTableData(data){
+      getRateTableData(data){
+        // console.log(data)
+        // return data
+        let headers = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate_0_3", "Growth_Rate_1_2", "Growth_Rate_2_3"]
     
-    //     let headers = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate_0_3", "Growth_Rate_1_2", "Growth_Rate_2_3"]
+        let arr = Object.keys(data["Keyword"]).map(
+          function(key){
+            return [data["Keyword"][key], data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
+          }
+        );
     
-    //     let arr = Object.keys(data["Keyword"]).map(
-    //       function(key){
-    //         return [data["Keyword"][key], data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
-    //       }
-    //     );
+        let result = {
+          data: arr,
+          headers: headers
+        }
     
-    //     let result = {
-    //       data: arr,
-    //       headers: headers
-    //     }
-    
-    //     return result;
-    //   }
+        return result;
+      }
 
 
       dataMapping2(keywords, result){

@@ -11,7 +11,7 @@ app = Flask(__name__,
 # app = Flask(__name__, static_folder='client/build')
 
 
-# CORS(app)
+CORS(app)
 
 @app.route('/')
 def root():
@@ -47,11 +47,12 @@ def echo_new():
         dictionary[k] = d[k].to_dict()
 
     dictionary["projected_growth_result"] = d["projected_growth_result"].to_dict()
+    dictionary["growth_rate_result"] = d["growth_rate_result"].to_dict()
 
     result = pd.DataFrame.from_dict(dictionary)
 
-    # return json.loads(result.to_json(orient='columns', date_format='iso'))
-    return (result.to_json(orient='columns', date_format='iso'))
+    return json.loads(result.to_json(orient='columns', date_format='iso'))
+    # return (result.to_json(orient='columns', date_format='iso'))
 
     
 

@@ -4,6 +4,7 @@ import numpy as np
 from fbprophet import Prophet
 import pandas as pd
 from pytrends.request import TrendReq
+import math
 
 # External inputs:
 KEYWORDS = ['GAF', 'Owens', 'Roof repair']
@@ -60,11 +61,16 @@ def keyword_forecaster_v1(kw_list_in):
     geo_in='US'
     span_manual=5
     gt_delay=7
-    forecast_time_lead=5
+    forecast_time_lead=4
 
-    cols = ['Keyword', 'Projected growth in 5 weeks for {} (for all keywords) [%]'.format(geo_in),
-            'Projected growth in 5 weeks for {} (for one keyword) [%]'.format(geo_in)]
-    lst = []
+    cols_p = ['Keyword', 'Projected growth in 5 weeks for {} (for all keywords) [%]'.format(geo_in),
+              'Projected growth in 5 weeks for {} (for one keyword) [%]'.format(geo_in)]
+    lst_p = []
+
+    cols_g = ['Keyword', 'Growth_Rate_0_1', 'Growth_Rate_0_2',
+              'Growth_Rate_0_3', 'Growth_Rate_1_2', 'Growth_Rate_2_3']
+    lst_g = []
+
     today = date.today()
     current_day = today.strftime("%Y-%m-%d")
     two_week_ago = today - DT.timedelta(days=gt_delay)
@@ -73,6 +79,8 @@ def keyword_forecaster_v1(kw_list_in):
     dictionary = {}
 
     for keyword in big_keywords_dataframe.columns:
+
+        MA = '{} Day MA for {}'.format(span_manual, keyword)
 
         tmp_dataframe = big_keywords_dataframe[[keyword]]
         historical_keyword = big_keywords_dataframe[[keyword]]
@@ -111,32 +119,51 @@ def keyword_forecaster_v1(kw_list_in):
             final_dataframe_forecasted = pd.merge(
                 final_dataframe_forecasted, forecasted_keyword, on='date')
 
+
         dictionary[keyword] = final_dataframe_historical
         dictionary[keyword+"F"] = final_dataframe_forecasted
+
         counter += 1
 
-        ### ranker embedding build ###
+        ### rankers embedding build ###
 
         difference_growth_all = round(
-            forecasted_keyword[keyword][forecast_time_lead] - historical_keyword[keyword][-2], 2)
+            forecasted_keyword[keyword][forecast_time_lead] - historical_keyword[MA][-2], 2)
 
         difference_growth_single = round(
-            100 * (forecasted_keyword[keyword][forecast_time_lead] - historical_keyword[keyword][-2]) / historical_keyword[keyword][-2], 2)
+            100 * (forecasted_keyword[keyword][forecast_time_lead] - historical_keyword[MA][-2]) / historical_keyword[MA][-2], 2)
 
         ranking_output = [keyword,  difference_growth_all,
                           difference_growth_single]
-        lst.append([keyword, difference_growth_all, difference_growth_single])
+        lst_p.append([keyword, difference_growth_all,
+                      difference_growth_single])
 
-    projected_growth_result = pd.DataFrame(lst, columns=cols)
+        Growth_Rate_0_1 = round(
+            math.log(forecasted_keyword[keyword][1]/historical_keyword[keyword][-1]), 2)
+        Growth_Rate_0_2 = round(
+            math.log(forecasted_keyword[keyword][2]/historical_keyword[keyword][-1]), 2)
+        Growth_Rate_0_3 = round(
+            math.log(forecasted_keyword[keyword][3]/historical_keyword[keyword][-1]), 2)
+        Growth_Rate_1_2 = round(
+            math.log(forecasted_keyword[keyword][2]/forecasted_keyword[keyword][1]), 2)
+        Growth_Rate_2_3 = round(
+            math.log(forecasted_keyword[keyword][3]/forecasted_keyword[keyword][2]), 2)
+
+        ranking_output = [keyword, Growth_Rate_0_1, Growth_Rate_0_2,
+                          Growth_Rate_0_3, Growth_Rate_1_2, Growth_Rate_2_3]
+        lst_g.append(ranking_output)
+
+    growth_rate_result = pd.DataFrame(lst_g, columns=cols_g)
+
+    projected_growth_result = pd.DataFrame(lst_p, columns=cols_p)
     projected_growth_result = projected_growth_result.reset_index(drop=True)
     projected_growth_result.index = projected_growth_result.index + 1
 
     dictionary["projected_growth_result"] = projected_growth_result
+    dictionary["growth_rate_result"] = growth_rate_result
 
     # final_dataframe_forecasted.to_json('output_f.json')
     # final_dataframe_historical.to_json('output_h.json')
 
-
-
-    # return final_dataframe_historical, final_dataframe_forecasted
+    # return final_dataframe_historical, final_dataframe_forecasted, projected_growth_result, growth_rate_result
     return dictionary
