@@ -7,18 +7,38 @@ function make_line (point, width) {
     return `<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`
 }
 
+function make_yy_tick(x, y) {
+
+    let line = `M ${x-10} ${y} L ${x} ${y}`;
+    // return `<path class="plot_xmark" d="${line}" data-z-index="0" />`
+    return `<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`
+}
+
 export function get_lines (width, height, lines_number) {
 
     let frame = height / lines_number;
 
     let result = [];
 
-    for (let i=0; i<=lines_number; i++){
+    for (let i=lines_number; i<=lines_number; i++){
         let point = frame * i;
         result.push(make_line(point,width))
     }
 
     return result;
+}
+
+export function get_y_ticks (height, lines_number) {
+    let result = []
+
+    let frame = height / lines_number;
+
+    for (let i=0; i<=lines_number; i++){
+        let point = frame * i;
+        result.push(make_yy_tick(0,point))
+    }
+
+    return result
 }
 
 
