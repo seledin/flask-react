@@ -94,13 +94,8 @@ path:hover {
 .plot_info_box text {
     pointer-events: none;
     stroke-width: 0;
-    /* font-size:0.9rem;
-    font-weight: 100!important;
-    color: #212529; */
-    /* font-weight:lighter!important; */
     font-size:0.8em;
     stroke: #212529;
-    /* stroke:#333333; */
     cursor:default;
     fill:#333333;
 }
@@ -108,7 +103,6 @@ path:hover {
 .plot_info_box_header text{
     pointer-events: none;
     stroke-width: 0;
-    /* font-weight: 500; */
     font-size:0.9em;
     stroke: #212529;
     cursor:default;
@@ -116,7 +110,7 @@ path:hover {
 }
 
 .plot_pointer_line {
-    stroke: red;
+    stroke: #db0b0b;
     stroke-width: 2;
     pointer-events: none;
 }
