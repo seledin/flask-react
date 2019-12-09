@@ -18,7 +18,7 @@ export const appConfig = {
     width2:  w * 1.1,
     x_trans: 85,
     y_trans: 85,
-    box_width: 510,
+    box_width: 400,
     box_height: 120
   },
 

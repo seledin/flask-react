@@ -94,7 +94,7 @@ export function get_red_line(dimensions, ranges_dates){
 
 
     return `<g>
-        <path fill="none" class="plot_pointer_line" d="M ${x} 0 L ${x} ${dimensions.height}" data-z-index="0"></path>
+        <path fill="none" class="plot_pointer_line" d="M ${x} 0 L ${x} ${dimensions.height}" stroke-dasharray="6" data-z-index="0"></path>
     </g>`
 }
 
@@ -133,15 +133,19 @@ export function get_info_box(info_box, box_width, box_height, keywords){
     if(info_box !== undefined && info_box.value_y !== undefined) {
         for(let i=0; i<info_box.colors.length; i++){
             y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
-            <text stroke="#343640" opacity="1" x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i]}, max: ${info_box.value_y[2][i]}</text>`)
+            // <text x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i].toFixed(2)}, max: ${info_box.value_y[2][i].toFixed(2)}</text>`)
+            // style="font-size:12px;color:#333333;cursor:default;fill:#333333;"
         }
+        // <text stroke="#343640" opacity="0.9" x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i]}, max: ${info_box.value_y[2][i]}</text>`)
     }
 
     let date = formatDate(info_box.value_x)
     
     return `<g transform="translate(${info_box.pos_x}, ${info_box.pos_y})" data-z-index="1" class="plot_info_box" visibility=${info_box.visibility}>
         <rect x="0" y="0" width=${box_width} height=${box_height}  />   
-        <text x=5 y="25" class="plot_info_box_header">Date: ${date}</text>
+        <g class="plot_info_box_header">
+        <text x=5 y="25">Date: ${date}</text>
+        </g>
         ${y_data}
     </g>`
 }

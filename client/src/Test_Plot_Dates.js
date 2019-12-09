@@ -86,8 +86,6 @@ class Test_Plot_Dates extends React.Component {
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleHoverOff = this.handleHoverOff.bind(this);
 
-    console.log("######")
-    console.log(this.props.data)
 
     this.state = {
         title: this.props.options.title,
