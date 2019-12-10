@@ -134,3 +134,16 @@ path:hover {
     stroke: grey;
     pointer-events: none;
 }
+
+.result_table{
+    padding: 1em;;
+    margin: 0auto;
+    width: 50%
+}
+
+@media (max-width: 1400px) {
+    .result_table{
+        margin: 0auto;
+        width: 100%
+    }
+}

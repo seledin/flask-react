@@ -36,6 +36,7 @@ class TableComponent extends Component {
 
     return (
 		<div className="table_div">
+      <span className="center"><h3>{this.props.title}</h3></span>
       <Table striped bordered hover>
         <thead>
           <tr>

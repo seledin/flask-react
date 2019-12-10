@@ -24,23 +24,22 @@ class App extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        title: "before",
         username: "user",
         keywords: [],
         authenticated: true,
         displayResults: false,
         region_state: "US",
-        data: [],
-        futureData: [],
         selected_time_frame: "today 5-y",
-        rankRates: [],
-        growthRates: [],
         options: {
           title: "Trends Forecast",
           x_label: "Date",
           y_label: "Search interest (%)",
           dimensions: dimensions,
         },
+        historical_data: [],
+        forecasted_data: [],
+        rate_table_data: [],
+        growth_table_data: [],
       };
 
     }
@@ -70,15 +69,15 @@ class App extends React.Component {
             .then(
             (result) => {
                 this.setState({
-                    data: this.dataMapping2(keywords, result),
-                    futureData: this.futureData2(keywords, result),
                     keywords: keywords,
                     displayResults: true,
                     region_state: state,
                     selected_time_frame: selected_time_frame,
                     displayResults: true,
-                    rankRates: this.getRateTableData(result.growth_rate_result),
-                    growthRates: this.getGrowthTableData(result.projected_growth_result)
+                    historical_data: this.get_historical_data(keywords, result),
+                    forecasted_data: this.get_forecasted_data(keywords, result),
+                    rate_table_data: this.getRateTableData(result.growth_rate_result),
+                    growth_table_data: this.getGrowthTableData(result.projected_growth_result)
                 });
             })
     }
@@ -105,24 +104,21 @@ class App extends React.Component {
                   </Col>
                   <Col sm={7}>
                     <div> 
-                      <Test_Plot_Dates options={this.state.options} data={this.state.data} futureData={this.state.futureData} number_of_series={this.state.futureData.length} keywords={this.state.keywords} />
+                      <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} />
                     </div>
                   </Col>
               </Row> 
               </div>
               <div className="tables">
                 <Row>
-                  <Col sm={6}>
-                    <span className="center"><h3>Growth Rate</h3></span>
-                    <Table tableData={this.state.rankRates} />
-                  </Col>
-                  <Col sm={6}>
-                    <span className="center"><h3>Projected growth</h3></span>
-                    <Table tableData={this.state.growthRates}  />
-                  </Col>
+                    <div className="table-responsive result_table">
+                        <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
+                    </div>
+                    <div className="table-responsive result_table">
+                        <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
+                    </div>
                 </Row>
               </div>
-
             </div>  ) : (
             
             <div>
@@ -164,6 +160,7 @@ class App extends React.Component {
     
       getRateTableData(data){
         let headers = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate_0_3", "Growth_Rate_1_2", "Growth_Rate_2_3"]
+        let table_headers = ["Growth Rate 0", "Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4"]
     
         let arr = Object.keys(data["Keyword"]).map(
           function(key){
@@ -173,49 +170,49 @@ class App extends React.Component {
     
         let result = {
           data: arr,
-          headers: headers
+          headers: table_headers
         }
     
         return result;
       }
 
 
-      dataMapping2(keywords, result){
+      get_historical_data(keywords, result){
         let data = []
-    
+
         for (let keyword in keywords) {  
             let index = 0;
             let k_w = keywords[keyword]
             let arr = Object.keys(result[k_w][MA_Day_5+k_w]).slice(4,260).map(
             function(key){
-              return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
             }
-          );
-          data.push(arr)
+            );
+            data.push(arr)
         }
-    
+
         return data;
-      }
+    }
     
     
-      futureData2(keywords, result){
-    
-        let data = []
-    
-        for (let keyword in keywords) {  
-          let index = 0;
-          let k_w = keywords[keyword]
-          let arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
-            function(key){
-              return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
-            }
-          );
-          data.push(arr)
+    get_forecasted_data(keywords, result){
+
+    let data = []
+
+    for (let keyword in keywords) {  
+        let index = 0;
+        let k_w = keywords[keyword]
+        let arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
+        function(key){
+            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
         }
-    
-        return data;
-      }
-  }
+        );
+        data.push(arr)
+    }
+
+    return data;
+    }
+}
   
   
   export default App;

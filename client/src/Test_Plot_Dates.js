@@ -102,22 +102,22 @@ class Test_Plot_Dates extends React.Component {
         },
       //  scaled_data_mocks_area_DATES: scaled_data[0],
       //  scaled_data_mocks_area_future_DATES: scaled_data[1],
-       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.data, this.props.futureData, ranges, dimensions, this.props.number_of_series)[0],
-       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.data, this.props.futureData, ranges, dimensions, this.props.number_of_series)[1],
-      //  data_map_area_DATES: this.get_data_map_area_DATES(get_data_mocks_area_DATES(this.props.data, this.props.futureData, this.props.number_of_series), array_length_dates, this.props.number_of_series),
-       data_map_area_DATES: this.get_data_map_area_DATES(this.props.data, this.props.futureData, array_length_dates, this.props.number_of_series),
+       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, dimensions, this.props.number_of_series)[0],
+       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, dimensions, this.props.number_of_series)[1],
+      //  data_map_area_DATES: this.get_data_map_area_DATES(get_data_mocks_area_DATES(this.props.historical_data, this.props.futureData, this.props.number_of_series), array_length_dates, this.props.number_of_series),
+       data_map_area_DATES: this.get_data_map_area_DATES(this.props.historical_data, this.props.forecasted_data, array_length_dates, this.props.number_of_series),
        colors: this.get_random_colors(this.props.number_of_series),
        info_box_height: this.get_box_height(this.props.number_of_series),
        number: this.props.number_of_series
     };
   }
 
-  scale_data_mocks(data, futureData, ranges, dimensions, number_of_series){
-    return scale_data_mocks(data, futureData, ranges, dimensions, number_of_series)
+  scale_data_mocks(data, forecasted_data, ranges, dimensions, number_of_series){
+    return scale_data_mocks(data, forecasted_data, ranges, dimensions, number_of_series)
   }
 
-  get_data_map_area_DATES(data, futureData, array_length_dates, number_of_series){
-    return get_data_map_area_DATES(get_data_mocks_area_DATES(data, futureData, number_of_series), array_length_dates, number_of_series)
+  get_data_map_area_DATES(data, forecasted_data, array_length_dates, number_of_series){
+    return get_data_map_area_DATES(get_data_mocks_area_DATES(data, forecasted_data, number_of_series), array_length_dates, number_of_series)
   }
 
   get_random_colors(number_of_series){
