@@ -1,5 +1,5 @@
 import React from 'react';
-import { get_lines, get_ticks, get_x_axis, prepare_title, prepare_x_axis, prepare_legend, get_y_axis_label, get_x_axis_label, get_red_line, get_mark_line, get_info_box} from "../utils_dates/graphics"
+import { get_ticks, get_x_axis, prepare_x_axis } from "../utils_dates/graphics"
 
 class AxisX extends React.PureComponent {
     constructor(props) {

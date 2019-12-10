@@ -153,6 +153,9 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let x_diff = ranges.max_x - ranges.min_x;
     let y_diff = ranges.max_y - ranges.min_y;
 
+    // console.log("%%")
+    // console.log(width)
+
     let x_frame = width/x_diff;
     let y_frame = height/y_diff;
 
@@ -200,13 +203,13 @@ export function get_data_mocks_area_DATES(data_mocks_area_DATES1, data_mocks_are
 
 }
 
-export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2, ranges, dimensions, number_of_plots){
+export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2, ranges, width, height, number_of_plots){
     let scaled_data_mocks_area_DATES = []
     let scaled_data_mocks_area_future_DATES = []
 
     for (let i=0; i<number_of_plots; i++){
-        scaled_data_mocks_area_DATES.push(scale_data_area_dates(data_mocks_area_DATES1[i], ranges, dimensions.width, dimensions.height));
-        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, dimensions.width, dimensions.height, 256));
+        scaled_data_mocks_area_DATES.push(scale_data_area_dates(data_mocks_area_DATES1[i], ranges, width, height));
+        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, 256));
     }
 
     return [scaled_data_mocks_area_DATES, scaled_data_mocks_area_future_DATES]

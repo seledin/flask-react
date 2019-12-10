@@ -161,7 +161,7 @@ class App extends React.Component {
     
       getRateTableData(data){
         let headers = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate_0_3", "Growth_Rate_1_2", "Growth_Rate_2_3"]
-        let table_headers = ["Growth Rate 0", "Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4"]
+        let table_headers = ["Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4", "Growth Rate 5"]
     
         let arr = Object.keys(data["Keyword"]).map(
           function(key){
