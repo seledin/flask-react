@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Table from './components/Table';
 import Chart from './components/Chart';
 import Test_Plot_Dates from './Test_Plot_Dates';
+import { capitalizeString } from "./utils_dates/functions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/plot.css'
 
@@ -146,7 +147,7 @@ class App extends React.Component {
         
         let arr = Object.keys(data["Keyword"]).map(
           function(key){
-            return [data["Keyword"][key], data[headers[0]][key], data[headers[1]][key]]
+            return [capitalizeString(data["Keyword"][key]), data[headers[0]][key], data[headers[1]][key]]
           }
         );
     
@@ -164,7 +165,7 @@ class App extends React.Component {
     
         let arr = Object.keys(data["Keyword"]).map(
           function(key){
-            return [data["Keyword"][key], data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
+            return [capitalizeString(data["Keyword"][key]), data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
           }
         );
     
@@ -175,7 +176,6 @@ class App extends React.Component {
     
         return result;
       }
-
 
       get_historical_data(keywords, result){
         let data = []
@@ -194,9 +194,7 @@ class App extends React.Component {
         return data;
     }
     
-    
     get_forecasted_data(keywords, result){
-
     let data = []
 
     for (let keyword in keywords) {  
@@ -215,4 +213,4 @@ class App extends React.Component {
 }
   
   
-  export default App;
+export default App;

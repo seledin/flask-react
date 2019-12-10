@@ -236,3 +236,7 @@ export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_date
 
     return data_map_area_DATES;
 }
+
+export function capitalizeString(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

@@ -1,4 +1,4 @@
-
+import { capitalizeString } from "./functions";
 
 
 function make_line (point, width) {
@@ -224,6 +224,6 @@ function formatDate_monthly(d)
   return d = mm+'-'+yyyy
 }
 
-function capitalizeString(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeString(string) {
+//     return string.charAt(0).toUpperCase() + string.slice(1);
+// }
