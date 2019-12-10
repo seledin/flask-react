@@ -269,8 +269,6 @@ class App extends React.Component {
 
 
       getGrowthTableData(data){
-        // console.log(data)
-        // return data
         let headers = ["Projected growth in 5 weeks for US (for all keywords) [%]", "Projected growth in 5 weeks for US (for one keyword) [%]"]
         
         
@@ -284,15 +282,11 @@ class App extends React.Component {
           data: arr,
           headers: headers
         }
-
-        console.log(result)
     
         return result;
       }
     
       getRateTableData(data){
-        // console.log(data)
-        // return data
         let headers = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate_0_3", "Growth_Rate_1_2", "Growth_Rate_2_3"]
     
         let arr = Object.keys(data["Keyword"]).map(

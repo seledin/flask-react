@@ -9,7 +9,7 @@ class AxisY extends React.PureComponent {
     render() {
       return (
         <g>
-            <g dangerouslySetInnerHTML={{ __html: get_y_axis(this.props.dimensions.height, this.props.y_number) }} />
+            <g dangerouslySetInnerHTML={{ __html: get_y_axis(0, 0, this.props.dimensions.height, this.props.y_number) }} />
             <g dangerouslySetInnerHTML={{ __html: get_y_axis_label(this.props.y_label, this.props.dimensions.height, this.props.dimensions.x_trans) }} />
         </g>
       );

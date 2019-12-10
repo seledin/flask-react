@@ -65,14 +65,17 @@ function make_y_tick(x, y, value) {
     return `<text x="${x}" textAnchor="end" class="plot_ytick" y="${y}">${value}</text>`
 }
 
-export function get_y_axis(height, lines_number) {
+export function get_y_axis(x, y, height, lines_number) {
     let result = [];
 
-    let frame = height / 10;
+    let frame = height / lines_number;
 
     for(let i=0; i<=lines_number; i++){
-        result.push(make_y_tick(-40, height - frame*(i),i * 10));
+        result.push(make_y_tick(-40, height - frame*(i),i * lines_number));
     }
+
+    let line = `M ${x} ${y} L ${x} ${y + height}`;
+    result.push(`<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`)
 
     return result;
 }
@@ -98,8 +101,13 @@ export function prepare_x_axis(width, height, ticks_number, data_mock){
 
 }
 
-export function get_x_axis_label(title, width, height, x_trans, y_trans){
-    return `<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height + y_trans/2}"><tspan>${title}</tspan></text>`
+export function get_x_axis(title, width, height, x_trans, y_trans){
+    let result = []
+    let line = `M 0 ${height} H ${width}`;
+
+    result.push(`<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height + y_trans/2}"><tspan>${title}</tspan></text>`)
+    result.push(`<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`)
+    return result
 }
 
 export function get_y_axis_label(title, height, x_trans){
@@ -145,18 +153,20 @@ export function get_mark_line(mark_line, height){
 //     </g>`
 // }
 
+// export function get_y_axis(x, y, height){
+//     let line = `M ${x} ${y} L ${x} ${y + height}`;
+//     return `<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`
+// }
+
 export function get_info_box(info_box, box_width, box_height, keywords){ 
 
     let y_data = [];
-    // console.log(info_box.value_y)
     
     if(info_box !== undefined && info_box.value_y !== undefined) {
         for(let i=0; i<info_box.colors.length; i++){
             y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
-            // <text x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i].toFixed(2)}, max: ${info_box.value_y[2][i].toFixed(2)}</text>`)
-            // style="font-size:12px;color:#333333;cursor:default;fill:#333333;"
+             <text x=25 y=${(i + 1)*25 + 25}>${capitalizeString(keywords[i])} ${info_box.value_y[2][i].toFixed(1)} (min: ${info_box.value_y[3][i].toFixed(1)} | max: ${info_box.value_y[2][i].toFixed(1)})</text>`)
         }
-        // <text stroke="#343640" opacity="0.9" x=25 y=${(i + 1)*25 + 25}>${keywords[i]} value y: ${info_box.value_y[2][i]}, min: ${info_box.value_y[3][i]}, max: ${info_box.value_y[2][i]}</text>`)
     }
 
     let date = formatDate(info_box.value_x)
@@ -178,8 +188,8 @@ export function prepare_legend(width, height, colors, keywords){
         legend.push(`
         
         <g data-z-index="1" transform="translate(${87*i + 8},3)">
-            <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} strokeWidth="1"></path>
-            <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="0.9em" stroke="#6c757d">${keywords[i]}</text>
+            <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
+            <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
         </g>
 
         `);
@@ -212,4 +222,8 @@ function formatDate_monthly(d)
   if(dd<10){dd='0'+dd} 
   if(mm<10){mm='0'+mm};
   return d = mm+'-'+yyyy
+}
+
+function capitalizeString(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
