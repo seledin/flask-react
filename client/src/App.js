@@ -49,8 +49,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const plot_width = document.getElementById('plot_div');
-        console.log(document)
+        // const plot_width = document.getElementById('plot_div');
+        // console.log(document)
         // this.setState({
         //     plot_width: plot_width
         // });
