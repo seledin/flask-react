@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/plot.css'
 
 import { appConfig } from './config.js';
+import Plot from './Plot';
 
 let dimensions = appConfig.dimensions;
 
@@ -41,8 +42,18 @@ class App extends React.Component {
         forecasted_data: [],
         rate_table_data: [],
         growth_table_data: [],
+        plot_width: 1200,
       };
 
+
+    }
+
+    componentDidMount() {
+        const plot_width = document.getElementById('plot_div');
+        console.log(document)
+        // this.setState({
+        //     plot_width: plot_width
+        // });
     }
 
     fetchCallback = (data) => {
@@ -96,19 +107,16 @@ class App extends React.Component {
               <Input callbackFromParent={this.fetchCallback}/>
 
               <div className="results_div">
-              <Row> 
-                  <Col sm={5}>
-                    <div>
-                      <Chart />
-                      {/* <Chart callbackFromApp={this.mapCallback}/> */}
+                <Row> 
+                    <div className="map_div">
+                    <Chart />
+                    {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
-                  </Col>
-                  <Col sm={7}>
-                    <div> 
-                      <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} />
+                    <div id="plot_div"> 
+                    {/* <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} width={window.innerWidth*(0.6)} /> */}
+                        <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} />
                     </div>
-                  </Col>
-              </Row> 
+                </Row> 
               </div>
               <div className="tables">
                 <Row>

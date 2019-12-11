@@ -141,8 +141,30 @@ path:hover {
     width: 50%
 }
 
+.map_div{
+    /* padding: 1em; */
+    margin: 0auto;
+    width: 40%
+}
+
+#plot_div{
+    /* padding: 1em; */
+    margin: 0auto;
+    width: 60%
+}
+
 @media (max-width: 1400px) {
     .result_table{
+        margin: 0auto;
+        width: 100%
+    }
+
+    .map_div{
+        margin: 0auto;
+        width: 100%
+    }
+    
+    #plot_div{
         margin: 0auto;
         width: 100%
     }

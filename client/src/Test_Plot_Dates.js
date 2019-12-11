@@ -12,10 +12,7 @@ import Info_Box from './components/Info_Box';
 import Area_Path from './components/Area_Path';
 import Plot from './components/Plot';
 
-let width = window.innerWidth*(7/12)
-
-console.log("$$")
-console.log(window)
+let width = window.innerWidth*(0.6)
 
 let dimensions = appConfig.dimensions;
 dimensions.width2 = width
@@ -87,8 +84,13 @@ class Test_Plot_Dates extends React.Component {
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-    let width = window.innerWidth*(7/12)/1.1
+    let x_trans = 80;
+    let width = window.innerWidth*(0.6) - 2*80
+    // let width = this.props.width - 2*80;
 
+    // let width = window.innerWidth*(7/12)/1.1
+    this.divRef = React.createRef();
+    // console.log("in constr: " + this.divRef.current.clientWidth);
 
     this.state = {
         title: this.props.options.title,
@@ -119,14 +121,30 @@ class Test_Plot_Dates extends React.Component {
         width2: width,
         width: width/1.1,
         height: 500,
-        x_trans: 85,
-        y_trans: 85,
+        x_trans: 80,
+        y_trans: 80,
        }
     };
   }
+
+  // let divRef = React.createRef();
+
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
+    // window.addEventListener('scroll', this.updateWindowDimensions);
+
+
+
+    // dimensions: {
+    //   width2: width,
+    //   width: width/1.1,
+    //   height: 500,
+    //   x_trans: 80,
+    //   y_trans: 80,
+    //  }
+
+    this.divRef.current.focus();
   }
   
   componentWillUnmount() {
@@ -134,23 +152,39 @@ class Test_Plot_Dates extends React.Component {
   }
   
   updateWindowDimensions() {
-    let width2 = window.innerWidth*(7/12) 
-    let width = window.innerWidth*(7/12)/1.1
+    let width2 = window.innerWidth*(0.6) 
+    // let width = window.innerWidth*(7/12)/1.1
+    let width = window.innerWidth*(0.6) - 2*80
+    // let width = this.props.width - 2*80;
 
-    // console.log("***")
+    // const div = this.divRef.current;
+
+    // console.log('Div width: !!');
+    let div_width2 = this.divRef.current.clientWidth;
+    let div_width = div_width2/1.1;
+    // console.log(this.divRef.current.clientWidth);
+    // console.log("width2")
     // console.log(width2)
-    // console.log(this.state.height)
+
+    // console.log('Div: !!');
+    // console.log(this.refs.first)
+    // console.log(div.getBoundingClientRect())
 
     this.setState({
       dimensions: {
-        width2: width2,
-        width: width,
+        width2: div_width2,
+        width: div_width,
+        // width2: width2,
+        // width: width,
         height: 500,
-        x_trans: 85,
-        y_trans: 85,
+        x_trans: 80,
+        y_trans: 80,
        },
-       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[0],
-       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[1],
+       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, dimensions.height, this.props.number_of_series)[0],
+       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, dimensions.height, this.props.number_of_series)[1],
+       
+      //  scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[0],
+      //  scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[1],
     });
   }
 
@@ -347,7 +381,7 @@ class Test_Plot_Dates extends React.Component {
     let v_trans = "translate(" + dimensions.x_trans + "," + dimensions.y_trans + ")";
 
     return (
-      <div>
+      <div ref={this.divRef}>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff} className="test_plot" width={this.state.dimensions.width2} height={dimensions.height2} viewBox={v_b}>
           {/* <rect fill="#ffffff" className="" x="0" y="0" width={dimensions.width} height={dimensions.height} rx="0" ry="0"></rect>  */}
             <g>
