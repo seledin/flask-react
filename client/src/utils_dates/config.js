@@ -4,20 +4,8 @@ let h = 400;
 
 export const appConfig = {
 
-  // ranges: {
-  //   max_x: 100,
-  //   min_x: 0,
-  //   max_y: 100,
-  //   min_y: 0
-  // },
 
   dimensions: {
-    // width: w,
-    // height: h,
-    // height2: h + 2*85,
-    // width2:  w * 1.1,
-    // x_trans: 85,
-    // y_trans: 85,
     box_width: 400,
     box_height: 120
   },

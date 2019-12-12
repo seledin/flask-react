@@ -62,8 +62,8 @@ class App extends React.Component {
 
     fetchData(keywords, state, selected_time_frame){
 
-        let url = appConfig.KEYWORDS_NEW;
-        // let url = "/new"
+        // let url = appConfig.KEYWORDS_NEW;
+        let url = "/new"
         
         fetch(url, {
           method: 'POST',
