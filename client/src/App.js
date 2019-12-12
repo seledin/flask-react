@@ -25,6 +25,9 @@ class App extends React.Component {
   
     constructor(props){
       super(props);
+
+      this.divElement = React.createRef();
+
       this.state = {
         username: "user",
         keywords: [],
@@ -49,12 +52,23 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        const height = this.divElement.clientHeight;
+        // this.setState({ height });
+
+        console.log("%%%")
+        console.log(this.divElement)
+
+
+
+      }
+
+    // componentDidMount() {
         // const plot_width = document.getElementById('plot_div');
         // console.log(document)
         // this.setState({
         //     plot_width: plot_width
         // });
-    }
+    // }
 
     fetchCallback = (data) => {
         this.setState({
@@ -62,12 +76,17 @@ class App extends React.Component {
         });
   
         this.fetchData(data.keywords, data.selected_state_name, data.selected_time_frame)
+                const height = this.divElement.clientHeight;
+        // this.setState({ height });
+
+        console.log("%%%")
+        console.log(this.divElement)
     }
 
     fetchData(keywords, state, selected_time_frame){
 
-        // let url = appConfig.KEYWORDS_NEW;
-        let url = "/new"
+        let url = appConfig.KEYWORDS_NEW;
+        // let url = "/new"
         
         fetch(url, {
           method: 'POST',
@@ -106,15 +125,15 @@ class App extends React.Component {
 
               <Input callbackFromParent={this.fetchCallback}/>
 
-              <div className="results_div">
+              <div ref={ (divElement) => { this.divElement = divElement } } className="results_div">
                 <Row> 
                     <div className="map_div">
                     <Chart />
                     {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
-                    {/* <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} width={window.innerWidth*(0.6)} /> */}
-                        <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} />
+                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} width={window.innerWidth*(0.6)} />
+                        {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
                 </Row> 
               </div>
