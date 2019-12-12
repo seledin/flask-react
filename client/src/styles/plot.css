@@ -143,14 +143,15 @@ path:hover {
 
 .map_div{
     /* padding: 1em; */
+    margin-right: 2%;
     margin: 0auto;
-    width: 40%
+    width: 39%
 }
 
 #plot_div{
     /* padding: 1em; */
     margin: 0auto;
-    width: 60%
+    width: 59%
 }
 
 @media (max-width: 1400px) {

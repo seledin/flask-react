@@ -132,7 +132,7 @@ class Chart extends React.Component {
       this.state = {
           mapOptions:  {
               chart: {
-                height: '64%',
+                height: '675',
                 
                 map: "countries/ie/ie-all",
                 events: {
@@ -235,7 +235,7 @@ class Chart extends React.Component {
   
     render() {
         return (
-            <div>
+            <div className="map_content">
                 <HighchartsReact
                     constructorType={"mapChart"}
                     highcharts={Highcharts}

@@ -50,7 +50,8 @@ body {
 }
 
 .tables{
-  padding: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 .intro{
@@ -64,12 +65,12 @@ th {
 
 .table_div{
   margin-top: 2%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 
 .results_div{
   margin-top: 2%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
   /* height: 100%; */
 }
 
