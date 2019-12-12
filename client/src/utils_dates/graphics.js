@@ -111,7 +111,7 @@ export function get_x_axis(title, width, height, x_trans, y_trans){
 }
 
 export function get_y_axis_label(title, height, x_trans){
-    return `<text x="${x_trans}" text-anchor="middle" transform="translate(0,0) rotate(270 25.140625 309.5)" class="plot_yaxis_title" y="${(height + x_trans)/2 - 0.8*x_trans}"><tspan>${title}</tspan></text>`
+    return `<text x="${x_trans}" text-anchor="middle" transform="translate(0,0) rotate(270 25.140625 309.5)" class="plot_yaxis_title" y="${(height + x_trans)/2 - 0.1*x_trans}"><tspan>${title}</tspan></text>`
 }
 
 export function get_red_line(dimensions, ranges_dates){

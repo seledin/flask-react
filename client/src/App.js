@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/plot.css'
 
 import { appConfig } from './config.js';
-import Plot from './Plot';
 
 let dimensions = appConfig.dimensions;
 
@@ -45,30 +44,10 @@ class App extends React.Component {
         forecasted_data: [],
         rate_table_data: [],
         growth_table_data: [],
-        plot_width: 1200,
+        div_height: 570
       };
 
-
     }
-
-    componentDidMount() {
-        const height = this.divElement.clientHeight;
-        // this.setState({ height });
-
-        console.log("%%%")
-        console.log(this.divElement)
-
-
-
-      }
-
-    // componentDidMount() {
-        // const plot_width = document.getElementById('plot_div');
-        // console.log(document)
-        // this.setState({
-        //     plot_width: plot_width
-        // });
-    // }
 
     fetchCallback = (data) => {
         this.setState({
@@ -79,8 +58,6 @@ class App extends React.Component {
                 const height = this.divElement.clientHeight;
         // this.setState({ height });
 
-        console.log("%%%")
-        console.log(this.divElement)
     }
 
     fetchData(keywords, state, selected_time_frame){
@@ -128,11 +105,11 @@ class App extends React.Component {
               <div ref={ (divElement) => { this.divElement = divElement } } className="results_div">
                 <Row> 
                     <div className="map_div">
-                    <Chart />
+                    <Chart height={this.state.div_height} />
                     {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
-                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} width={window.innerWidth*(0.6)} />
+                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
                 </Row> 

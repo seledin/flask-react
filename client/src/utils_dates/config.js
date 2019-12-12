@@ -1,6 +1,6 @@
 
 let w = 1100;
-let h = 500;
+let h = 400;
 
 export const appConfig = {
 
@@ -12,12 +12,12 @@ export const appConfig = {
   // },
 
   dimensions: {
-    width: w,
-    height: h,
-    height2: h * 1.35,
-    width2:  w * 1.1,
-    x_trans: 85,
-    y_trans: 85,
+    // width: w,
+    // height: h,
+    // height2: h + 2*85,
+    // width2:  w * 1.1,
+    // x_trans: 85,
+    // y_trans: 85,
     box_width: 400,
     box_height: 120
   },

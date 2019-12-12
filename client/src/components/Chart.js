@@ -132,7 +132,7 @@ class Chart extends React.Component {
       this.state = {
           mapOptions:  {
               chart: {
-                height: '675',
+                height: this.props.height,
                 
                 map: "countries/ie/ie-all",
                 events: {

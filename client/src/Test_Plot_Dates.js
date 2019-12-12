@@ -15,8 +15,8 @@ import Plot from './components/Plot';
 let width = window.innerWidth*(0.6)
 
 let dimensions = appConfig.dimensions;
-dimensions.width2 = width
-dimensions.width = width/1.1
+// dimensions.width2 = width
+// dimensions.width = width/1.1
 let ranges = appConfig.ranges_dates;
 let number_of_plots = appConfig.number_of_plots;
 // let array_length_dates = appConfig.array_length_dates;
@@ -84,8 +84,11 @@ class Test_Plot_Dates extends React.Component {
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-    let x_trans = 80;
-    let width = window.innerWidth*(0.6) - 2*80
+    let x_trans = 85;
+    let y_trans = 85;
+    let width = window.innerWidth*(0.6) - 2*x_trans
+    let height = this.props.height - 2*y_trans
+
     // let width = this.props.width - 2*80;
 
     // let width = window.innerWidth*(7/12)/1.1
@@ -110,8 +113,8 @@ class Test_Plot_Dates extends React.Component {
         },
       //  scaled_data_mocks_area_DATES: scaled_data[0],
       //  scaled_data_mocks_area_future_DATES: scaled_data[1],
-       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[0],
-       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[1],
+       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[0],
+       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[1],
       //  data_map_area_DATES: this.get_data_map_area_DATES(get_data_mocks_area_DATES(this.props.historical_data, this.props.futureData, this.props.number_of_series), array_length_dates, this.props.number_of_series),
        data_map_area_DATES: this.get_data_map_area_DATES(this.props.historical_data, this.props.forecasted_data, array_length_dates, this.props.number_of_series),
        colors: this.get_random_colors(this.props.number_of_series),
@@ -120,9 +123,9 @@ class Test_Plot_Dates extends React.Component {
        dimensions: {
         width2: width,
         width: width/1.1,
-        height: 500,
-        x_trans: 80,
-        y_trans: 80,
+        height: height,
+        x_trans: x_trans,
+        y_trans: y_trans,
        }
     };
   }
@@ -152,25 +155,21 @@ class Test_Plot_Dates extends React.Component {
   }
   
   updateWindowDimensions() {
-    let width2 = window.innerWidth*(0.6) 
-    let width = window.innerWidth*(0.6) - 2*80
-    // let width = this.props.width - 2*80;
-
-    // const div = this.divRef.current;
-
-    // console.log('Div width: !!');
+    
     let div_width2 = this.divRef.current.clientWidth;
-    let div_width = div_width2 - 2*80;
+    let div_width = div_width2 - 2*85;
     // console.log(this.divRef.current.clientWidth);
     // console.log("width2")
     // console.log(width2)
 
-    console.log('Div height: !!');
-    console.log(this.divRef.current.clientHeight)
+    // console.log('Div height: !!');
+    // console.log(this.divRef.current.clientHeight)
 
     // console.log('Div: !!');
     // console.log(this.refs.first)
     // console.log(div.getBoundingClientRect())
+
+    let height = this.props.height - 2*85;
 
     this.setState({
       dimensions: {
@@ -178,12 +177,12 @@ class Test_Plot_Dates extends React.Component {
         width: div_width,
         // width2: width2,
         // width: width,
-        height: 500,
-        x_trans: 80,
-        y_trans: 80,
+        height: this.props.height - 2*85,
+        x_trans: 85,
+        y_trans: 85,
        },
-       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, dimensions.height, this.props.number_of_series)[0],
-       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, dimensions.height, this.props.number_of_series)[1],
+       scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[0],
+       scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[1],
        
       //  scaled_data_mocks_area_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[0],
       //  scaled_data_mocks_area_future_DATES: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, dimensions.height, this.props.number_of_series)[1],
@@ -378,13 +377,15 @@ class Test_Plot_Dates extends React.Component {
       );
     });
 
-    let v_b = "0 0 " + this.state.dimensions.width2 + " " + dimensions.height2;
+    // let v_b = "0 0 " + this.state.dimensions.width2 + " " + dimensions.height2;
+    let v_b = "0 0 " + this.state.dimensions.width2 + " " + this.props.height;
     // let v_b = "0 0 " + dimensions.width2 + " " + dimensions.height2;
-    let v_trans = "translate(" + dimensions.x_trans + "," + dimensions.y_trans + ")";
+    // let v_trans = "translate(" + dimensions.x_trans + "," + dimensions.y_trans + ")";
+    let v_trans = "translate(" + this.state.dimensions.x_trans + "," + this.state.dimensions.y_trans + ")";
 
     return (
       <div ref={this.divRef}>
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff} className="test_plot" width={this.state.dimensions.width2} height={dimensions.height2} viewBox={v_b}>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff} className="test_plot" width={this.state.dimensions.width2} height={this.props.height} viewBox={v_b}>
           {/* <rect fill="#ffffff" className="" x="0" y="0" width={dimensions.width} height={dimensions.height} rx="0" ry="0"></rect>  */}
             <g>
               <g transform={v_trans}>
@@ -393,9 +394,9 @@ class Test_Plot_Dates extends React.Component {
 
                 { area_paths_future }
                 
-                <Plot dimensions={dimensions} y_number={this.state.y_number} title={this.state.title} />
+                <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
 
-                <AxisY dimensions={dimensions} y_number={this.state.y_number} y_label={this.state.y_label} />
+                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} />
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={10} dates={this.state.data_map_area_DATES} />
                 
@@ -403,7 +404,7 @@ class Test_Plot_Dates extends React.Component {
 
                 <Static_Line dimensions={this.state.dimensions} ranges={ranges} />
 
-                <Pointer_Line mark_line={this.state.mark_line} height={dimensions.height} />
+                <Pointer_Line mark_line={this.state.mark_line} height={this.state.dimensions.height} />
 
                 <Info_Box info_box={this.state.info_box} width={dimensions.box_width} height={this.state.info_box_height} keywords={this.props.keywords}  />
                 
