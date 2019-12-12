@@ -16,21 +16,6 @@
     pointer-events: none;
 }
 
-circle {
-    /* stroke-width: 5; */
-    /* stroke: #f00; */
-    /* fill: #ff0; */
-}
-  
-circle:hover {
-    fill: rgb(109, 213, 211);
-/* fill: #fff; */
-}
-
-path:hover {
-
-}
-
 .plot_yaxis_title{
     color:#666666;
     fill:#666666;
@@ -136,21 +121,21 @@ path:hover {
 }
 
 .result_table{
-    padding: 1em;;
+    padding-left: 1%;
+    padding-left: 1%;
     margin: 0auto;
     width: 50%
 }
 
 .map_div{
-    /* padding: 1em; */
-    margin-right: 2%;
-    margin: 0auto;
-    width: 39%
+    width: 39%;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 #plot_div{
-    /* padding: 1em; */
-    margin: 0auto;
+    margin-left: auto;
+    margin-right: 0;
     width: 59%
 }
 
