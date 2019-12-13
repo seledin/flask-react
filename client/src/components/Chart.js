@@ -142,7 +142,9 @@ class Chart extends React.Component {
                     drillup: function() {
                       console.log('from drillUp');
                     }
-                  }
+                  },
+                panning: true,
+                panKey: 'shift'
               },
               tooltip: { enabled: true },
               legend: {
