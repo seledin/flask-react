@@ -153,11 +153,18 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let x_diff = ranges.max_x - ranges.min_x;
     let y_diff = ranges.max_y - ranges.min_y;
 
-    // console.log("%%")
-    // console.log(width)
-
-    let x_frame = width/x_diff;
+    let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
+
+    // let x_frame = dimensions.width/(ranges_dates.max_x-1)
+
+    // let x = x_frame * (dimensions.historical_data_length - 1);
+
+    // console.log("%%")
+    // console.log(data)
+    // console.log(x_diff)
+    // console.log("width: " + width)
+    // console.log("x_frame: " + x_frame)
 
     for (let i=0; i<data.length; i++){
         // console.log(data[i])
@@ -209,7 +216,8 @@ export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2,
 
     for (let i=0; i<number_of_plots; i++){
         scaled_data_mocks_area_DATES.push(scale_data_area_dates(data_mocks_area_DATES1[i], ranges, width, height));
-        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, 256));
+        // scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, 256));
+        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, data_mocks_area_DATES1[i].length - 1));
     }
 
     return [scaled_data_mocks_area_DATES, scaled_data_mocks_area_future_DATES]
@@ -242,4 +250,32 @@ export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_date
 
 export function capitalizeString(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+export function get_historical_dates(){
+    let dates = []
+    dates.push(Date.UTC(2010, 0, 18))
+    dates.push(Date.UTC(2010, 1, 18))
+    dates.push( Date.UTC(2010, 2, 18))
+    dates.push(Date.UTC(2010, 3, 18))
+    dates.push( Date.UTC(2010, 4, 18))
+    dates.push( Date.UTC(2010, 5, 18))
+    dates.push( Date.UTC(2010, 6, 18))
+    dates.push( Date.UTC(2010, 7, 18))
+    // dates.push(Date.UTC(2010, 8, 18))
+    // dates.push( Date.UTC(2010, 9, 18))
+    // dates.push( Date.UTC(2010, 10, 18))
+    
+    return dates;
+}
+
+export function get_forecasted_dates(){
+    let dates = []
+    // dates.push( Date.UTC(2010, 7, 18))
+    dates.push(Date.UTC(2010, 8, 18))
+    dates.push( Date.UTC(2010, 9, 18))
+
+    return dates;
+
 }

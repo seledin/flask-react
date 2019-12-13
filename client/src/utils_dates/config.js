@@ -14,6 +14,7 @@ export const appConfig = {
 
   ranges_dates: {
     max_x: (255 + 48 + 0),
+    // max_x: (8 + 2 + 0),
     min_x: 0,
     max_y: 100,
     min_y: 0,
@@ -22,6 +23,9 @@ export const appConfig = {
 
   array_length_dates: 256,
   array_length_dates_forecast: 48,
+
+  // array_length_dates: 8,
+  // array_length_dates_forecast: 2,
 
   KEYWORDS_URL: "http://0.0.0.0:5000",
 

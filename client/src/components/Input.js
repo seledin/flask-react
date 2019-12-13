@@ -42,8 +42,15 @@ class InputComponent extends Component {
     }
 
     handleChange(event) {
+
+        let array = event.target.value.split(',')
+
+        for(let k in array){
+            array[k] = array[k].trim()
+        }
+
         this.setState({
-            keywords: event.target.value.split(','),
+            keywords: array,
             username: "name",
         });
     }

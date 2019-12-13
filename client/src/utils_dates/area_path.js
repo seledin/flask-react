@@ -45,6 +45,7 @@ const areaPath = (points, command, color) => {
 
 
 const lineCommand = point => `L ${point[0]} ${point[2]}`
+console.log("data")
 
 
     

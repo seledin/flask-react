@@ -58,6 +58,12 @@ export function get_ticks(width, height, ticks_number){
         result.push(make_x_tick(point, height))
     }
 
+    // let frame = width / (length - 1)
+    // for(let i=0; i<ticks_number; i++){
+    //     // result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+    //     result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[i][1])}</text>`)
+    // }
+
     return result;
 }
 
@@ -90,11 +96,20 @@ export function prepare_x_axis(width, height, ticks_number, data_mock){
     let result = []
 
     let length = Object.keys(data_mock).length;
-    let data_frame = Math.floor(length/ticks_number-1);
+    let data_frame = Math.floor(length/(ticks_number-1));
 
+    // console.log("$$$")
+    // console.log(data_mock)
+    // console.log(width)
+    
+    // console.log(ticks_number)
+    
+
+    // let frame = width / (length - 1)
     let frame = width / (ticks_number - 1)
     for(let i=0; i<ticks_number; i++){
-        result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+        // result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+        result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[i][1])}</text>`)
     }
 
     return result 
@@ -116,9 +131,14 @@ export function get_y_axis_label(title, height, x_trans){
 
 export function get_red_line(dimensions, ranges_dates){
 
-    let x_frame = dimensions.width/ranges_dates.max_x
+    let x_frame = dimensions.width/(ranges_dates.max_x-1)
 
-    let x = x_frame * 256;
+    // console.log("%%%%")
+    // console.log(dimensions)
+    // console.log(ranges_dates)
+
+    // let x = x_frame * 256;
+    let x = x_frame * (dimensions.historical_data_length - 1);
 
 
     return `<g>

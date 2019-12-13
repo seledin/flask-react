@@ -153,7 +153,7 @@ class Chart extends React.Component {
               },
             
               title: {
-                text: 'Keyword stats per State'
+                text: ''
               },
             
               mapNavigation: {

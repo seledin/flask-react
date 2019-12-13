@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 
+import { capitalizeString } from '../utils_dates/functions'
+
 class TableComponent extends Component {	
 
   constructor(props) {
@@ -22,13 +24,16 @@ class TableComponent extends Component {
 
     var tableRows = this.props.tableData.data.map(( entity, index ) => {
       let cells = entity.map((e,i) => {
-        return <td key = {i}>{e}</td>
+        if(i>0){
+          return <td key = {i}>{e.toFixed(2)}</td>
+        }else{
+          return <td key = {i}>{capitalizeString(e)}</td>
+        }
       })
       
       return (
         <tr key={index}>
           <td>{index + 1}</td>
-
           {cells}
         </tr>
       );

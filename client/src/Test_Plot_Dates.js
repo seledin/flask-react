@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES} from './utils_dates/functions'
+import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates} from './utils_dates/functions'
 import { appConfig } from './utils_dates/config.js';
 
 import AxisX from './components/AxisX';
@@ -20,6 +20,18 @@ let array_length_dates = appConfig.array_length_dates + appConfig.array_length_d
 
 // dimensions.box_height = get_box_height(number_of_plots);
 
+let historical_mock1 = get_random_mock_area_array_dates(get_historical_dates(),10,30)
+let historical_mock2 = get_random_mock_area_array_dates(get_historical_dates(),40,80)
+
+let forecasted_mock1 = get_random_mock_area_array_dates(get_forecasted_dates(),10,30)
+let forecasted_mock2 = get_random_mock_area_array_dates(get_forecasted_dates(),40,80)
+
+let historical_data_mock = [historical_mock1, historical_mock2]
+let forecasted_data_mock = [forecasted_mock1, forecasted_mock2]
+
+for(let i=0;i<historical_data_mock.length; i++){
+  forecasted_data_mock[i].unshift(historical_data_mock[i][historical_data_mock[i].length - 1])
+}
 
 class Test_Plot_Dates extends React.Component {	
 
@@ -55,7 +67,13 @@ class Test_Plot_Dates extends React.Component {
         },
        scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[0],
        scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[1],
+
+      //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[0],
+      //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[1],
+
        data_map_area_DATES: this.get_data_map_area_DATES(this.props.historical_data, this.props.forecasted_data, array_length_dates, this.props.number_of_series),
+      //  data_map_area_DATES: this.get_data_map_area_DATES(historical_data_mock, forecasted_data_mock, array_length_dates, 2),
+
        colors: this.get_random_colors(this.props.number_of_series),
        info_box_height: this.get_box_height(this.props.number_of_series),
        number: this.props.number_of_series,
@@ -65,6 +83,8 @@ class Test_Plot_Dates extends React.Component {
         height: height,
         x_trans: x_trans,
         y_trans: y_trans,
+        historical_data_length: appConfig.array_length_dates,
+        forecasted_data_length: appConfig.array_length_dates_forecast,
        }
     };
   }
@@ -93,9 +113,14 @@ class Test_Plot_Dates extends React.Component {
         height: this.props.height - 2*85,
         x_trans: 85,
         y_trans: 85,
+        historical_data_length: appConfig.array_length_dates,
+        forecasted_data_length: appConfig.array_length_dates_forecast,
        },
        scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[0],
        scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[1],
+
+      //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[0],
+      //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[1],
        
     });
   }
@@ -122,6 +147,10 @@ class Test_Plot_Dates extends React.Component {
     var dim = e.getBoundingClientRect();
     var x = event.clientX - dim.left - this.state.dimensions.x_trans;
     var y = event.clientY - dim.top - this.state.dimensions.y_trans;
+
+    // console.log(x)
+    // console.log(this.state.dimensions)
+
 
     if(x >= 0 && y >= 0 && x <= this.state.dimensions.width && y <= this.state.dimensions.height){
 
@@ -275,6 +304,11 @@ class Test_Plot_Dates extends React.Component {
   }
 
   render() {
+
+    // console.log(this.props.keywords)
+    // console.log("$$$$$")
+    // console.log(this.state.scaled_historical_data)
+    // console.log(this.state.scaled_forecasted_data)
 
     let area_paths = this.state.scaled_historical_data.map(( entity, index ) => {
       return (
