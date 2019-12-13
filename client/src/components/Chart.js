@@ -133,7 +133,7 @@ class Chart extends React.Component {
           mapOptions:  {
               chart: {
                 height: this.props.height,
-                
+
                 map: "countries/ie/ie-all",
                 events: {
                     drilldown: function(e) {
@@ -159,7 +159,7 @@ class Chart extends React.Component {
               },
             
               mapNavigation: {
-                enabled: true,
+                enabled: false,
                 buttonOptions: {
                   verticalAlign: "bottom"
                 }
