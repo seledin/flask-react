@@ -12,20 +12,23 @@ import './styles/plot.css'
 
 import { appConfig } from './config.js';
 
+import TodoApp from './TodoApp'
+
 let dimensions = appConfig.dimensions;
 
 const MA_Day_5 = "5 Day MA for ";
 const LOWER_BAND = "Lower Band for ";
 const UPPER_BAND = "Upper Band for ";
 
+const ratio = 4.5;
 
 
-class App extends React.Component {
+
+class App extends React.PureComponent {
   
     constructor(props){
       super(props);
-
-      this.divElement = React.createRef();
+      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
       this.state = {
         username: "user",
@@ -44,8 +47,9 @@ class App extends React.Component {
         forecasted_data: [],
         rate_table_data: [],
         growth_table_data: [],
-        div_height: 570
       };
+
+      this.myRef = React.createRef();
 
     }
 
@@ -55,15 +59,12 @@ class App extends React.Component {
         });
   
         this.fetchData(keywords, selected_state_name, selected_time_frame)
-                const height = this.divElement.clientHeight;
-        // this.setState({ height });
-
     }
 
     fetchData(keywords, state, selected_time_frame){
 
-        let url = appConfig.KEYWORDS_NEW;
-        // let url = "/new"
+        // let url = appConfig.KEYWORDS_NEW;
+        let url = "/new"
         
         fetch(url, {
           method: 'POST',
@@ -76,24 +77,75 @@ class App extends React.Component {
         }).then(res => res.json())
             .then(
             (result) => {
-                this.setState({
-                    keywords: keywords,
-                    displayResults: true,
-                    region_state: state,
-                    selected_time_frame: selected_time_frame,
-                    displayResults: true,
-                    historical_data: this.get_historical_data(keywords, result),
-                    forecasted_data: this.get_forecasted_data(keywords, result),
-                    rate_table_data: this.getRateTableData(result.growth_rate_result),
-                    growth_table_data: this.getGrowthTableData(result.projected_growth_result)
-                });
+
+              let width = this.myRef.current.offsetWidth;
+              let height = width/(ratio);
+
+              if(width<=1400){
+                height = (1.6)*width/(ratio);
+              }
+
+              if(width<=1200){
+                height = (1.5)*width/(ratio);
+              }
+
+              if(width<=800){
+                height = (2.5)*width/(ratio);
+              }
+
+              this.setState({
+                  keywords: keywords,
+                  displayResults: true,
+                  region_state: state,
+                  selected_time_frame: selected_time_frame,
+                  displayResults: true,
+                  historical_data: this.get_historical_data(keywords, result),
+                  forecasted_data: this.get_forecasted_data(keywords, result),
+                  rate_table_data: this.getRateTableData(result.growth_rate_result),
+                  growth_table_data: this.getGrowthTableData(result.projected_growth_result),
+                  // div_height: this.myRef.current.offsetWidth/ratio,
+                  div_height: height
+              });
             })
     }
+
+    componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+      this.myRef.current.focus();
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+    }
     
+    updateWindowDimensions() {
+      let width = this.myRef.current.offsetWidth;
+
+      let height = width/(ratio);
+      
+      if(width<=1400){
+        height = (1.6)*width/(ratio);
+      }
+
+      if(width<=1200){
+        height = (1.5)*width/(ratio);
+      }
+
+      if(width<=800){
+        height = (2.5)*width/(ratio);
+      }
+
+      this.setState({
+        div_height: height
+      });
+    }
+
     render() {
 
         if (this.state.authenticated) {
         return (
+          <div ref={this.myRef}>
             <div className="main_results">
             {this.state.displayResults ? (
             
@@ -102,11 +154,11 @@ class App extends React.Component {
 
               <Input callbackFromParent={this.fetchCallback}/>
 
-              <div ref={ (divElement) => { this.divElement = divElement } } className="results_div">
+              <div className="results_div">
                 <Row> 
                     <div className="map_div">
-                    <Chart height={this.state.div_height} />
-                    {/* <Chart callbackFromApp={this.mapCallback}/> */}
+                      <Chart height={this.state.div_height} />
+                      {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
                         <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} />
@@ -129,17 +181,19 @@ class App extends React.Component {
             <div>
               <Header username={this.state.username} />
               <Input callbackFromParent={this.fetchCallback}/>
+              <TodoApp />
 
               <div className="intro">
               </div>
             </div>
             )
           }
-            </div>
-            );
+          </div>
+        </div>
+      );
         } else{
         return (
-        <div>
+        <div ref={this.myRef}>
             <Login callbackFromLogin={this.toLoginCallback}/>
         </div>);      
         }

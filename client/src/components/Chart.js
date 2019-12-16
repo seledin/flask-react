@@ -124,10 +124,12 @@ const southern_states = [
   ['us-ms', "#e08a12"]
 ];
 
-class Chart extends React.Component {
+class Chart extends React.PureComponent {
 
   constructor(props) {
       super(props);
+
+      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   
       this.state = {
           mapOptions:  {
@@ -243,6 +245,124 @@ class Chart extends React.Component {
 
     setHoverData = (e) => {
       this.props.callbackFromApp(e.point["hc-key"])
+    }
+
+    componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+    }
+    
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+  
+    
+    updateWindowDimensions() {
+      
+      // let div_width2 = this.divRef.current.clientWidth;
+      // let div_width = div_width2 - 2*85;
+      // let height = this.props.height - 2*85;
+  
+      this.setState({
+        mapOptions:  {
+          chart: {
+            height: this.props.height,
+
+            map: "countries/ie/ie-all",
+            events: {
+                drilldown: function(e) {
+                  console.log('from drillDown');
+                },
+                drillup: function() {
+                  console.log('from drillUp');
+                }
+              },
+            panning: true,
+            panKey: 'shift'
+          },
+          tooltip: { 
+            enabled: true,
+            formatter: function () {
+              return '<b>' + this.point.name + '</b>';
+            },
+          },
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+            enabled: false
+          },
+        
+          title: {
+            text: null
+          },
+        
+          mapNavigation: {
+            enabled: false,
+            buttonOptions: {
+              verticalAlign: "bottom"
+            }
+          },
+        
+          plotOptions: {
+            map: {
+              states: {
+
+                color: "#126c31",
+
+                hover: {
+                  color: "#000000",
+                  enabled: true,
+                  brightness: 0.5
+                },
+                
+              }
+            },
+            series:{
+                point:{
+                    events:{
+                        click: this.setHoverData.bind(this)
+
+                    }
+                }
+            }
+          },
+        
+          series: [
+            {
+              data: western_states.concat(central_states).concat(eastern_states).concat(southern_states),
+              keys: ['hc-key', 'color'],
+              mapData: mapDataIE,
+              name: " ",
+              dataLabels: {
+                  enabled: false,
+                  // format: "{point.properties.postal-code}"
+              },
+              showInLegend: false
+            },
+
+          ],
+
+          legend: {
+            enabled: false
+          },
+        
+          drilldown: {
+            activeDataLabelStyle: {
+              color: "#FFFFFF",
+              textDecoration: "none",
+              textOutline: "1px #000000"
+            },
+            drillUpButton: {
+              relativeTo: "spacingBox",
+              position: {
+                x: 0,
+                y: 60
+              }
+            }
+          }
+        }         
+      });
     }
   
     render() {

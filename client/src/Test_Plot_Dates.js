@@ -44,8 +44,11 @@ class Test_Plot_Dates extends React.Component {
 
     let x_trans = 85;
     let y_trans = 85;
-    let width = window.innerWidth*(0.6) - 2*x_trans
-    let height = this.props.height - 2*y_trans
+    let width = window.innerWidth*(0.6) - 2*x_trans;
+    let height = this.props.height - 2*y_trans;
+
+    console.log('plot height')
+    console.log(this.props.height)
 
     this.divRef = React.createRef();
 
@@ -101,7 +104,7 @@ class Test_Plot_Dates extends React.Component {
   }
 
   scaling(){
-    
+
   }
   
   updateWindowDimensions() {
