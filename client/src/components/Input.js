@@ -78,42 +78,41 @@ class InputComponent extends Component {
                 <Form onSubmit={this.handleClick}>
                     <Form.Group className="form-inline">
                         <div className="keyword_div"> 
-                        {/* <Col sm="6">    */}
                             <div className="input-group">
-                                <Form.Label className="form-inline mr-1" htmlFor="keywords_input"><h5>Type your keywords:</h5></Form.Label>
-                                <Form.Control className="width100 mr-1" type="text" placeholder="Enter keywords" value={this.state.keywords} onChange={this.handleChange} id="keywords_input" />
+                                <div className="input_title">
+                                    <Form.Label className="form-inline mr-1" htmlFor="keywords_input"><h5>Type your keywords:</h5></Form.Label>
+                                </div>
+                                <Form.Control className="width100 mr-1 input_keywords" type="text" placeholder="Enter keywords" value={this.state.keywords} onChange={this.handleChange} id="keywords_input" />
                             </div>
-                        {/* </Col> */}
                         </div>
                         <div className="timeframe_div">
-                        {/* <Col sm="3">    */}
                             <div className="input-group">
-                                <Form.Label className="form-inline mr-1" htmlFor="select_timeframe_input"><h5>Select time frame:</h5></Form.Label>
-
+                                <div className="input_title">
+                                    <Form.Label className="form-inline mr-1" htmlFor="select_timeframe_input"><h5>Select time frame:</h5></Form.Label>
+                                </div>
                                 <Form.Control as="select" onChange={this.selectedTimeFrame}  id="select_timeframe_input" className="form-control width100 mr-1">
                                     {time_framesList}
                                 </Form.Control>                                
                             </div>
-                        {/* </Col> */}
                         </div>
                         <div className="state_select_div">
-                        {/* <Col sm="3">    */}
                             <div className="input-group">
-                                <Form.Label className="form-inline mr-1" htmlFor="select_state_input"><h5>Select state:</h5></Form.Label>
-
+                                <div className="input_title">
+                                    <Form.Label className="form-inline mr-1" htmlFor="select_state_input"><h5>Select state:</h5></Form.Label>
+                                </div>
                                 <Form.Control as="select" onChange={this.selectedState}  id="select_state_input" className="form-control width100 mr-1">
                                     {namesList}
                                 </Form.Control>                                
-
-                                <Button variant="primary" type="submit">Submit</Button>
+                                <div className="input_button">
+                                    <Button variant="primary" type="submit">Submit</Button>
+                                </div>
                             </div>
-                        {/* </Col> */}
                         </div>
                     </Form.Group>
                 </Form>
             </div>
 		);
-  }
+    }
 }
 
 export default InputComponent
