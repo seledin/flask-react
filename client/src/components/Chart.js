@@ -146,7 +146,12 @@ class Chart extends React.Component {
                 panning: true,
                 panKey: 'shift'
               },
-              tooltip: { enabled: true },
+              tooltip: { 
+                enabled: true,
+                formatter: function () {
+                  return '<b>' + this.point.name + '</b>';
+                },
+              },
               legend: {
                 layout: "vertical",
                 align: "right",
@@ -155,7 +160,7 @@ class Chart extends React.Component {
               },
             
               title: {
-                text: ''
+                text: null
               },
             
               mapNavigation: {
@@ -204,14 +209,19 @@ class Chart extends React.Component {
                   data: western_states.concat(central_states).concat(eastern_states).concat(southern_states),
                   keys: ['hc-key', 'color'],
                   mapData: mapDataIE,
-                  name: "Western US",
+                  name: " ",
                   dataLabels: {
-                      enabled: true,
-                      format: "{point.properties.postal-code}"
-                  }
+                      enabled: false,
+                      // format: "{point.properties.postal-code}"
+                  },
+                  showInLegend: false
                 },
 
               ],
+
+              legend: {
+                enabled: false
+              },
             
               drilldown: {
                 activeDataLabelStyle: {

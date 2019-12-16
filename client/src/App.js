@@ -49,12 +49,12 @@ class App extends React.Component {
 
     }
 
-    fetchCallback = (data) => {
+    fetchCallback = (keywords, selected_state_name, selected_time_frame) => {
         this.setState({
             displayResults: false,
         });
   
-        this.fetchData(data.keywords, data.selected_state_name, data.selected_time_frame)
+        this.fetchData(keywords, selected_state_name, selected_time_frame)
                 const height = this.divElement.clientHeight;
         // this.setState({ height });
 
@@ -62,8 +62,8 @@ class App extends React.Component {
 
     fetchData(keywords, state, selected_time_frame){
 
-        // let url = appConfig.KEYWORDS_NEW;
-        let url = "/new"
+        let url = appConfig.KEYWORDS_NEW;
+        // let url = "/new"
         
         fetch(url, {
           method: 'POST',

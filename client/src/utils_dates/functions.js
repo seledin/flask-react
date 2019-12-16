@@ -249,9 +249,16 @@ export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_date
 }
 
 export function capitalizeString(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return titleCase(string);
 }
 
+function titleCase(str) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
 
 export function get_historical_dates(){
     let dates = []

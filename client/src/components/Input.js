@@ -26,7 +26,12 @@ class InputComponent extends Component {
 
     handleClick(event){
         event.preventDefault();
-        this.props.callbackFromParent(this.state);
+
+        let keywords = this.arrayTrim(this.state.keywords);
+        let selectedState = this.state.selectedState;
+        let selectedTimeFrame = this.state.selectedTimeFrame;
+
+        this.props.callbackFromParent(keywords, selectedState, selectedTimeFrame);
     }
 
     selectedState(event){
@@ -45,14 +50,18 @@ class InputComponent extends Component {
 
         let array = event.target.value.split(',')
 
-        for(let k in array){
-            array[k] = array[k].trim()
-        }
-
         this.setState({
             keywords: array,
             username: "name",
         });
+    }
+
+    arrayTrim(array){
+        let result = array.map(function (el) {
+            return el.trim();
+        });
+
+        return result;
     }
     
     render() {

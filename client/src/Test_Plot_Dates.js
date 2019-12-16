@@ -99,6 +99,10 @@ class Test_Plot_Dates extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
+
+  scaling(){
+    
+  }
   
   updateWindowDimensions() {
     
