@@ -77,14 +77,16 @@ class InputComponent extends Component {
             <div className="input_bar input-bar-item width100">
                 <Form onSubmit={this.handleClick}>
                     <Form.Group className="form-inline">
-                        <Col sm="6">   
+                        <div className="keyword_div"> 
+                        {/* <Col sm="6">    */}
                             <div className="input-group">
                                 <Form.Label className="form-inline mr-1" htmlFor="keywords_input"><h5>Type your keywords:</h5></Form.Label>
                                 <Form.Control className="width100 mr-1" type="text" placeholder="Enter keywords" value={this.state.keywords} onChange={this.handleChange} id="keywords_input" />
                             </div>
-                        </Col>
-
-                        <Col sm="3">   
+                        {/* </Col> */}
+                        </div>
+                        <div className="timeframe_div">
+                        {/* <Col sm="3">    */}
                             <div className="input-group">
                                 <Form.Label className="form-inline mr-1" htmlFor="select_timeframe_input"><h5>Select time frame:</h5></Form.Label>
 
@@ -92,9 +94,10 @@ class InputComponent extends Component {
                                     {time_framesList}
                                 </Form.Control>                                
                             </div>
-                        </Col>
-
-                        <Col sm="3">   
+                        {/* </Col> */}
+                        </div>
+                        <div className="state_select_div">
+                        {/* <Col sm="3">    */}
                             <div className="input-group">
                                 <Form.Label className="form-inline mr-1" htmlFor="select_state_input"><h5>Select state:</h5></Form.Label>
 
@@ -104,7 +107,8 @@ class InputComponent extends Component {
 
                                 <Button variant="primary" type="submit">Submit</Button>
                             </div>
-                        </Col>
+                        {/* </Col> */}
+                        </div>
                     </Form.Group>
                 </Form>
             </div>
