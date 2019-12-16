@@ -96,7 +96,7 @@ export function prepare_x_axis(width, height, ticks_number, data_mock){
     let result = []
 
     let length = Object.keys(data_mock).length;
-    let data_frame = Math.floor(length/(ticks_number));
+    let data_frame = Math.floor(length/(ticks_number-1));
 
     let frame = width / (ticks_number - 1)
     for(let i=0; i<ticks_number; i++){
