@@ -120,6 +120,11 @@
     pointer-events: none;
 }
 
+.results_div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .result_table{
     padding-left: 1%;
     padding-left: 1%;
@@ -171,25 +176,61 @@
 
     .map_div{
         margin: 0auto;
-        width: 100%
+        width: 100%;
+        margin-bottom: 1%;
     }
     
     #plot_div{
         margin: 0auto;
         width: 100%
     }
+
+    .keyword_div{
+        width: 100%;
+        padding-bottom: 1%;
+    }
+
+    .timeframe_div{
+        width: 50%;
+        padding-right: 1%;
+    }
+
+    .state_select_div{
+        width: 50%;
+        padding-left: 1%;
+    }
+
+    .input_keywords{
+        text-align: center;
+    }
+
+    .input_timeframe{
+        text-align-last: center; text-align: center;
+    }
+
+    .input_state{
+        text-align-last: center; text-align: center;
+    }
+
+
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
+    .input_bar{
+        margin: 0;
+    }
+
     .keyword_div{
         width: 100%;
     }
     .state_select_div{
         width: 100%;
+        padding: 0%;
     }
     
     .timeframe_div{
         width: 100%;
+        padding-right: 0%;
     }
     
     #plot_div{

@@ -154,7 +154,7 @@ class App extends React.PureComponent {
               <Input callbackFromParent={this.fetchCallback}/>
 
               <div className="results_div">
-                <Row> 
+                {/* <Row>  */}
                     <div className="map_div">
                       <Chart height={this.state.div_height} />
                       {/* <Chart callbackFromApp={this.mapCallback}/> */}
@@ -163,7 +163,7 @@ class App extends React.PureComponent {
                         <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
-                </Row> 
+                {/* </Row>  */}
               </div>
               <div className="tables">
                 <Row>
