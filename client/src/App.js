@@ -12,7 +12,6 @@ import './styles/plot.css'
 
 import { appConfig } from './config.js';
 
-import TodoApp from './TodoApp'
 
 let dimensions = appConfig.dimensions;
 
@@ -181,7 +180,6 @@ class App extends React.PureComponent {
             <div>
               <Header username={this.state.username} />
               <Input callbackFromParent={this.fetchCallback}/>
-              <TodoApp />
 
               <div className="intro">
               </div>

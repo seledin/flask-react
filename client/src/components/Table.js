@@ -18,7 +18,7 @@ class TableComponent extends Component {
 
     var tableHeaders = this.props.tableData.headers.map(( entity, index ) => {
       return (
-        <th key={index}>{entity}</th>
+        <th key={index} className="align-top">{entity}</th>
       );
     })
 
@@ -45,8 +45,8 @@ class TableComponent extends Component {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Keyword</th>
+            <th className="align-top">#</th>
+            <th className="align-top">Keyword</th>
             {tableHeaders}
           </tr>
         </thead>

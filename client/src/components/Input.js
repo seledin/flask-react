@@ -90,7 +90,7 @@ class InputComponent extends Component {
                                 <div className="input_title">
                                     <Form.Label className="form-inline mr-1" htmlFor="select_timeframe_input"><h5>Select time frame:</h5></Form.Label>
                                 </div>
-                                <Form.Control as="select" onChange={this.selectedTimeFrame}  id="select_timeframe_input" className="form-control width100 mr-1">
+                                <Form.Control as="select" onChange={this.selectedTimeFrame}  id="select_timeframe_input" className="form-control width100 mr-1 input_timeframe">
                                     {time_framesList}
                                 </Form.Control>                                
                             </div>
@@ -100,7 +100,7 @@ class InputComponent extends Component {
                                 <div className="input_title">
                                     <Form.Label className="form-inline mr-1" htmlFor="select_state_input"><h5>Select state:</h5></Form.Label>
                                 </div>
-                                <Form.Control as="select" onChange={this.selectedState}  id="select_state_input" className="form-control width100 mr-1">
+                                <Form.Control as="select" onChange={this.selectedState}  id="select_state_input" className="form-control width100 mr-1 input_state">
                                     {namesList}
                                 </Form.Control>                                
                                 <div className="input_button">

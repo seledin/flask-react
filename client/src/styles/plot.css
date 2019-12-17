@@ -200,6 +200,16 @@
         width: 100%;
     }
 
+    .input_title label{
+        margin-top: .5rem;
+    }
+
+    .input_title label h5{
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
+
     .input_button{
         padding-top: 1%;
         width: 100%;
@@ -213,4 +223,16 @@
         text-align: center;
     }
 
+    .input_timeframe{
+        text-align-last: center; text-align: center;
+    }
+
+    .input_state{
+        text-align-last: center; text-align: center;
+    }
+
+    .theader{
+        text-align: center;
+        vertical-align: top;
+    }
 }
