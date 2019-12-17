@@ -192,26 +192,85 @@ export function get_info_box(info_box, box_width, box_height, keywords){
     </g>`
 }
 
-export function prepare_legend(width, height, colors, keywords){
+export function prepare_legend(dimensions, colors, keywords){
+
+    // this.props.dimensions.width)/2 - this.props.dimensions.x_trans, this.props.dimensions.height + this.props.dimensions.y_trans/2
 
     let legend = [];
+    let keyword_sizes = []
 
-    for(let i=0; i<colors.length; i++){
-        legend.push(`
+    console.log(dimensions)
+    
+    // for(let i=0; i<colors.length; i++){
+    //     let l = calculate_translate_for_legend(keywords[i].length);
         
-        <g data-z-index="1" transform="translate(${87*i + 8},3)">
-            <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
-            <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
-        </g>
 
-        `);
+    //     let translation = keyword_sizes.reduce((a, b) => a + b, 0);
+
+    //     legend.push(`
+    //         <g data-z-index="1" transform="translate(${translation},3)">
+    //             <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
+    //             <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
+    //         </g>
+    //     `);
+    //     keyword_sizes.push(l);
+    // }
+
+    if (dimensions.width>600){
+        for(let i=0; i<colors.length; i++){
+            let l = calculate_translate_for_legend(keywords[i].length);
+            
+    
+            let translation = keyword_sizes.reduce((a, b) => a + b, 0);
+    
+            legend.push(`
+                <g data-z-index="1" transform="translate(${translation},3)">
+                    <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
+                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
+                </g>
+            `);
+            keyword_sizes.push(l);
+        }
+
+        let translation = keyword_sizes.reduce((a, b) => a + b, 0);
+        let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
+        let height_trans = dimensions.height + dimensions.y_trans/2;
+    
+        return `
+            <g transform="translate(${width_trans}, ${height_trans})" class="plot_legend" >
+                ${legend}
+            </g>`
+        
+    } else {
+        for(let i=0; i<colors.length; i++){
+            let l = calculate_translate_for_legend(keywords[i].length);
+            console.log("len: " + l)
+            
+    
+            // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
+    
+            legend.push(`
+                <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*7+3})">
+                    <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
+                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
+                </g>
+            `);
+            // keyword_sizes.push(l);
+        }
+
+        // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
+        // let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
+        let height_trans = dimensions.height + dimensions.y_trans/2;
+    
+        return `
+            <g transform="translate(${0}, ${height_trans})" class="plot_legend" >
+                ${legend}
+            </g>`
     }
+}
 
-    return `
-        <g transform="translate(${width}, ${height})" class="plot_legend" >
-            ${legend}
-        </g>
-    `
+function calculate_translate_for_legend(keyword_length){
+    return (6,5)*keyword_length + 55;
 }
 
 function formatDate(d)

@@ -107,16 +107,20 @@ class Test_Plot_Dates extends React.Component {
   updateWindowDimensions() {
     
     let div_width2 = this.divRef.current.clientWidth;
-    let div_width = div_width2 - 2*85;
-    let height = this.props.height - 2*85;
+
+    let x_trans = this.props.x_trans;
+    let y_trans = this.props.y_trans;
+
+    let div_width = div_width2 - 2*x_trans;
+    let height = this.props.height - 2*y_trans;
 
     this.setState({
       dimensions: {
         width2: div_width2,
         width: div_width,
-        height: this.props.height - 2*85,
-        x_trans: 85,
-        y_trans: 85,
+        height: this.props.height - 2*y_trans,
+        x_trans: x_trans,
+        y_trans: y_trans,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
@@ -342,7 +346,7 @@ class Test_Plot_Dates extends React.Component {
                 
                 <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
 
-                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} />
+                {/* <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} /> */}
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={10} dates={this.state.data_map_area_DATES} />
                 

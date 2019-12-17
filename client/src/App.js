@@ -85,7 +85,7 @@ class App extends React.PureComponent {
               }
 
               if(width<=1200){
-                height = (1.5)*width/(ratio);
+                height = (1.8)*width/(ratio);
               }
 
               if(width<=800){
@@ -102,8 +102,9 @@ class App extends React.PureComponent {
                   forecasted_data: this.get_forecasted_data(keywords, result),
                   rate_table_data: this.getRateTableData(result.growth_rate_result),
                   growth_table_data: this.getGrowthTableData(result.projected_growth_result),
-                  // div_height: this.myRef.current.offsetWidth/ratio,
-                  div_height: height
+                  div_height: height,
+                  x_trans: 85,
+                  y_trans: 85
               });
             })
     }
@@ -122,21 +123,37 @@ class App extends React.PureComponent {
       let width = this.myRef.current.offsetWidth;
 
       let height = width/(ratio);
+      let x_trans = this.state.x_trans;
+      let y_trans = this.state.y_trans;
       
       if(width<=1400){
         height = (1.6)*width/(ratio);
+        x_trans = 70;
+        y_trans = 70;
       }
 
       if(width<=1200){
-        height = (1.5)*width/(ratio);
+        height = (1.8)*width/(ratio);
+        x_trans = 60;
+        y_trans = 60;
       }
 
       if(width<=800){
-        height = (2.5)*width/(ratio);
+        height = (2.8)*width/(ratio);
+        x_trans = 40;
+        y_trans = 40;
+      }
+
+      if(width<=500){
+        height = (3.2)*width/(ratio);
+        x_trans = 40;
+        y_trans = 40;
       }
 
       this.setState({
-        div_height: height
+        div_height: height,
+        x_trans: x_trans,
+        y_trans: y_trans
       });
     }
 
@@ -160,7 +177,7 @@ class App extends React.PureComponent {
                       {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
-                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} />
+                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
                 {/* </Row>  */}
