@@ -99,9 +99,15 @@ export function prepare_x_axis(width, height, ticks_number, data_mock){
     let data_frame = Math.floor(length/(ticks_number-1));
 
     let frame = width / (ticks_number - 1)
-    for(let i=0; i<ticks_number; i++){
-        // result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
-        result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+
+    if(width<=800){
+        for(let i=0; i<ticks_number; i++){
+            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+        }
+    }else{
+        for(let i=0; i<ticks_number; i++){
+            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate(data_mock[data_frame*i][1])}</text>`)
+        }
     }
 
     return result 
@@ -244,10 +250,6 @@ export function prepare_legend(dimensions, colors, keywords){
     } else {
         for(let i=0; i<colors.length; i++){
             let l = calculate_translate_for_legend(keywords[i].length);
-            console.log("len: " + l)
-            
-    
-            // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
     
             legend.push(`
                 <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*18+3})">
@@ -260,7 +262,7 @@ export function prepare_legend(dimensions, colors, keywords){
 
         // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
         // let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
-        let height_trans = dimensions.height + dimensions.y_trans/2;
+        let height_trans = dimensions.height + dimensions.y_trans;
     
         return `
             <g transform="translate(${0}, ${height_trans})" class="plot_legend" >

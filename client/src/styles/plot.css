@@ -102,6 +102,7 @@
 
 .plot_legend {
     stroke: #343640;
+    font-size: 12px;
 }
 
 .plot_legend path {
@@ -216,6 +217,11 @@
     .input_button{
         padding-top: 1%
     }
+
+    .plot_legend {
+        stroke: #343640;
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -318,5 +324,10 @@
     .theader{
         text-align: center;
         vertical-align: top;
+    }
+
+    .plot_legend text{
+        stroke: #343640;
+        font-size: 11px;
     }
 }

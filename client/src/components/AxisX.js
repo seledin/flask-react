@@ -7,11 +7,18 @@ class AxisX extends React.PureComponent {
     }
     
     render() {
+
+      let ticks = this.props.ticks;
+      
+      if(this.props.dimensions.width<=800){
+        ticks = 6;
+      }
+
       return (
         <g>
             <g dangerouslySetInnerHTML={{ __html: get_x_axis(this.props.x_label, this.props.dimensions.width, this.props.dimensions.height, this.props.dimensions.x_trans, this.props.dimensions.y_trans) }} /> 
-            <g dangerouslySetInnerHTML={{ __html: get_ticks(this.props.dimensions.width, this.props.dimensions.height, this.props.ticks) }} />
-            <g dangerouslySetInnerHTML={{ __html: prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, this.props.ticks, this.props.dates) }} /> 
+            <g dangerouslySetInnerHTML={{ __html: get_ticks(this.props.dimensions.width, this.props.dimensions.height, ticks) }} />
+            <g dangerouslySetInnerHTML={{ __html: prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, ticks, this.props.dates) }} /> 
         </g>
       );
     }

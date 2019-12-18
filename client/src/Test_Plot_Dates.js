@@ -44,8 +44,11 @@ class Test_Plot_Dates extends React.Component {
 
     let x_trans = 85;
     let y_trans = 85;
+    let y_trans2 = 85;
+
     let width = window.innerWidth*(0.6) - 2*x_trans;
-    let height = this.props.height - 2*y_trans;
+    // let height = this.props.height - 2*y_trans;
+    let height = this.props.height - y_trans - y_trans2;
 
     this.divRef = React.createRef();
 
@@ -83,6 +86,7 @@ class Test_Plot_Dates extends React.Component {
         height: height,
         x_trans: x_trans,
         y_trans: y_trans,
+        y_trans2: y_trans2,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        }
@@ -110,17 +114,24 @@ class Test_Plot_Dates extends React.Component {
 
     let x_trans = this.props.x_trans;
     let y_trans = this.props.y_trans;
+    let y_trans2 = this.props.y_trans2;
 
     let div_width = div_width2 - 2*x_trans;
-    let height = this.props.height - 2*y_trans;
+    let height = this.props.height - y_trans - y_trans2;
+    // let height = this.props.height - 2*y_trans;
+
+    // console.log("$$")
+    // console.log(height)
+    // console.log(y_trans2)
 
     this.setState({
       dimensions: {
         width2: div_width2,
         width: div_width,
-        height: this.props.height - 2*y_trans,
+        height: height,
         x_trans: x_trans,
         y_trans: y_trans,
+        y_trans2: y_trans2,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
@@ -348,7 +359,7 @@ class Test_Plot_Dates extends React.Component {
 
                 {/* <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} /> */}
 
-                <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={10} dates={this.state.data_map_area_DATES} />
+                <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={12} dates={this.state.data_map_area_DATES} />
                 
                 <Legend dimensions={this.state.dimensions} colors={this.state.colors} keywords={this.props.keywords} />
 

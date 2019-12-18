@@ -16,8 +16,6 @@ class TableComponent extends Component {
 
   render() {
 
-    console.log(this.props.tableData)
-
     var tableHeaders = this.props.tableData.headers.map(( entity, index ) => {
       return (
         <th key={index} className="align-top">{entity}</th>

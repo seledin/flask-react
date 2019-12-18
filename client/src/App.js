@@ -85,6 +85,13 @@ class App extends React.PureComponent {
               let y_trans = this.state.y_trans;
               let y_trans2 = this.state.y_trans;
 
+              if(width>1800){
+                height = height;
+                x_trans = 80;
+                y_trans = 80;
+                y_trans2 = 80;
+              }
+
               if(width<=1800){
                 height = (1.2)*width/(ratio);
                 x_trans = 80;
@@ -116,15 +123,15 @@ class App extends React.PureComponent {
               if(width<=800){
                 height = (2.8)*width/(ratio);
                 x_trans = 40;
-                y_trans = 40;
-                y_trans2 = 40;
+                y_trans = 60;
+                y_trans2 = 60;
               }
         
               if(width<=500){
                 height = (3.2)*width/(ratio);
-                x_trans = 20;
+                x_trans = 40;
                 y_trans = 40;
-                y_trans2 = 40;
+                y_trans2 = keywords.length*25 + 40;
               }
 
               this.setState({
@@ -162,6 +169,13 @@ class App extends React.PureComponent {
       let y_trans = this.state.y_trans;
       let y_trans2 = this.state.y_trans;
 
+      if(width>1800){
+        height = height;
+        x_trans = 80;
+        y_trans = 80;
+        y_trans2 = 80;
+      }
+
       if(width<=1800){
         height = (1.2)*width/(ratio);
         x_trans = 80;
@@ -191,17 +205,17 @@ class App extends React.PureComponent {
       }
 
       if(width<=800){
-        height = (2.8)*width/(ratio);
+        height = (3.2)*width/(ratio);
         x_trans = 40;
-        y_trans = 40;
-        y_trans2 = 40;
+        y_trans = 60;
+        y_trans2 = 60;
       }
 
       if(width<=500){
-        height = (3.2)*width/(ratio);
-        x_trans = 20;
+        height = (4)*width/(ratio);
+        x_trans = 40;
         y_trans = 40;
-        y_trans2 = 40;
+        y_trans2 = this.state.keywords.length*25 + 40;
       }
 
       this.setState({
@@ -215,6 +229,11 @@ class App extends React.PureComponent {
     render() {
 
         if (this.state.authenticated) {
+        // console.log("##")
+        // console.log(this.state.y_trans)
+        // console.log(this.state.y_trans2)
+        // console.log("----")
+
         return (
           <div ref={this.myRef}>
             <div className="main_results">
