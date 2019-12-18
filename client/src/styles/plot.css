@@ -219,8 +219,36 @@
 }
 
 @media (max-width: 800px) {
+
+    .plot_title {
+        font-size: 18px;
+    }
+
+    .plot_xaxis_title {
+        font-size: 14px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
     .input_bar{
         margin: 0;
+    }
+
+    .table td, .table th {
+        padding: 0.5em;
+        line-height: 1.2;
+        font-size: 14px;
     }
 
     .keyword_div{

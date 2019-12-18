@@ -16,6 +16,8 @@ class TableComponent extends Component {
 
   render() {
 
+    console.log(this.props.tableData)
+
     var tableHeaders = this.props.tableData.headers.map(( entity, index ) => {
       return (
         <th key={index} className="align-top">{entity}</th>
@@ -24,10 +26,19 @@ class TableComponent extends Component {
 
     var tableRows = this.props.tableData.data.map(( entity, index ) => {
       let cells = entity.map((e,i) => {
-        if(i>0){
-          return <td key = {i}>{e.toFixed(2)}</td>
+
+        if(e !== null){
+          if(i>0){
+            return <td key = {i}>{e.toFixed(2)}</td>
+          }else{
+            return <td key = {i}>{capitalizeString(e)}</td>
+          }
         }else{
-          return <td key = {i}>{capitalizeString(e)}</td>
+          if(i>0){
+            return <td key = {i}>{"null"}</td>
+          }else{
+            return <td key = {i}>{"null"}</td>
+          }
         }
       })
       

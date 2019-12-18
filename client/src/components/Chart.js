@@ -190,7 +190,6 @@ class Chart extends React.PureComponent {
                     point:{
                         events:{
                             click: this.setHoverData.bind(this)
-
                         }
                     }
                 }
@@ -213,8 +212,9 @@ class Chart extends React.PureComponent {
                   mapData: mapDataIE,
                   name: " ",
                   dataLabels: {
-                      enabled: false,
-                      // format: "{point.properties.postal-code}"
+                      enabled: true,
+                      color: '#FFFFFF',
+                      format: "{point.properties.postal-code}"
                   },
                   showInLegend: false
                 },
@@ -222,7 +222,7 @@ class Chart extends React.PureComponent {
               ],
 
               legend: {
-                enabled: false
+                enabled: true
               },
             
               drilldown: {
@@ -322,7 +322,6 @@ class Chart extends React.PureComponent {
                 point:{
                     events:{
                         click: this.setHoverData.bind(this)
-
                     }
                 }
             }
@@ -335,12 +334,12 @@ class Chart extends React.PureComponent {
               mapData: mapDataIE,
               name: " ",
               dataLabels: {
-                  enabled: false,
-                  // format: "{point.properties.postal-code}"
+                  enabled: true,
+                  color: '#FFFFFF',
+                  format: "{point.properties.postal-code}"
               },
               showInLegend: false
             },
-
           ],
 
           legend: {

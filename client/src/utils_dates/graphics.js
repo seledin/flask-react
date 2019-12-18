@@ -199,7 +199,7 @@ export function prepare_legend(dimensions, colors, keywords){
     let legend = [];
     let keyword_sizes = []
 
-    console.log(dimensions)
+    // console.log(dimensions)
     
     // for(let i=0; i<colors.length; i++){
     //     let l = calculate_translate_for_legend(keywords[i].length);
@@ -250,7 +250,7 @@ export function prepare_legend(dimensions, colors, keywords){
             // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
     
             legend.push(`
-                <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*7+3})">
+                <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*18+3})">
                     <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
                     <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
                 </g>

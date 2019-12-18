@@ -315,7 +315,7 @@ class Test_Plot_Dates extends React.Component {
 
     // console.log(this.props.keywords)
     // console.log("$$$$$")
-    // console.log(this.state.scaled_historical_data)
+    // console.log(this.state.dimensions)
     // console.log(this.state.scaled_forecasted_data)
 
     let area_paths = this.state.scaled_historical_data.map(( entity, index ) => {
