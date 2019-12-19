@@ -11,7 +11,7 @@
 }
 
 .plot_title {
-    font-size: 2em;
+    font-size: 16px;
     font-weight: 500;
     pointer-events: none;
 }
@@ -19,14 +19,14 @@
 .plot_yaxis_title{
     color:#666666;
     fill:#666666;
-    font-size:1em;
+    font-size:14px;
     pointer-events: none;
 } 
 
 .plot_xaxis_title{
     color:#666666;
     fill:#666666;
-    font-size: 1em;
+    font-size:14px;
     pointer-events: none;
 }
 
@@ -34,7 +34,7 @@
     color:#666666;
     cursor:default;
     fill:#666666;
-    font-size:0.8em;
+    font-size: 12px;
     opacity:1;
     pointer-events: none;
 }
@@ -227,11 +227,15 @@
 @media (max-width: 800px) {
 
     .plot_title {
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .plot_xaxis_title {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    .plot_xaxis_title{
+        font-size:12px;
     }
 
     h3 {
@@ -255,6 +259,14 @@
         padding: 0.5em;
         line-height: 1.2;
         font-size: 14px;
+    }
+
+    .plot_ytick{
+        font-size: 11px;
+    }
+
+    .plot_xtick{
+        font-size: 11px;
     }
 
     .keyword_div{
@@ -328,6 +340,6 @@
 
     .plot_legend text{
         stroke: #343640;
-        font-size: 11px;
+        font-size: 12px;
     }
 }

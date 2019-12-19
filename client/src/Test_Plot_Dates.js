@@ -114,9 +114,10 @@ class Test_Plot_Dates extends React.Component {
 
     let x_trans = this.props.x_trans;
     let y_trans = this.props.y_trans;
+    let x_trans2 = this.props.x_trans2;
     let y_trans2 = this.props.y_trans2;
 
-    let div_width = div_width2 - 2*x_trans;
+    let div_width = div_width2 - x_trans - x_trans2;
     let height = this.props.height - y_trans - y_trans2;
     // let height = this.props.height - 2*y_trans;
 
@@ -131,6 +132,7 @@ class Test_Plot_Dates extends React.Component {
         height: height,
         x_trans: x_trans,
         y_trans: y_trans,
+        x_trans2: x_trans2,
         y_trans2: y_trans2,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
@@ -357,7 +359,7 @@ class Test_Plot_Dates extends React.Component {
                 
                 <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
 
-                {/* <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} /> */}
+                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} />
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={12} dates={this.state.data_map_area_DATES} />
                 

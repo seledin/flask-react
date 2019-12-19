@@ -83,19 +83,23 @@ class App extends React.PureComponent {
               let height = width/(ratio);
               let x_trans = this.state.x_trans;
               let y_trans = this.state.y_trans;
+
+              let x_trans2 = this.state.x_trans;
               let y_trans2 = this.state.y_trans;
 
               if(width>1800){
                 height = height;
                 x_trans = 80;
                 y_trans = 80;
+                x_trans2 = 30;
                 y_trans2 = 80;
               }
-
+        
               if(width<=1800){
                 height = (1.2)*width/(ratio);
                 x_trans = 80;
                 y_trans = 80;
+                x_trans2 = 30;
                 y_trans2 = 80;
               }
         
@@ -103,6 +107,7 @@ class App extends React.PureComponent {
                 height = (1.4)*width/(ratio);
                 x_trans = 80;
                 y_trans = 80;
+                x_trans2 = 30;
                 y_trans2 = 80;
               }
               
@@ -110,6 +115,7 @@ class App extends React.PureComponent {
                 height = (1.6)*width/(ratio);
                 x_trans = 70;
                 y_trans = 70;
+                x_trans2 = 30;
                 y_trans2 = 70;
               }
         
@@ -117,22 +123,33 @@ class App extends React.PureComponent {
                 height = (1.8)*width/(ratio);
                 x_trans = 60;
                 y_trans = 60;
+                x_trans2 = 30;
                 y_trans2 = 60;
               }
         
-              if(width<=800){
-                height = (2.8)*width/(ratio);
-                x_trans = 40;
-                y_trans = 60;
-                y_trans2 = 60;
+              // if(width<=800){
+              //   height = (2.2)*width/(ratio);
+              //   x_trans = 60;
+              //   y_trans = 20;
+              //   x_trans2 = 20;
+              //   y_trans2 = 60;
+              // }
+        
+              if(width<=700){
+                height = (4)*width/(ratio);
+                x_trans = 60;
+                y_trans = 20;
+                x_trans2 = 20;
+                y_trans2 = keywords.length*14+ 80;
               }
         
-              if(width<=500){
-                height = (3.2)*width/(ratio);
-                x_trans = 40;
-                y_trans = 40;
-                y_trans2 = keywords.length*25 + 40;
-              }
+              this.setState({
+                div_height: height,
+                x_trans: x_trans,
+                y_trans: y_trans,
+                x_trans2: x_trans2,
+                y_trans2: y_trans2,
+              });
 
               this.setState({
                   keywords: keywords,
@@ -147,6 +164,7 @@ class App extends React.PureComponent {
                   div_height: height,
                   x_trans: x_trans,
                   y_trans: y_trans,
+                  x_trans2: x_trans2,
                   y_trans2: y_trans2,
               });
             })
@@ -167,12 +185,14 @@ class App extends React.PureComponent {
       let height = width/(ratio);
       let x_trans = this.state.x_trans;
       let y_trans = this.state.y_trans;
+      let x_trans2 = this.state.x_trans;
       let y_trans2 = this.state.y_trans;
 
       if(width>1800){
         height = height;
         x_trans = 80;
         y_trans = 80;
+        x_trans2 = 30;
         y_trans2 = 80;
       }
 
@@ -180,6 +200,7 @@ class App extends React.PureComponent {
         height = (1.2)*width/(ratio);
         x_trans = 80;
         y_trans = 80;
+        x_trans2 = 30;
         y_trans2 = 80;
       }
 
@@ -187,6 +208,7 @@ class App extends React.PureComponent {
         height = (1.4)*width/(ratio);
         x_trans = 80;
         y_trans = 80;
+        x_trans2 = 30;
         y_trans2 = 80;
       }
       
@@ -194,6 +216,7 @@ class App extends React.PureComponent {
         height = (1.6)*width/(ratio);
         x_trans = 70;
         y_trans = 70;
+        x_trans2 = 30;
         y_trans2 = 70;
       }
 
@@ -201,27 +224,31 @@ class App extends React.PureComponent {
         height = (1.8)*width/(ratio);
         x_trans = 60;
         y_trans = 60;
-        y_trans2 = 60;
+        x_trans2 = 30;
+        y_trans2 = 70;
       }
 
-      if(width<=800){
-        height = (3.2)*width/(ratio);
-        x_trans = 40;
-        y_trans = 60;
-        y_trans2 = 60;
-      }
+      // if(width<=800){
+      //   height = (2.2)*width/(ratio);
+      //   x_trans = 60;
+      //   y_trans = 20;
+      //   x_trans2 = 20;
+      //   y_trans2 = 60;
+      // }
 
-      if(width<=500){
+      if(width<=700){
         height = (4)*width/(ratio);
-        x_trans = 40;
-        y_trans = 40;
-        y_trans2 = this.state.keywords.length*25 + 40;
+        x_trans = 60;
+        y_trans = 20;
+        x_trans2 = 20;
+        y_trans2 = this.state.keywords.length*14 + 80;
       }
 
       this.setState({
         div_height: height,
         x_trans: x_trans,
         y_trans: y_trans,
+        x_trans2: x_trans2,
         y_trans2: y_trans2,
       });
     }
@@ -251,7 +278,7 @@ class App extends React.PureComponent {
                       {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
-                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} y_trans2={this.state.y_trans2} />
+                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
                 {/* </Row>  */}

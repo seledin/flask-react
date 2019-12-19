@@ -77,7 +77,7 @@ export function get_y_axis(x, y, height, lines_number) {
     let frame = height / lines_number;
 
     for(let i=0; i<=lines_number; i++){
-        result.push(make_y_tick(-40, height - frame*(i),i * lines_number));
+        result.push(make_y_tick(-35, height - frame*(i),i * lines_number));
     }
 
     let line = `M ${x} ${y} L ${x} ${y + height}`;
@@ -92,7 +92,7 @@ export function prepare_title(title, width, height, x_trans, y_trans){
 
 
 
-export function prepare_x_axis(width, height, ticks_number, data_mock){
+export function prepare_x_axis(width, height, ticks_number, data_mock, title, y_trans){
     let result = []
 
     let length = Object.keys(data_mock).length;
@@ -100,28 +100,56 @@ export function prepare_x_axis(width, height, ticks_number, data_mock){
 
     let frame = width / (ticks_number - 1)
 
-    if(width<=800){
+    if(width<=700){
         for(let i=0; i<ticks_number; i++){
-            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
+            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 25}">${formatDate_monthly(data_mock[data_frame*i][1])}</text>`)
         }
     }else{
         for(let i=0; i<ticks_number; i++){
-            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 30}">${formatDate(data_mock[data_frame*i][1])}</text>`)
+            result.push(`<text x="${frame*i}" class="plot_xtick" text-anchor="middle" y="${height + 25}">${formatDate(data_mock[data_frame*i][1])}</text>`)
         }
     }
+
+    let line = `M 0 ${height} H ${width}`;
+
+    // console.log("***")
+    // console.log(height)
+    // console.log(y_trans)
+
+    let height_trans = y_trans
+    // if(width>800){
+    //     height_trans = height_trans/2
+    // }
+
+    if(width>700){
+        result.push(`<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height + height_trans - 30}"><tspan>${title}</tspan></text>`)
+    }else{
+        result.push(`<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height +40}"><tspan>${title}</tspan></text>`)
+    }
+    result.push(`<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`)
+    
+    
 
     return result 
 
 }
 
-export function get_x_axis(title, width, height, x_trans, y_trans){
-    let result = []
-    let line = `M 0 ${height} H ${width}`;
+// export function get_x_axis(title, width, height, x_trans, y_trans){
+//     let result = []
+//     let line = `M 0 ${height} H ${width}`;
 
-    result.push(`<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height + y_trans/2}"><tspan>${title}</tspan></text>`)
-    result.push(`<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`)
-    return result
-}
+//     // console.log("***")
+//     // console.log(y_trans)
+//     let height_trans = y_trans
+//     if(width>800){
+//         height_trans = height_trans/2
+//     }
+
+//     result.push(`<text x="${width/2}" text-anchor="middle" class="plot_xaxis_title" y="${height + height_trans + 10}"><tspan>${title}</tspan></text>`)
+//     result.push(`<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`)
+    
+//     return result
+// }
 
 export function get_y_axis_label(title, height, x_trans){
     return `<text x="${x_trans}" text-anchor="middle" transform="translate(0,0) rotate(270 25.140625 309.5)" class="plot_yaxis_title" y="${(height + x_trans)/2 - 0.1*x_trans}"><tspan>${title}</tspan></text>`
@@ -222,7 +250,7 @@ export function prepare_legend(dimensions, colors, keywords){
     //     keyword_sizes.push(l);
     // }
 
-    if (dimensions.width>600){
+    if (dimensions.width2>700){
         for(let i=0; i<colors.length; i++){
             let l = calculate_translate_for_legend(keywords[i].length);
             
@@ -232,7 +260,7 @@ export function prepare_legend(dimensions, colors, keywords){
             legend.push(`
                 <g data-z-index="1" transform="translate(${translation},3)">
                     <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
-                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
+                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="12px" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
                 </g>
             `);
             keyword_sizes.push(l);
@@ -241,6 +269,13 @@ export function prepare_legend(dimensions, colors, keywords){
         let translation = keyword_sizes.reduce((a, b) => a + b, 0);
         let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
         let height_trans = dimensions.height + dimensions.y_trans/2;
+        height_trans = dimensions.height + dimensions.y_trans - dimensions.y_trans2;
+        height_trans = dimensions.height + dimensions.y_trans - 25;
+
+        // console.log("$$$")
+        // console.log("height: "+ dimensions.height)
+        // console.log("y_trans: "+ dimensions.y_trans)
+
     
         return `
             <g transform="translate(${width_trans}, ${height_trans})" class="plot_legend" >
@@ -252,9 +287,9 @@ export function prepare_legend(dimensions, colors, keywords){
             let l = calculate_translate_for_legend(keywords[i].length);
     
             legend.push(`
-                <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*18+3})">
+                <g data-z-index="1" transform="translate(${(dimensions.width)/2 - l/2}, ${i*18+10})">
                     <path fill="none" d="M 0 11 L 30 11" stroke=${colors[i]} stroke-width="0"></path>
-                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="1.1em" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
+                    <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="12px" stroke="#6c757d" stroke-width="0">${capitalizeString(keywords[i])}</text>
                 </g>
             `);
             // keyword_sizes.push(l);
@@ -262,7 +297,8 @@ export function prepare_legend(dimensions, colors, keywords){
 
         // let translation = keyword_sizes.reduce((a, b) => a + b, 0);
         // let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
-        let height_trans = dimensions.height + dimensions.y_trans;
+        // let height_trans = dimensions.height + 2*dimensions.y_trans;
+        let height_trans = dimensions.height + 43;
     
         return `
             <g transform="translate(${0}, ${height_trans})" class="plot_legend" >
