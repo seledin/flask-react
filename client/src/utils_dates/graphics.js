@@ -77,7 +77,7 @@ export function get_y_axis(x, y, height, lines_number) {
     let frame = height / lines_number;
 
     for(let i=0; i<=lines_number; i++){
-        result.push(make_y_tick(-35, height - frame*(i),i * lines_number));
+        result.push(make_y_tick(-28, height - frame*(i),i * lines_number));
     }
 
     let line = `M ${x} ${y} L ${x} ${y + height}`;
@@ -152,7 +152,7 @@ export function prepare_x_axis(width, height, ticks_number, data_mock, title, y_
 // }
 
 export function get_y_axis_label(title, height, x_trans){
-    return `<text x="${x_trans}" text-anchor="middle" transform="translate(0,0) rotate(270 25.140625 309.5)" class="plot_yaxis_title" y="${(height + x_trans)/2 - 0.1*x_trans}"><tspan>${title}</tspan></text>`
+    return `<g transform="translate(${-(x_trans/2 + 10)},${height/2})"><text x="0" text-anchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>${title}</tspan></text></g>`
 }
 
 export function get_red_line(dimensions, ranges_dates){

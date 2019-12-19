@@ -10,7 +10,7 @@ class AxisX extends React.PureComponent {
 
       let ticks = this.props.ticks + 1;
       
-      if(this.props.dimensions.width<=800){
+      if(this.props.dimensions.width<=700){
         ticks = 6 + 1;
       }
 

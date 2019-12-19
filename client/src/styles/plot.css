@@ -19,7 +19,7 @@
 .plot_yaxis_title{
     color:#666666;
     fill:#666666;
-    font-size:14px;
+    font-size:12px;
     pointer-events: none;
 } 
 
@@ -129,8 +129,12 @@
 .result_table{
     padding-left: 1%;
     padding-left: 1%;
-    margin: 0auto;
+    margin: 0 auto;
     width: 50%
+}
+
+.spinner{
+    text-align:center;
 }
 
 .input_bar{

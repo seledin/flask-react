@@ -7,6 +7,7 @@ import Table from './components/Table';
 import Chart from './components/Chart';
 import Test_Plot_Dates from './Test_Plot_Dates';
 import { capitalizeString } from "./utils_dates/functions";
+import Loader from "react-loader-spinner";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/plot.css'
 
@@ -47,7 +48,8 @@ class App extends React.PureComponent {
         rate_table_data: [],
         growth_table_data: [],
         x_trans: 85,
-        y_trans: 85
+        y_trans: 85,
+        fetching_results: false,
       };
 
       this.myRef = React.createRef();
@@ -64,8 +66,12 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-        // let url = appConfig.KEYWORDS_NEW;
-        let url = "/new"
+        let url = appConfig.KEYWORDS_NEW;
+        // let url = "/new"
+
+        this.setState({
+          fetching_results: true
+        })
         
         fetch(url, {
           method: 'POST',
@@ -143,13 +149,13 @@ class App extends React.PureComponent {
                 y_trans2 = keywords.length*14+ 80;
               }
         
-              this.setState({
-                div_height: height,
-                x_trans: x_trans,
-                y_trans: y_trans,
-                x_trans2: x_trans2,
-                y_trans2: y_trans2,
-              });
+              // this.setState({
+              //   div_height: height,
+              //   x_trans: x_trans,
+              //   y_trans: y_trans,
+              //   x_trans2: x_trans2,
+              //   y_trans2: y_trans2,
+              // });
 
               this.setState({
                   keywords: keywords,
@@ -166,6 +172,7 @@ class App extends React.PureComponent {
                   y_trans: y_trans,
                   x_trans2: x_trans2,
                   y_trans2: y_trans2,
+                  fetching_results: false
               });
             })
     }
@@ -256,10 +263,6 @@ class App extends React.PureComponent {
     render() {
 
         if (this.state.authenticated) {
-        // console.log("##")
-        // console.log(this.state.y_trans)
-        // console.log(this.state.y_trans2)
-        // console.log("----")
 
         return (
           <div ref={this.myRef}>
@@ -272,7 +275,6 @@ class App extends React.PureComponent {
               <Input callbackFromParent={this.fetchCallback}/>
 
               <div className="results_div">
-                {/* <Row>  */}
                     <div className="map_div">
                       <Chart height={this.state.div_height} />
                       {/* <Chart callbackFromApp={this.mapCallback}/> */}
@@ -281,7 +283,6 @@ class App extends React.PureComponent {
                         <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
-                {/* </Row>  */}
               </div>
               <div className="tables">
                 <Row>
@@ -301,6 +302,13 @@ class App extends React.PureComponent {
 
               <div className="intro">
               </div>
+              {this.state.fetching_results ? (    
+                <div className="spinner">
+                  <Loader type="Oval" color="#007bff" height={200} width={200} />
+                </div>   
+                ) : (<div></div>) }
+
+
             </div>
             )
           }
@@ -311,6 +319,7 @@ class App extends React.PureComponent {
         return (
         <div ref={this.myRef}>
             <Login callbackFromLogin={this.toLoginCallback}/>
+            
         </div>);      
         }
     }
