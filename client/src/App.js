@@ -166,7 +166,13 @@ class App extends React.PureComponent {
                   y_trans2: y_trans2,
                   fetching_results: false
               });
-            })
+            }).catch(function(error) {
+                 console.log("error:")
+                 this.setState({
+                  fetching_results: false
+                });
+                 console.log(error)
+          })
     }
 
     componentDidMount() {
@@ -296,7 +302,7 @@ class App extends React.PureComponent {
               </div>
               {this.state.fetching_results ? (    
                 <div className="spinner">
-                  <Loader type="Oval" color="#007bff" height={200} width={200} />
+                  <Loader type="Oval" color="#007bff" height={200} width={200} timeout={30000}/>
                 </div>   
                 ) : (<div></div>) }
 
