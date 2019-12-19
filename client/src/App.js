@@ -66,8 +66,8 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-        let url = appConfig.KEYWORDS_NEW;
-        // let url = "/new"
+        // let url = appConfig.KEYWORDS_NEW;
+        let url = "/new"
 
         this.setState({
           fetching_results: true
@@ -149,14 +149,6 @@ class App extends React.PureComponent {
                 y_trans2 = keywords.length*14+ 80;
               }
         
-              // this.setState({
-              //   div_height: height,
-              //   x_trans: x_trans,
-              //   y_trans: y_trans,
-              //   x_trans2: x_trans2,
-              //   y_trans2: y_trans2,
-              // });
-
               this.setState({
                   keywords: keywords,
                   displayResults: true,
