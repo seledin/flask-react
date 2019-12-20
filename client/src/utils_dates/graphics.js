@@ -71,13 +71,23 @@ function make_y_tick(x, y, value) {
     return `<text x="${x}" text-anchor="end" class="plot_ytick" y="${y}">${value}</text>`
 }
 
-export function get_y_axis(x, y, height, lines_number) {
+export function get_y_axis(x, y, height, lower_index, upper_index) {
     let result = [];
+
+    let lines_number = lower_index + upper_index;
 
     let frame = height / lines_number;
 
-    for(let i=0; i<=lines_number; i++){
-        result.push(make_y_tick(-20, height - frame*(i),i * lines_number));
+    // let lower_index = 10 - lines_number;
+
+    let difference = Math.abs(lower_index)
+
+    // for(let i=0; i<=lines_number; i++){
+    //     result.push(make_y_tick(-20, height - frame*(i),i * 10));
+    // }
+
+    for(let i=-lower_index; i<=upper_index; i++){
+        result.push(make_y_tick(-20, height - frame*(i + difference),i * 10));
     }
 
     let line = `M ${x} ${y} L ${x} ${y + height}`;

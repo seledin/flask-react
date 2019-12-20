@@ -9,6 +9,8 @@ import Test_Plot_Dates from './Test_Plot_Dates';
 import { capitalizeString } from "./utils_dates/functions";
 import Loader from "react-loader-spinner";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { get_min_value, get_max_value} from './utils_dates/functions'
 import './styles/plot.css'
 
 import { appConfig } from './config.js';
@@ -260,6 +262,35 @@ class App extends React.PureComponent {
 
     render() {
 
+      let ranges =  {
+        max_x: (261 + 52 + 0),
+        min_x: 0,
+        max_y: 120,
+        min_y: -10,
+      }
+
+        if(this.state.displayResults){
+
+          let min_y = get_min_value(this.state.historical_data);
+          let max_y = get_max_value(this.state.historical_data);
+
+          
+
+          let lower_bound = Math.ceil((Math.abs(min_y)+1) / 10) * 10
+          let upper_bound = Math.ceil((Math.abs(max_y)+1) / 10) * 10
+
+          ranges = {
+            max_x: (this.state.historical_data[0].length + this.state.forecasted_data[0].length),
+            min_x: 0,
+            max_y: upper_bound,
+            min_y: -lower_bound,
+          }
+
+          // console.log("ranges")
+          // console.log(ranges)
+        }
+
+
         if (this.state.authenticated) {
 
         return (
@@ -278,7 +309,7 @@ class App extends React.PureComponent {
                       {/* <Chart callbackFromApp={this.mapCallback}/> */}
                     </div>
                     <div id="plot_div"> 
-                        <Test_Plot_Dates options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
+                        <Test_Plot_Dates options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
                     </div>
               </div>
@@ -360,7 +391,7 @@ class App extends React.PureComponent {
 
       get_historical_data(keywords, result){
         let data = []
-        console.log(result)
+        // console.log(result)
 
         for (let keyword in keywords) {  
             let index = 0;

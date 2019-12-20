@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates} from './utils_dates/functions'
+import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates, get_min_value, get_max_value} from './utils_dates/functions'
 import { appConfig } from './utils_dates/config.js';
 
 import AxisX from './components/AxisX';
@@ -14,7 +14,7 @@ import Plot from './components/Plot';
 
 
 let dimensions = appConfig.dimensions;
-let ranges = appConfig.ranges_dates;
+// let ranges = appConfig.ranges_dates;
 let number_of_plots = appConfig.number_of_plots;
 let array_length_dates = appConfig.array_length_dates + appConfig.array_length_dates_forecast;
 
@@ -54,7 +54,6 @@ class Test_Plot_Dates extends React.Component {
 
     this.state = {
         title: this.props.options.title,
-        y_number: 10,
         ticks_number: array_length_dates,
         x_label: this.props.options.x_label,
         y_label: this.props.options.y_label,
@@ -68,8 +67,8 @@ class Test_Plot_Dates extends React.Component {
           visibility: "hidden",
           colors: get_random_colors(this.props.number_of_series),
         },
-       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[0],
-       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, width, height, this.props.number_of_series)[1],
+       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[0],
+       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[1],
 
       //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[0],
       //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[1],
@@ -89,7 +88,10 @@ class Test_Plot_Dates extends React.Component {
         y_trans2: y_trans2,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
-       }
+       },
+       min_y: get_min_value(this.props.historical_data),
+       max_y: get_max_value(this.props.historical_data), 
+       y_number: 12,
     };
   }
 
@@ -137,8 +139,10 @@ class Test_Plot_Dates extends React.Component {
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
-       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[0],
-       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, ranges, div_width, height, this.props.number_of_series)[1],
+       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series)[0],
+       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series)[1],
+       min_y: get_min_value(this.props.historical_data),
+       max_y: get_max_value(this.props.historical_data), 
 
       //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[0],
       //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[1],
@@ -175,24 +179,24 @@ class Test_Plot_Dates extends React.Component {
 
     if(x >= 0 && y >= 0 && x <= this.state.dimensions.width && y <= this.state.dimensions.height){
 
-      let x_diff = ranges.max_x - ranges.min_x;  
+      let x_diff = this.props.ranges.max_x - this.props.ranges.min_x;  
       let x_frame = this.state.dimensions.width/x_diff;
       let key = Math.round((x)/x_frame);
 
       if (this.state.data_map_area_DATES[key] !== undefined){
 
-        let left_index = Math.round((ranges.max_x - ranges.min_x)/2) - 1;
-        let right_index = Math.round((ranges.max_x - ranges.min_x)/2) + 1;
+        let left_index = Math.round((this.props.ranges.max_x - this.props.ranges.min_x)/2) - 1;
+        let right_index = Math.round((this.props.ranges.max_x - this.props.ranges.min_x)/2) + 1;
 
         //keys left
-        for(let i=ranges.min_x; i<=key; i++){
+        for(let i=this.props.ranges.min_x; i<=key; i++){
           if(this.state.data_map_area_DATES[i] !== undefined){
             left_index = i
           }
         }
 
         //keys right
-        for(let i=key; i<=ranges.max_x; i++){
+        for(let i=key; i<=this.props.ranges.max_x; i++){
           if(this.state.data_map_area_DATES[i] !== undefined){
             right_index = i
           }
@@ -233,7 +237,7 @@ class Test_Plot_Dates extends React.Component {
         }
 
         //keys right
-        for (let i=key; i<=ranges.max_x; i++) {
+        for (let i=key; i<=this.props.ranges.max_x; i++) {
           if(this.state.data_map_area_DATES[i] !== undefined) {
             right_index = i;
             break;
@@ -326,7 +330,8 @@ class Test_Plot_Dates extends React.Component {
 
   render() {
 
-    // console.log(this.state.data_map_area_DATES)
+    // console.log(this.state.min_y)
+    // console.log(this.state.max_y)
     // console.log("$$$$$")
     // console.log(Object.keys(this.state.data_map_area_DATES).length)
     // console.log(this.state.data_map_area_DATES)
@@ -350,6 +355,26 @@ class Test_Plot_Dates extends React.Component {
     let v_b = "0 0 " + this.state.dimensions.width2 + " " + this.props.height;
     let v_trans = "translate(" + this.state.dimensions.x_trans + "," + this.state.dimensions.y_trans + ")";
 
+    const aa = this.state.max_y;
+    const bb = this.state.min_y;
+    // console.log(this.state.min_y)
+    // console.log("@@: " + Math.abs(bb))
+    // console.log("!! " + Math.ceil((Math.abs(bb)+1) / 10) * 10)
+
+    // let upper_bound = this.state.max_x
+
+    let lower_bound = Math.ceil((Math.abs(bb)+1) / 10) * 10
+    let upper_bound = Math.ceil((Math.abs(aa)+1) / 10) * 10
+
+    // let upper_bound = this.state.max_x
+
+    let calc_y_number = (lower_bound + upper_bound)/10
+
+    // console.log("##: " + bb)
+    // // console.log("@@: " + this.state.max_y)
+    // console.log("@@: " + upper_bound)
+    // console.log(calc_y_number)
+
     return (
       <div ref={this.divRef}>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff} className="test_plot" width={this.state.dimensions.width2} height={this.props.height} viewBox={v_b}>
@@ -361,15 +386,19 @@ class Test_Plot_Dates extends React.Component {
 
                 { area_paths_future }
                 
-                <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
+                {/* <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
 
-                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} />
+                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} /> */}
+
+                <Plot dimensions={this.state.dimensions} y_number={calc_y_number} title={this.state.title} />
+
+                <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={this.props.ranges.min_y} upper_bound={this.props.ranges.max_y} />
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={12} dates={this.state.data_map_area_DATES} />
                 
                 <Legend dimensions={this.state.dimensions} colors={this.state.colors} keywords={this.props.keywords} />
 
-                <Static_Line dimensions={this.state.dimensions} ranges={ranges} />
+                <Static_Line dimensions={this.state.dimensions} ranges={this.props.ranges} />
 
                 <Pointer_Line mark_line={this.state.mark_line} height={this.state.dimensions.height} />
 
@@ -382,5 +411,11 @@ class Test_Plot_Dates extends React.Component {
     );
   }
 }
+
+// function round(num,pre) {
+//   if( !pre) pre = 0;
+//   var pow = Math.pow(10,pre);
+//   return Math.round(num*pow)/pow;
+// }
 
 export default Test_Plot_Dates;

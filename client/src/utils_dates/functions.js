@@ -150,22 +150,12 @@ export function scale_data_dates(data, ranges ,width, height){
 
 export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let result = [];
-    let x_diff = ranges.max_x - ranges.min_x;
-    let y_diff = ranges.max_y - ranges.min_y;
+    let x_diff = Math.abs(ranges.max_x - ranges.min_x);
+    let y_diff = Math.abs(ranges.max_y - ranges.min_y);
 
     let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
 
-    // console.log(data)
-    // let x_frame = dimensions.width/(ranges_dates.max_x-1)
-
-    // let x = x_frame * (dimensions.historical_data_length - 1);
-
-    // console.log("%%")
-    // console.log(data)
-    // console.log(x_diff)
-    // console.log("width: " + width)
-    // console.log("x_frame: " + x_frame)
 
     for (let i=0; i<data.length; i++){
         // console.log(data[i])
@@ -178,7 +168,7 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
         //     console.log([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
         // }
 
-        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
+        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
         
     }
 
@@ -293,4 +283,31 @@ export function get_forecasted_dates(){
 
     return dates;
 
+}
+
+export function get_min_value(data){
+    let min_result = data[0][0][3];
+
+    for(let i=0; i<data.length; i++){
+        for(let j=0;j<data[i].length; j++){
+            if(data[i][j][3] < min_result){
+                min_result = data[i][j][3]
+            }
+        }
+    }
+    return min_result
+}
+
+export function get_max_value(data){
+    let max_result = data[0][0][4];
+
+    for(let i=0; i<data.length; i++){
+        for(let j=0;j<data[i].length; j++){
+            if(data[i][j][4] > max_result){
+                max_result = data[i][j][4]
+            }
+        }
+    }
+    
+    return max_result
 }
