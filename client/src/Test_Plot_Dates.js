@@ -326,14 +326,18 @@ class Test_Plot_Dates extends React.Component {
 
   render() {
 
-    // console.log(this.props.keywords)
+    // console.log(this.state.data_map_area_DATES)
     // console.log("$$$$$")
+    // console.log(Object.keys(this.state.data_map_area_DATES).length)
+    // console.log(this.state.data_map_area_DATES)
     // console.log(this.state.dimensions)
     // console.log(this.state.scaled_forecasted_data)
 
+    // console.log(this.state.scaled_historical_data)
+
     let area_paths = this.state.scaled_historical_data.map(( entity, index ) => {
       return (
-        <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"none"} />
+        <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"none"} slice={4}/>
       );
     });
 

@@ -156,6 +156,7 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
 
+    // console.log(data)
     // let x_frame = dimensions.width/(ranges_dates.max_x-1)
 
     // let x = x_frame * (dimensions.historical_data_length - 1);
@@ -172,6 +173,9 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
         //     result.push([data[i][0] * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
         // }else{
         //     result.push([(data[i][0] + 256) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
+        // }
+        // if(i>77 && i< 95){
+        //     console.log([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
         // }
 
         result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
@@ -205,6 +209,10 @@ export function get_data_mocks_area_DATES(data_mocks_area_DATES1, data_mocks_are
     for(let i=0;i<number;i++){
         result.push(data_mocks_area_DATES1[i].concat(data_mocks_area_DATES2[i]))
     }
+
+    // console.log(Object.keys(result[k_w][MA_Day_5+k_w]).length)
+// console.log(Object.keys(result))
+    // console.log(result)
 
     return result
 

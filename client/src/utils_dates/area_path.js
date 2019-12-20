@@ -47,11 +47,12 @@ const areaPath = (points, command, color) => {
 const lineCommand = point => `L ${point[0]} ${point[2]}`
 
     
-export function area_path(data, color, dash=0){
+export function area_path(data, color, dash=0, slice=0){
+
 
     let result = [];
     result.push(svgPath(data, lineCommand, color, dash));
-    result.push(areaPath(data, bezierCommand, color));
+    result.push(areaPath(data.slice(slice), bezierCommand, color));
 
     return result;
 }
@@ -134,6 +135,9 @@ const bezierCommand_upper = (point, i, a) => {
   // start control point
   const cps = controlPoint_upper(a[i - 1], a[i - 2], point)
 
+  // if(point[4]<0){
+  //   console.log(point[0]+ ": " +point[1] + " : " + point[4])
+  // }
   // end control point
   const cpe = controlPoint_upper(point, a[i - 1], a[i + 1], true)
   return `C ${cps[0]},${cps[1]} ${cpe[0]},${cpe[1]} ${point[0]},${point[4]}`

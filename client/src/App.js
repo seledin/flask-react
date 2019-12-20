@@ -97,7 +97,7 @@ class App extends React.PureComponent {
                 height = height;
                 x_trans = 80;
                 y_trans = 80;
-                x_trans2 = 30;
+                x_trans2 = 50;
                 y_trans2 = 80;
               }
         
@@ -105,7 +105,7 @@ class App extends React.PureComponent {
                 height = (1.2)*width/(ratio);
                 x_trans = 80;
                 y_trans = 80;
-                x_trans2 = 30;
+                x_trans2 = 50;
                 y_trans2 = 80;
               }
         
@@ -113,7 +113,7 @@ class App extends React.PureComponent {
                 height = (1.4)*width/(ratio);
                 x_trans = 80;
                 y_trans = 80;
-                x_trans2 = 30;
+                x_trans2 = 50;
                 y_trans2 = 80;
               }
               
@@ -121,7 +121,7 @@ class App extends React.PureComponent {
                 height = (1.6)*width/(ratio);
                 x_trans = 70;
                 y_trans = 70;
-                x_trans2 = 30;
+                x_trans2 = 50;
                 y_trans2 = 70;
               }
         
@@ -129,7 +129,7 @@ class App extends React.PureComponent {
                 height = (1.8)*width/(ratio);
                 x_trans = 60;
                 y_trans = 60;
-                x_trans2 = 30;
+                x_trans2 = 50;
                 y_trans2 = 60;
               }
         
@@ -145,7 +145,7 @@ class App extends React.PureComponent {
                 height = (4)*width/(ratio);
                 x_trans = 60;
                 y_trans = 20;
-                x_trans2 = 20;
+                x_trans2 = 50;
                 y_trans2 = keywords.length*14+ 80;
               }
         
@@ -197,7 +197,7 @@ class App extends React.PureComponent {
         height = height;
         x_trans = 80;
         y_trans = 80;
-        x_trans2 = 30;
+        x_trans2 = 50;
         y_trans2 = 80;
       }
 
@@ -205,7 +205,7 @@ class App extends React.PureComponent {
         height = (1.2)*width/(ratio);
         x_trans = 80;
         y_trans = 80;
-        x_trans2 = 30;
+        x_trans2 = 50;
         y_trans2 = 80;
       }
 
@@ -213,7 +213,7 @@ class App extends React.PureComponent {
         height = (1.4)*width/(ratio);
         x_trans = 80;
         y_trans = 80;
-        x_trans2 = 30;
+        x_trans2 = 50;
         y_trans2 = 80;
       }
       
@@ -221,7 +221,7 @@ class App extends React.PureComponent {
         height = (1.6)*width/(ratio);
         x_trans = 70;
         y_trans = 70;
-        x_trans2 = 30;
+        x_trans2 = 50;
         y_trans2 = 70;
       }
 
@@ -229,7 +229,7 @@ class App extends React.PureComponent {
         height = (1.8)*width/(ratio);
         x_trans = 60;
         y_trans = 60;
-        x_trans2 = 30;
+        x_trans2 = 50;
         y_trans2 = 70;
       }
 
@@ -245,7 +245,7 @@ class App extends React.PureComponent {
         height = (4)*width/(ratio);
         x_trans = 60;
         y_trans = 20;
-        x_trans2 = 20;
+        x_trans2 = 50;
         y_trans2 = this.state.keywords.length*14 + 80;
       }
 
@@ -360,13 +360,30 @@ class App extends React.PureComponent {
 
       get_historical_data(keywords, result){
         let data = []
+        console.log(result)
 
         for (let keyword in keywords) {  
             let index = 0;
+
+            
+
             let k_w = keywords[keyword]
-            let arr = Object.keys(result[k_w][MA_Day_5+k_w]).slice(4,260).map(
+
+            
+
+            // console.log(Object.keys(result[k_w][MA_Day_5+k_w]).length)
+            // let arr = Object.keys(result[k_w][MA_Day_5+k_w]).slice(4,260).map(
+            let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
             function(key){
-                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+              // console.log(result[k_w][UPPER_BAND+k_w][key])
+              if(index<4){
+                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+              }else{
+                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+              }
+              
+              // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)-1), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)-1), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
             }
             );
             data.push(arr)
@@ -381,9 +398,21 @@ class App extends React.PureComponent {
     for (let keyword in keywords) {  
         let index = 0;
         let k_w = keywords[keyword]
+
+        // console.log(Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).length)
+
         let arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
         function(key){
-            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7), key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+
+          if(index<4){
+            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+          }else{
+            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+          }
+
+          // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+          //return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)-1), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+          // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)-1), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
         }
         );
         data.push(arr)

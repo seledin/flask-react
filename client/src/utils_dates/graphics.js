@@ -68,7 +68,7 @@ export function get_ticks(width, height, ticks_number){
 }
 
 function make_y_tick(x, y, value) {
-    return `<text x="${x}" textAnchor="end" class="plot_ytick" y="${y}">${value}</text>`
+    return `<text x="${x}" text-anchor="end" class="plot_ytick" y="${y}">${value}</text>`
 }
 
 export function get_y_axis(x, y, height, lines_number) {
@@ -77,7 +77,7 @@ export function get_y_axis(x, y, height, lines_number) {
     let frame = height / lines_number;
 
     for(let i=0; i<=lines_number; i++){
-        result.push(make_y_tick(-28, height - frame*(i),i * lines_number));
+        result.push(make_y_tick(-20, height - frame*(i),i * lines_number));
     }
 
     let line = `M ${x} ${y} L ${x} ${y + height}`;
@@ -204,14 +204,25 @@ export function get_mark_line(mark_line, height){
 //     return `<path d="${line}" fill="none" class="plot_line" data-z-index="0" />`
 // }
 
+// <text x=25 y=${(i + 1)*25 + 25}>${capitalizeString(keywords[i])} </text>`)
+
 export function get_info_box(info_box, box_width, box_height, keywords){ 
 
     let y_data = [];
     
     if(info_box !== undefined && info_box.value_y !== undefined) {
         for(let i=0; i<info_box.colors.length; i++){
-            y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
-             <text x=25 y=${(i + 1)*25 + 25}>${capitalizeString(keywords[i])} ${info_box.value_y[2][i].toFixed(1)} (min: ${info_box.value_y[3][i].toFixed(1)} | max: ${info_box.value_y[2][i].toFixed(1)})</text>`)
+            
+            if(info_box.value_y[3][i] !== null && info_box.value_y[2][i] !== null){
+                y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
+                <text x=25 y=${(i + 1)*25 + 25}>${capitalizeString(keywords[i])} ${info_box.value_y[2][i].toFixed(1)} (min: ${info_box.value_y[3][i].toFixed(1)} | max: ${info_box.value_y[4][i].toFixed(1)})</text>`)
+            } else {
+                y_data.push(`<path fill="none" d="M 5 ${(i + 1)*25 + 22} L 20 ${(i + 1)*25 + 22}" stroke="${info_box.colors[i]}" strokeWidth="2" opacity="1"></path>
+                
+                 <text x=25 y=${(i + 1)*25 + 25}>${capitalizeString(keywords[i])} ${info_box.value_y[2][i].toFixed(1)}</text>`)
+            }
+
+            
         }
     }
 

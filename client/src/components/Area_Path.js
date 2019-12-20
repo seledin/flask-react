@@ -13,7 +13,7 @@ class Area_Path extends React.PureComponent {
         );
       } else {
         return (
-          <g dangerouslySetInnerHTML={{ __html: area_path(this.props.data, this.props.color) }} />
+          <g dangerouslySetInnerHTML={{ __html: area_path(this.props.data, this.props.color, 0, this.props.slice) }} />
         );
       }
 
