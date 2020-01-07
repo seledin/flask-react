@@ -63,7 +63,17 @@ class App extends React.PureComponent {
             displayResults: false,
         });
   
-        this.fetchData(keywords, selected_state_name, selected_time_frame)
+        this.fetchData(keywords, this.state.region_state, selected_time_frame)
+    }
+
+    mapCallback = (state) => {
+      // console.log("state " + state)
+
+      this.setState({
+        displayResults: false,
+      });
+
+      this.fetchData(this.state.keywords, state, this.state.selected_time_frame)
     }
 
     fetchData(keywords, state, selected_time_frame){
@@ -74,6 +84,8 @@ class App extends React.PureComponent {
         this.setState({
           fetching_results: true
         })
+
+        console.log("state " + state)
         
         fetch(url, {
           method: 'POST',
@@ -86,6 +98,9 @@ class App extends React.PureComponent {
         }).then(res => res.json())
             .then(
             (result) => {
+
+              console.log("result:")
+              console.log(result)
 
               let width = this.myRef.current.offsetWidth;
               let height = width/(ratio);
@@ -170,9 +185,9 @@ class App extends React.PureComponent {
               });
             }).catch(function(error) {
                  console.log("error:")
-                 this.setState({
-                  fetching_results: false
-                });
+                //  this.setState({
+                //   fetching_results: false
+                // });
                  console.log(error)
           })
     }
@@ -283,7 +298,7 @@ class App extends React.PureComponent {
             max_x: (this.state.historical_data[0].length + this.state.forecasted_data[0].length),
             min_x: 0,
             max_y: upper_bound,
-            min_y: -lower_bound,
+            min_y: lower_bound,
           }
 
           // console.log("ranges")
@@ -305,8 +320,8 @@ class App extends React.PureComponent {
 
               <div className="results_div">
                     <div className="map_div">
-                      <Chart height={this.state.div_height} />
-                      {/* <Chart callbackFromApp={this.mapCallback}/> */}
+                      {/* <Chart height={this.state.div_height} /> */}
+                      <Chart callbackFromApp={this.mapCallback}/>
                     </div>
                     <div id="plot_div"> 
                         <Test_Plot_Dates options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />

@@ -74,7 +74,7 @@ function make_y_tick(x, y, value) {
 export function get_y_axis(x, y, height, lower_index, upper_index) {
     let result = [];
 
-    let lines_number = lower_index + upper_index;
+    let lines_number = upper_index - lower_index;
 
     let frame = height / lines_number;
 
@@ -86,8 +86,8 @@ export function get_y_axis(x, y, height, lower_index, upper_index) {
     //     result.push(make_y_tick(-20, height - frame*(i),i * 10));
     // }
 
-    for(let i=-lower_index; i<=upper_index; i++){
-        result.push(make_y_tick(-20, height - frame*(i + difference),i * 10));
+    for(let i=lower_index; i<=upper_index; i++){
+        result.push(make_y_tick(-20, height - frame*(i -lower_index),i * 10));
     }
 
     let line = `M ${x} ${y} L ${x} ${y + height}`;

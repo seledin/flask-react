@@ -244,6 +244,7 @@ class Chart extends React.PureComponent {
     }
 
     setHoverData = (e) => {
+      // console.log(e.point["hc-key"])
       this.props.callbackFromApp(e.point["hc-key"])
     }
 

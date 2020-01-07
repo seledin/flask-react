@@ -52,6 +52,12 @@ class Test_Plot_Dates extends React.Component {
 
     this.divRef = React.createRef();
 
+    let min_y = get_min_value(this.props.historical_data);
+    let max_y = get_max_value(this.props.historical_data);
+
+    console.log("ranges")
+    console.log(this.props.ranges)
+
     this.state = {
         title: this.props.options.title,
         ticks_number: array_length_dates,
@@ -357,18 +363,25 @@ class Test_Plot_Dates extends React.Component {
 
     const aa = this.state.max_y;
     const bb = this.state.min_y;
+
+    console.log("max: " + aa)
+    console.log("min: " + bb)
     // console.log(this.state.min_y)
     // console.log("@@: " + Math.abs(bb))
     // console.log("!! " + Math.ceil((Math.abs(bb)+1) / 10) * 10)
 
     // let upper_bound = this.state.max_x
 
-    let lower_bound = Math.ceil((Math.abs(bb)+1) / 10) * 10
+    let lower_bound = Math.floor(((bb)+1) / 10) * 10
     let upper_bound = Math.ceil((Math.abs(aa)+1) / 10) * 10
 
     // let upper_bound = this.state.max_x
 
-    let calc_y_number = (lower_bound + upper_bound)/10
+    let calc_y_number = (upper_bound - lower_bound)/10;
+
+    console.log("!! " + lower_bound)
+    console.log("@@ " + upper_bound)
+    console.log("## " + calc_y_number)
 
     // console.log("##: " + bb)
     // // console.log("@@: " + this.state.max_y)
@@ -392,7 +405,9 @@ class Test_Plot_Dates extends React.Component {
 
                 <Plot dimensions={this.state.dimensions} y_number={calc_y_number} title={this.state.title} />
 
-                <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={this.props.ranges.min_y} upper_bound={this.props.ranges.max_y} />
+                <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={lower_bound} upper_bound={upper_bound} />
+
+                {/* <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={this.props.ranges.min_y} upper_bound={this.props.ranges.max_y} /> */}
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={12} dates={this.state.data_map_area_DATES} />
                 

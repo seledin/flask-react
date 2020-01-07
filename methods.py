@@ -54,9 +54,9 @@ def BB_evaluator2(time_series, keyword, span_manual):
 #                           span_manual=5,
 #                           gt_delay=7,
 #                           forecast_time_lead=5):
-def keyword_forecaster_v1(kw_list_in):
+def keyword_forecaster_v1(kw_list_in, region_state=GEO_IN):
 
-    big_keywords_dataframe=gt_data_extractor(kw_list_in, geo_in=GEO_IN)
+    big_keywords_dataframe=gt_data_extractor(kw_list_in, geo_in=region_state)
     timeframe_in='today 5-y'
     geo_in='US'
     span_manual=5

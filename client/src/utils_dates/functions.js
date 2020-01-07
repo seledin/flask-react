@@ -152,10 +152,15 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let result = [];
     let x_diff = Math.abs(ranges.max_x - ranges.min_x);
     let y_diff = Math.abs(ranges.max_y - ranges.min_y);
-
+    
+    // console.log("*** ranges")
+    // console.log(ranges)
+    
+    // console.log("***: " + ranges.min_y)
+    
     let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
-
+    // console.log("^^^^^^^^ " + y_frame*(ranges.min_y))
 
     for (let i=0; i<data.length; i++){
         // console.log(data[i])
@@ -168,8 +173,10 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
         //     console.log([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
         // }
 
-        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
-        
+        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
+        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y-10), height - data[i][3] * y_frame + y_frame*(ranges.min_y-10), height - data[i][4] * y_frame + y_frame*(ranges.min_y-10)])
+        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*ranges.min, height - data[i][3] * y_frame - y_frame*ranges.min, height - data[i][4] * y_frame - y_frame*ranges.min])
+        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
     }
 
     // console.log(result)
@@ -224,12 +231,23 @@ export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2,
 export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_dates, number_of_plots){
 
     let data_map_area_DATES = []
+    // console.log("@@@@@")
+    // console.log("@@@@@" + array_length_dates)
+    // console.log(data_mocks_area_DATES)
+    
+    let counter = 0;
 
-    for(let i = 0; i<array_length_dates; i++) {
+
+    for(let i = 0; i<array_length_dates-2; i++) {
         let y_data_normal = [];
         let y_data_min = [];
         let y_data_max = [];
         let date;
+      
+        // if(console.log(data_mocks_area_DATES[0][i])=== undefined){
+        //     counter++;
+        //     console.log("@@@@@" + counter)
+        // }
       
         date = data_mocks_area_DATES[0][i][1]
       
@@ -286,24 +304,27 @@ export function get_forecasted_dates(){
 }
 
 export function get_min_value(data){
-    let min_result = data[0][0][3];
+    // let min_result = data[0][0][3];
+    let min_result = 100;
 
     for(let i=0; i<data.length; i++){
-        for(let j=0;j<data[i].length; j++){
-            if(data[i][j][3] < min_result){
+        for(let j=0;j<data[i].length-2; j++){
+            if(data[i][j][3]!==null && data[i][j][3] < min_result){
                 min_result = data[i][j][3]
             }
         }
     }
+    // console.log("min@: " + min_result)
     return min_result
 }
 
 export function get_max_value(data){
-    let max_result = data[0][0][4];
+    // let max_result = data[0][0][4];
+    let max_result = 0;
 
     for(let i=0; i<data.length; i++){
-        for(let j=0;j<data[i].length; j++){
-            if(data[i][j][4] > max_result){
+        for(let j=0;j<data[i].length-2; j++){
+            if(data[i][j][4]!==null && data[i][j][4] > max_result){
                 max_result = data[i][j][4]
             }
         }
