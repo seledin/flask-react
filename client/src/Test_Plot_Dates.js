@@ -55,8 +55,8 @@ class Test_Plot_Dates extends React.Component {
     let min_y = get_min_value(this.props.historical_data);
     let max_y = get_max_value(this.props.historical_data);
 
-    console.log("ranges")
-    console.log(this.props.ranges)
+    // console.log("ranges")
+    // console.log(this.props.ranges)
 
     this.state = {
         title: this.props.options.title,
@@ -364,29 +364,19 @@ class Test_Plot_Dates extends React.Component {
     const aa = this.state.max_y;
     const bb = this.state.min_y;
 
-    console.log("max: " + aa)
-    console.log("min: " + bb)
-    // console.log(this.state.min_y)
-    // console.log("@@: " + Math.abs(bb))
-    // console.log("!! " + Math.ceil((Math.abs(bb)+1) / 10) * 10)
+    // console.log("max: " + aa)
+    // console.log("min: " + bb)
 
-    // let upper_bound = this.state.max_x
-
-    let lower_bound = Math.floor(((bb)+1) / 10) * 10
+    let lower_bound = (Math.ceil(((bb)+1) / 10)-1) * 10
     let upper_bound = Math.ceil((Math.abs(aa)+1) / 10) * 10
 
-    // let upper_bound = this.state.max_x
 
     let calc_y_number = (upper_bound - lower_bound)/10;
 
-    console.log("!! " + lower_bound)
-    console.log("@@ " + upper_bound)
-    console.log("## " + calc_y_number)
+    // console.log("!! " + lower_bound)
+    // console.log("@@ " + upper_bound)
+    // console.log("## " + calc_y_number)
 
-    // console.log("##: " + bb)
-    // // console.log("@@: " + this.state.max_y)
-    // console.log("@@: " + upper_bound)
-    // console.log(calc_y_number)
 
     return (
       <div ref={this.divRef}>

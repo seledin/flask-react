@@ -155,8 +155,8 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     
     // console.log("*** ranges")
     // console.log(ranges)
-    
-    // console.log("***: " + ranges.min_y)
+    // console.log("$$$$")
+    // console.log(y_diff)
     
     let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
@@ -174,7 +174,12 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
         // }
 
         // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
-        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y-10), height - data[i][3] * y_frame + y_frame*(ranges.min_y-10), height - data[i][4] * y_frame + y_frame*(ranges.min_y-10)])
+        
+        
+        result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y), height - data[i][3] * y_frame + y_frame*(ranges.min_y), height - data[i][4] * y_frame + y_frame*(ranges.min_y)])
+        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y-20), height - data[i][3] * y_frame + y_frame*(ranges.min_y-20), height - data[i][4] * y_frame + y_frame*(ranges.min_y-20)])
+
+
         // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*ranges.min, height - data[i][3] * y_frame - y_frame*ranges.min, height - data[i][4] * y_frame - y_frame*ranges.min])
         // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
     }

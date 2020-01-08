@@ -67,13 +67,13 @@ class App extends React.PureComponent {
     }
 
     mapCallback = (state) => {
-      // console.log("state " + state)
+      console.log("state " + state)
 
-      this.setState({
-        displayResults: false,
-      });
+      // this.setState({
+      //   displayResults: false,
+      // });
 
-      this.fetchData(this.state.keywords, state, this.state.selected_time_frame)
+      // this.fetchData(this.state.keywords, state, this.state.selected_time_frame)
     }
 
     fetchData(keywords, state, selected_time_frame){
@@ -82,10 +82,11 @@ class App extends React.PureComponent {
         let url = "/new"
 
         this.setState({
-          fetching_results: true
+          fetching_results: true,
+          keywords: keywords
         })
 
-        console.log("state " + state)
+        // console.log("state " + state)
         
         fetch(url, {
           method: 'POST',
@@ -99,8 +100,8 @@ class App extends React.PureComponent {
             .then(
             (result) => {
 
-              console.log("result:")
-              console.log(result)
+              // console.log("result:")
+              // console.log(result)
 
               let width = this.myRef.current.offsetWidth;
               let height = width/(ratio);
@@ -291,7 +292,7 @@ class App extends React.PureComponent {
 
           
 
-          let lower_bound = Math.ceil((Math.abs(min_y)+1) / 10) * 10
+          let lower_bound = (Math.ceil(((min_y)+1) / 10)-1) * 10
           let upper_bound = Math.ceil((Math.abs(max_y)+1) / 10) * 10
 
           ranges = {
@@ -305,13 +306,24 @@ class App extends React.PureComponent {
           // console.log(ranges)
         }
 
+        // console.log(this.state.keywords.length)
+
 
         if (this.state.authenticated) {
 
-        return (
+        return (      
           <div ref={this.myRef}>
             <div className="main_results">
-            {this.state.displayResults ? (
+
+            {/* {this.state.keywords.length<=5 ? (<div>
+
+              
+
+            </div>) : (<div>Too many keywords</div>)
+              
+            } */}
+
+            {(this.state.displayResults) ? (
             
             <div>
               <Header username={this.state.username} />
@@ -321,7 +333,7 @@ class App extends React.PureComponent {
               <div className="results_div">
                     <div className="map_div">
                       {/* <Chart height={this.state.div_height} /> */}
-                      <Chart callbackFromApp={this.mapCallback}/>
+                      <Chart callbackFromApp={this.mapCallback} height={this.state.div_height} />
                     </div>
                     <div id="plot_div"> 
                         <Test_Plot_Dates options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
