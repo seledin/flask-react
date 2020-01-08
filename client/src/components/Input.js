@@ -28,8 +28,10 @@ class InputComponent extends Component {
         event.preventDefault();
 
         let keywords = this.arrayTrim(this.state.keywords);
-        let selectedState = this.state.selectedState;
+        let selectedState = this.state.selected_state_name;
         let selectedTimeFrame = this.state.selectedTimeFrame;
+
+        // console.log("input state: " + selectedState)
 
         this.props.callbackFromParent(keywords, selectedState, selectedTimeFrame);
     }
