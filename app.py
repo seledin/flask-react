@@ -37,10 +37,10 @@ def ping_pong():
 @app.route('/new', methods=['POST'])
 def echo_new():
     keywords = request.json['keywords']
-    state = request.json['region_state']
+    state = request.json['region_state'].upper()
 
-    print("$$$$")
-    print(state)
+    print("state: " + state)
+    # print(state)
     d = keyword_forecaster_v1(kw_list_in=keywords, region_state=state)
 
     dictionary = {}

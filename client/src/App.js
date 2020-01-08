@@ -69,11 +69,11 @@ class App extends React.PureComponent {
     mapCallback = (state) => {
       console.log("state " + state)
 
-      // this.setState({
-      //   displayResults: false,
-      // });
+      this.setState({
+        displayResults: false,
+      });
 
-      // this.fetchData(this.state.keywords, state, this.state.selected_time_frame)
+      this.fetchData(this.state.keywords, state, this.state.selected_time_frame)
     }
 
     fetchData(keywords, state, selected_time_frame){
