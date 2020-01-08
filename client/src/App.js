@@ -9,6 +9,7 @@ import Test_Plot_Dates from './Test_Plot_Dates';
 import { capitalizeString } from "./utils_dates/functions";
 import Loader from "react-loader-spinner";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import KeywordPlot from './components/plot3'
 
 import { get_min_value, get_max_value} from './utils_dates/functions'
 import './styles/plot.css'
@@ -336,8 +337,9 @@ class App extends React.PureComponent {
                       <Chart callbackFromApp={this.mapCallback} height={this.state.div_height} />
                     </div>
                     <div id="plot_div"> 
-                        <Test_Plot_Dates options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
+                        {/* <Test_Plot_Dates options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} /> */}
                         {/* <Plot options={this.state.options} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} /> */}
+                        <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
                     </div>
               </div>
               <div className="tables">
@@ -348,6 +350,10 @@ class App extends React.PureComponent {
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
                     </div>
+                </Row>
+                <Row>
+                  {/* <KeywordPlot height={500} width={500} radius={50} color={"red"} /> */}
+                  {/* <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} /> */}
                 </Row>
               </div>
             </div>  ) : (

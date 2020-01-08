@@ -33,9 +33,9 @@ class TableComponent extends Component {
           }
         }else{
           if(i>0){
-            return <td key = {i}>{"null"}</td>
+            return <td key = {i}>{"0.00"}</td>
           }else{
-            return <td key = {i}>{"null"}</td>
+            return <td key = {i}>{"0.00"}</td>
           }
         }
       })
