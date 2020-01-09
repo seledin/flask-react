@@ -35,7 +35,7 @@ import Plot from './parts/Plot';
 
 let dimensions = appConfig.dimensions;
 // let ranges = appConfig.ranges_dates;
-let number_of_plots = appConfig.number_of_plots;
+// let number_of_plots = appConfig.number_of_plots;
 let array_length_dates = appConfig.array_length_dates + appConfig.array_length_dates_forecast;
 
 // dimensions.box_height = get_box_height(number_of_plots);
@@ -409,15 +409,9 @@ export class KeywordPlot extends React.Component {
 
                 { area_paths_future }
                 
-                {/* <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
-
-                <AxisY dimensions={this.state.dimensions} y_number={this.state.y_number} y_label={this.state.y_label} /> */}
-
-                <Plot dimensions={this.state.dimensions} y_number={calc_y_number} title={this.state.title} />
+                <Plot dimensions={this.state.dimensions} y_number={this.state.y_number} title={this.state.title} />
 
                 <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={lower_bound} upper_bound={upper_bound} />
-
-                {/* <AxisY dimensions={this.state.dimensions} y_number={calc_y_number} y_label={this.state.y_label} lower_bound={this.props.ranges.min_y} upper_bound={this.props.ranges.max_y} /> */}
 
                 <AxisX dimensions={this.state.dimensions} x_label={this.state.x_label} ticks={12} dates={this.state.data_map_area_DATES} />
                 

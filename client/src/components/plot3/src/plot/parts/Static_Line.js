@@ -1,18 +1,15 @@
 import React from 'react';
-import { get_red_line } from "../utils_dates/graphics"
 
-class Static_Line extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-    
-    render() {
-      return (
-        <g>
-            <g dangerouslySetInnerHTML={{ __html: get_red_line(this.props.dimensions, this.props.ranges) }} /> 
-        </g>
-      );
-    }
-  }
+export const Static_Line = props => {
 
-  export default Static_Line ;
+  let x_frame = props.dimensions.width/(props.ranges.max_x-1)
+  let x = x_frame * (props.dimensions.historical_data_length - 1);
+
+  return (
+    <g>
+        <path fill="none" class="plot_pointer_line" d={`M ${x} 0 L ${x} ${props.dimensions.height}`} stroke-dasharray="6" data-z-index="0"></path>
+    </g>
+  )
+};
+
+export default Static_Line
