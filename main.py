@@ -53,18 +53,19 @@ def echo_new():
     keywords = request.json['keywords']
     d = keyword_forecaster_v1(kw_list_in=keywords)
 
-    dictionary = {}
+    # dictionary = {}
 
-    for keyword in keywords:
-        dictionary[keyword] = d[keyword].to_dict()
-        k = keyword + "F"
-        dictionary[k] = d[k].to_dict()
+    # for keyword in keywords:
+    #     dictionary[keyword] = d[keyword].to_dict()
+    #     k = keyword + "F"
+    #     dictionary[k] = d[k].to_dict()
 
 
 
-    result = pd.DataFrame.from_dict(dictionary)
+    # result = pd.DataFrame.from_dict(dictionary)
 
-    return json.loads(result.to_json(orient='columns', date_format='iso'))
+    # return json.loads(result.to_json(orient='columns', date_format='iso'))
+    return {}
 
 
 if __name__ == '__main__':

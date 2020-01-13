@@ -13,8 +13,6 @@ export const AxisY = props => {
   let x = 0;
   let y = 0;
 
-  let difference = Math.abs(lower_index)
-
   for(let i=lower_index; i<=upper_index; i++){
     result.push(make_y_tick(-20, props.dimensions.height - frame*(i -lower_index),i * 10));
   }

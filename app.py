@@ -40,7 +40,7 @@ def echo_new():
     state = request.json['region_state'].upper()
 
     print("state: " + state)
-    # print(state)
+    print(state)
     d = keyword_forecaster_v1(kw_list_in=keywords, region_state=state)
 
     dictionary = {}
@@ -56,7 +56,21 @@ def echo_new():
     result = pd.DataFrame.from_dict(dictionary)
 
     # return json.loads(result.to_json(orient='columns', date_format='iso'))
-    return (result.to_json(orient='columns', date_format='iso'))
+    # return (result.to_json(orient='columns', date_format='iso'))
+
+    # result = pd.DataFrame(d[d.columns[1:2]], d[d.columns[1:2]])
+
+    return result.to_json(orient='columns', date_format='iso')
+
+    # initialise data of lists. 
+    # data = {'Name':['Tom', 'Jack', 'nick', 'juli'], 'marks':[99, 98, 95, 90]} 
+    
+    # Creates pandas DataFrame. 
+    # df = pd.DataFrame(data, index =['rank1', 'rank2', 'rank3', 'rank4']) 
+
+    # return d.to_json(orient='records')
+
+    # return d[d.columns[1:3]].to_json(orient='columns', date_format='iso')
 
     
 

@@ -26,7 +26,7 @@ export default Legend
             legend.push(
               <g data-z-index="1" transform={`translate(${translation},3)`}>
                   <path fill="none" d="M 0 11 L 30 11" stroke={colors[i]} stroke-width="0"></path>
-                  <text x="35" textAnchor="start" data-z-index="0" y="15" font-size="12px" stroke="#6c757d" stroke-width="0">{capitalizeString(keywords[i])}</text>
+                  <text x="35" textAnchor="start" data-z-index="0" y="15" fontSize="12px" stroke="#6c757d" stroke-width="0">{capitalizeString(keywords[i])}</text>
               </g>
         );
 

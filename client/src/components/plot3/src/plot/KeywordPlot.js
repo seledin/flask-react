@@ -1,27 +1,7 @@
-// import React from 'react';
-// import KeywordPlot2 from './parts/KeywordPlot2'
-
-// export class KeywordPlot extends React.Component {	
-
-//   constructor(props) {
-//     super(props);
-//   }
-
-//   render() {
-//     return (<div>hello2
-//         {/* <KeywordPlot2 /> */}
-//         <KeywordPlot2 width={this.props.width} height={this.props.height} radius={this.props.radius} color={this.props.color} />
-//     </div>
-//     );
-//   }
-// }
-
-// // export default KeywordPlot;
-
 import React from 'react';
 import './App.css';
-import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates, get_min_value, get_max_value} from './utils_dates/functions'
-import { appConfig } from './utils_dates/config.js';
+import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates, get_min_value, get_max_value} from './utils/functions'
+import { appConfig } from './utils/config.js';
 
 import AxisX from './parts/AxisX';
 import AxisY from './parts/AxisY';
@@ -49,7 +29,7 @@ let forecasted_mock2 = get_random_mock_area_array_dates(get_forecasted_dates(),4
 let historical_data_mock = [historical_mock1, historical_mock2]
 let forecasted_data_mock = [forecasted_mock1, forecasted_mock2]
 
-for(let i=0;i<historical_data_mock.length; i++){
+for (let i=0;i<historical_data_mock.length; i++){
   forecasted_data_mock[i].unshift(historical_data_mock[i][historical_data_mock[i].length - 1])
 }
 
@@ -198,10 +178,6 @@ export class KeywordPlot extends React.Component {
     var dim = e.getBoundingClientRect();
     var x = event.clientX - dim.left - this.state.dimensions.x_trans;
     var y = event.clientY - dim.top - this.state.dimensions.y_trans;
-
-    // console.log(x)
-    // console.log(this.state.dimensions)
-
 
     if(x >= 0 && y >= 0 && x <= this.state.dimensions.width && y <= this.state.dimensions.height){
 
@@ -356,16 +332,6 @@ export class KeywordPlot extends React.Component {
 
   render() {
 
-    // console.log(this.state.min_y)
-    // console.log(this.state.max_y)
-    // console.log("$$$$$")
-    // console.log(Object.keys(this.state.data_map_area_DATES).length)
-    // console.log(this.state.data_map_area_DATES)
-    // console.log(this.state.dimensions)
-    // console.log(this.state.scaled_forecasted_data)
-
-    // console.log(this.state.scaled_historical_data)
-
     let area_paths = this.state.scaled_historical_data.map(( entity, index ) => {
       return (
         <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"none"} slice={4}/>
@@ -384,24 +350,15 @@ export class KeywordPlot extends React.Component {
     const aa = this.state.max_y;
     const bb = this.state.min_y;
 
-    // console.log("max: " + aa)
-    // console.log("min: " + bb)
-
     let lower_bound = (Math.ceil(((bb)+1) / 10)-1) * 10
     let upper_bound = Math.ceil((Math.abs(aa)+1) / 10) * 10
 
 
     let calc_y_number = (upper_bound - lower_bound)/10;
 
-    // console.log("!! " + lower_bound)
-    // console.log("@@ " + upper_bound)
-    // console.log("## " + calc_y_number)
-
-
     return (
       <div ref={this.divRef}>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff} className="test_plot" width={this.state.dimensions.width2} height={this.props.height} viewBox={v_b}>
-          {/* <rect fill="#ffffff" className="" x="0" y="0" width={dimensions.width} height={dimensions.height} rx="0" ry="0"></rect>  */}
             <g>
               <g transform={v_trans}>
 
@@ -430,11 +387,5 @@ export class KeywordPlot extends React.Component {
     );
   }
 }
-
-// function round(num,pre) {
-//   if( !pre) pre = 0;
-//   var pow = Math.pow(10,pre);
-//   return Math.round(num*pow)/pow;
-// }
 
 export default KeywordPlot;

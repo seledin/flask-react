@@ -121,17 +121,6 @@ export function get_random_mock_array_dates(dates, min_y, max_y){
     return result;
 }
 
-// export function get_random_mock_array_area_dates(dates, min_y, max_y){
-//     let result = [];
-//     let std
-
-//     for (let i=0; i<dates.length; i++){
-//         result.push([i, dates[i] ,get_random(min_y, max_y)])
-//     }
-
-//     return result;
-// }
-
 export function scale_data_dates(data, ranges ,width, height){
     let result = [];
 
@@ -153,38 +142,12 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
     let x_diff = Math.abs(ranges.max_x - ranges.min_x);
     let y_diff = Math.abs(ranges.max_y - ranges.min_y);
     
-    // console.log("*** ranges")
-    // console.log(ranges)
-    // console.log("$$$$")
-    // console.log(y_diff)
-    
     let x_frame = width/(x_diff - 1);
     let y_frame = height/y_diff;
-    // console.log("^^^^^^^^ " + y_frame*(ranges.min_y))
 
     for (let i=0; i<data.length; i++){
-        // console.log(data[i])
-        // if(i<255){
-        //     result.push([data[i][0] * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
-        // }else{
-        //     result.push([(data[i][0] + 256) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
-        // }
-        // if(i>77 && i< 95){
-        //     console.log([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame, height - data[i][3] * y_frame, height - data[i][4] * y_frame ])
-        // }
-
-        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
-        
-        
         result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y), height - data[i][3] * y_frame + y_frame*(ranges.min_y), height - data[i][4] * y_frame + y_frame*(ranges.min_y)])
-        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame + y_frame*(ranges.min_y-20), height - data[i][3] * y_frame + y_frame*(ranges.min_y-20), height - data[i][4] * y_frame + y_frame*(ranges.min_y-20)])
-
-
-        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*ranges.min, height - data[i][3] * y_frame - y_frame*ranges.min, height - data[i][4] * y_frame - y_frame*ranges.min])
-        // result.push([(i+prefix) * x_frame, data[i][1], height - data[i][2] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][3] * y_frame - y_frame*(Math.abs(ranges.min_y)), height - data[i][4] * y_frame - y_frame*(Math.abs(ranges.min_y))])
     }
-
-    // console.log(result)
 
     return result;
 }
@@ -192,9 +155,6 @@ export function scale_data_area_dates(data, ranges ,width, height, prefix=0){
 export function get_random_mock_area_array_dates(dates, min_y, max_y){
     let result = [];
     
-
-
-
     for (let i=0; i<dates.length; i++){
         let s_d1 = get_random(2,8);
         let s_d2 = get_random(2,8);
@@ -212,12 +172,7 @@ export function get_data_mocks_area_DATES(data_mocks_area_DATES1, data_mocks_are
         result.push(data_mocks_area_DATES1[i].concat(data_mocks_area_DATES2[i]))
     }
 
-    // console.log(Object.keys(result[k_w][MA_Day_5+k_w]).length)
-// console.log(Object.keys(result))
-    // console.log(result)
-
     return result
-
 }
 
 export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2, ranges, width, height, number_of_plots){
@@ -226,7 +181,6 @@ export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2,
 
     for (let i=0; i<number_of_plots; i++){
         scaled_data_mocks_area_DATES.push(scale_data_area_dates(data_mocks_area_DATES1[i], ranges, width, height));
-        // scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, 256));
         scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, data_mocks_area_DATES1[i].length - 1));
     }
 
@@ -240,7 +194,7 @@ export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_date
     // console.log("@@@@@" + array_length_dates)
     // console.log(data_mocks_area_DATES)
     
-    let counter = 0;
+    // let counter = 0;
 
 
     for(let i = 0; i<array_length_dates-2; i++) {
@@ -249,23 +203,15 @@ export function get_data_map_area_DATES(data_mocks_area_DATES, array_length_date
         let y_data_max = [];
         let date;
       
-        // if(console.log(data_mocks_area_DATES[0][i])=== undefined){
-        //     counter++;
-        //     console.log("@@@@@" + counter)
-        // }
-      
         date = data_mocks_area_DATES[0][i][1]
-      
       
         for(let j=0; j<number_of_plots; j++) {
           y_data_normal.push(data_mocks_area_DATES[j][i][2])
           y_data_min.push(data_mocks_area_DATES[j][i][3])
           y_data_max.push(data_mocks_area_DATES[j][i][4])
         }
-      
         data_map_area_DATES[i] = [i, date, y_data_normal, y_data_min, y_data_max]
     }
-
     return data_map_area_DATES;
 }
 
@@ -281,32 +227,32 @@ function titleCase(str) {
     return splitStr.join(' '); 
  }
 
-export function get_historical_dates(){
-    let dates = []
-    dates.push(Date.UTC(2010, 0, 18))
-    dates.push(Date.UTC(2010, 1, 18))
-    dates.push( Date.UTC(2010, 2, 18))
-    dates.push(Date.UTC(2010, 3, 18))
-    dates.push( Date.UTC(2010, 4, 18))
-    dates.push( Date.UTC(2010, 5, 18))
-    dates.push( Date.UTC(2010, 6, 18))
-    dates.push( Date.UTC(2010, 7, 18))
-    // dates.push(Date.UTC(2010, 8, 18))
-    // dates.push( Date.UTC(2010, 9, 18))
-    // dates.push( Date.UTC(2010, 10, 18))
+// export function get_historical_dates(){
+//     let dates = []
+//     dates.push(Date.UTC(2010, 0, 18))
+//     dates.push(Date.UTC(2010, 1, 18))
+//     dates.push( Date.UTC(2010, 2, 18))
+//     dates.push(Date.UTC(2010, 3, 18))
+//     dates.push( Date.UTC(2010, 4, 18))
+//     dates.push( Date.UTC(2010, 5, 18))
+//     dates.push( Date.UTC(2010, 6, 18))
+//     dates.push( Date.UTC(2010, 7, 18))
+//     // dates.push(Date.UTC(2010, 8, 18))
+//     // dates.push( Date.UTC(2010, 9, 18))
+//     // dates.push( Date.UTC(2010, 10, 18))
     
-    return dates;
-}
+//     return dates;
+// }
 
-export function get_forecasted_dates(){
-    let dates = []
-    // dates.push( Date.UTC(2010, 7, 18))
-    dates.push(Date.UTC(2010, 8, 18))
-    dates.push( Date.UTC(2010, 9, 18))
+// export function get_forecasted_dates(){
+//     let dates = []
+//     // dates.push( Date.UTC(2010, 7, 18))
+//     dates.push(Date.UTC(2010, 8, 18))
+//     dates.push( Date.UTC(2010, 9, 18))
 
-    return dates;
+//     return dates;
 
-}
+// }
 
 export function get_min_value(data){
     // let min_result = data[0][0][3];

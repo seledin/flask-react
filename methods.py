@@ -166,4 +166,6 @@ def keyword_forecaster_v1(kw_list_in, region_state=GEO_IN):
     # final_dataframe_historical.to_json('output_h.json')
 
     # return final_dataframe_historical, final_dataframe_forecasted, projected_growth_result, growth_rate_result
+    # return projected_growth_result
+    # return final_dataframe_historical
     return dictionary

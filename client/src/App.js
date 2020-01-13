@@ -79,8 +79,8 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-        // let url = appConfig.KEYWORDS_NEW;
-        let url = "/new"
+        let url = appConfig.KEYWORDS_NEW;
+        // let url = "/new"
 
         this.setState({
           fetching_results: true,
@@ -440,10 +440,14 @@ class App extends React.PureComponent {
             let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
             function(key){
               // console.log(result[k_w][UPPER_BAND+k_w][key])
+              console.log(key)
               if(index<4){
-                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                // new Date("2015-01-18 00:00:00").valueOf() ;
+                return [index++, new Date(key).valueOf(), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
               }else{
-                return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                return [index++, new Date(key).valueOf(), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+                // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
               }
               
               // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)-1), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
@@ -467,11 +471,13 @@ class App extends React.PureComponent {
 
         let arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
         function(key){
-
+          console.log(key)
           if(index<4){
-            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+            return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]            
+            // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
           }else{
-            return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+            return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+            // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
           }
 
           // return [index++, Date.UTC(key.substring(0,4), key.substring(5,7)-1, key.substring(8,10)), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
