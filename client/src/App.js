@@ -5,13 +5,10 @@ import { Row } from 'react-bootstrap';
 import Login from './components/Login';
 import Table from './components/Table';
 import Chart from './components/Chart';
-// import Test_Plot_Dates from './Test_Plot_Dates';
 import KeywordPlot from './components/plot';
 import { get_min_value, get_max_value} from './components/plot/src/plot/parts/functions';
-// import { get_min_value, get_max_value} from './utils_dates22/functions';
 import { appConfig } from './config.js';
 import { capitalizeString } from './components/plot/src/plot/parts/functions';
-// import { capitalizeString } from "./utils_dates22/functions";
 
 import Loader from "react-loader-spinner";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -46,8 +43,7 @@ class App extends React.PureComponent {
           y_label: "Search interest (%)",
           dimensions: dimensions,
         },
-        historical_data: [],
-        forecasted_data: [],
+        data: [],
         rate_table_data: [],
         growth_table_data: [],
         x_trans: 85,
@@ -78,8 +74,8 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-      // let url = appConfig.KEYWORDS_NEW;
-      let url = "/api"
+      let url = appConfig.KEYWORDS_NEW;
+      // let url = "/api"
 
       this.setState({
         fetching_results: true,
@@ -108,8 +104,7 @@ class App extends React.PureComponent {
                 region_state: state,
                 selected_time_frame: selected_time_frame,
                 displayResults: true,
-                historical_data: this.get_historical_data(keywords, result),
-                forecasted_data: this.get_forecasted_data(keywords, result),
+                data: this.get_data(keywords, result),
                 rate_table_data: this.getRateTableData(result.growth_rate_result),
                 growth_table_data: this.getGrowthTableData(result.projected_growth_result),
                 div_height: sizes.height,
@@ -157,14 +152,14 @@ class App extends React.PureComponent {
       }
 
       if(this.state.displayResults) {
-        let min_y = get_min_value(this.state.historical_data);
-        let max_y = get_max_value(this.state.historical_data);
+        let min_y = get_min_value(this.state.data.historical_data);
+        let max_y = get_max_value(this.state.data.historical_data);
 
         let lower_bound = (Math.ceil(((min_y)+1) / 10)-1) * 10
         let upper_bound = Math.ceil((Math.abs(max_y)+1) / 10) * 10
 
         ranges = {
-          max_x: (this.state.historical_data[0].length + this.state.forecasted_data[0].length),
+          max_x: (this.state.data.historical_data[0].length + this.state.data.forecasted_data[0].length),
           min_x: 0,
           max_y: upper_bound,
           min_y: lower_bound,
@@ -202,7 +197,7 @@ class App extends React.PureComponent {
                       <Chart callbackFromApp={this.mapCallback} height={this.state.div_height} />
                     </div>
                     <div id="plot_div"> 
-                        <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
+                        <KeywordPlot options={this.state.options} ranges={ranges} data={this.state.data} number_of_series={this.state.data.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
                     </div>
               </div>
               <div className="tables">
@@ -263,65 +258,61 @@ class App extends React.PureComponent {
       return result;
     }
     
-      getRateTableData(data){
-        let headers = HEADERS_GROWTH_RATES;
-        let table_headers = ["Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4", "Growth Rate 5"]
-    
-        let arr = Object.keys(data["Keyword"]).map(
-          function(key){
-            return [capitalizeString(data["Keyword"][key]), data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
-          }
-        );
-    
-        let result = {
-          data: arr,
-          headers: table_headers
-        }
-    
-        return result;
-      }
-
-      get_historical_data(keywords, result){
-        let data = []
-
-        for (let keyword in keywords) {  
-            let index = 0;
-            let k_w = keywords[keyword]
-            let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
-
-              function(key){
-                if(index<4) {
-                  return [index++, new Date(key).valueOf(), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
-                } else {
-                  return [index++, new Date(key).valueOf(), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
-                }
-              }
-            );
-            data.push(arr)
-        }
-        return data;
-    }
-    
-  get_forecasted_data(keywords, result){
-  let data = []
-
-  for (let keyword in keywords) {  
-      let index = 0;
-      let k_w = keywords[keyword]
-      let arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
-      
+    getRateTableData(data){
+      let headers = HEADERS_GROWTH_RATES;
+      let table_headers = ["Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4", "Growth Rate 5"]
+  
+      let arr = Object.keys(data["Keyword"]).map(
         function(key){
-          if(index<4) {
-            return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]            
-          } else {
-            return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
-          }
+          return [capitalizeString(data["Keyword"][key]), data[headers[0]][key], data[headers[1]][key], data[headers[2]][key], data[headers[3]][key], data[headers[4]][key]]
         }
       );
-      data.push(arr)
-  }
+  
+      let result = {
+        data: arr,
+        headers: table_headers
+      }
+  
+      return result;
+    }
 
-  return data;
+
+  get_data(keywords, result){
+    let historical_data = []
+    let forecasted_data = []
+
+    for (let keyword in keywords) {  
+        let index = 0;
+        let k_w = keywords[keyword]
+        let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
+
+          function(key){
+            if(index<4) {
+              return [index++, new Date(key).valueOf(), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+            } else {
+              return [index++, new Date(key).valueOf(), result[k_w][MA_Day_5+k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
+            }
+          }
+        );
+        historical_data.push(arr)
+
+        arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
+        
+          function(key){
+            if(index<4) {
+              return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]            
+            } else {
+              return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][MA_Day_5+k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]
+            }
+          }
+        );
+        forecasted_data.push(arr)
+    }
+
+    return {
+      historical_data: historical_data,
+      forecasted_data: forecasted_data
+    }
   }
 
   get_dimensions(width){

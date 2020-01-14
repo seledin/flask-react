@@ -220,14 +220,14 @@ export function get_data_mocks_area_DATES(data_mocks_area_DATES1, data_mocks_are
 
 }
 
-export function scale_data_mocks(data_mocks_area_DATES1, data_mocks_area_DATES2, ranges, width, height, number_of_plots){
+export function scale_data_mocks(data, ranges, width, height, number_of_plots){
     let scaled_data_mocks_area_DATES = []
     let scaled_data_mocks_area_future_DATES = []
 
     for (let i=0; i<number_of_plots; i++){
-        scaled_data_mocks_area_DATES.push(scale_data_area_dates(data_mocks_area_DATES1[i], ranges, width, height));
+        scaled_data_mocks_area_DATES.push(scale_data_area_dates(data.historical_data[i], ranges, width, height));
         // scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, 256));
-        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data_mocks_area_DATES2[i], ranges, width,  height, data_mocks_area_DATES1[i].length - 1));
+        scaled_data_mocks_area_future_DATES.push(scale_data_area_dates(data.forecasted_data[i], ranges, width,  height, data.historical_data[i].length - 1));
     }
 
     return [scaled_data_mocks_area_DATES, scaled_data_mocks_area_future_DATES]

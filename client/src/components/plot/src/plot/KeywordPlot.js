@@ -25,17 +25,17 @@ export class KeywordPlot extends React.PureComponent {
     this.handleHoverOff = this.handleHoverOff.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-    let x_trans = 85;
-    let y_trans = 85;
-    let y_trans2 = 85;
+    let x_trans_left = 85;
+    let y_trans_up = 85;
+    let y_trans_bottom = 85;
 
-    let width = window.innerWidth*(0.6) - 2*x_trans;
-    let height = this.props.height - y_trans - y_trans2;
+    let width = window.innerWidth*(0.6) - 2*x_trans_left;
+    let height = this.props.height - y_trans_up - y_trans_bottom;
 
     this.divRef = React.createRef();
 
-    let min_y = get_min_value(this.props.historical_data);
-    let max_y = get_max_value(this.props.historical_data);
+    let min_y = get_min_value(this.props.data.historical_data);
+    let max_y = get_max_value(this.props.data.historical_data);
 
     this.state = {
         title: this.props.options.title,
@@ -52,10 +52,8 @@ export class KeywordPlot extends React.PureComponent {
           visibility: "hidden",
           colors: get_random_colors(this.props.number_of_series),
         },
-    //    scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[0],
-    //    scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[1],
-       scaled_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series),
-       data_map_area_DATES: this.get_data_map_area_DATES(this.props.historical_data, this.props.forecasted_data, array_length_dates, this.props.number_of_series),
+       scaled_data: this.scale_data_mocks(this.props.data, this.props.ranges, width, height, this.props.number_of_series),
+       data_map_area_DATES: this.get_data_map_area_DATES(this.props.data.historical_data, this.props.data.forecasted_data, array_length_dates, this.props.number_of_series),
 
        colors: this.get_random_colors(this.props.number_of_series),
        info_box_height: this.get_box_height(this.props.number_of_series),
@@ -64,14 +62,14 @@ export class KeywordPlot extends React.PureComponent {
         width2: width,
         width: width/1.1,
         height: height,
-        x_trans: x_trans,
-        y_trans: y_trans,
-        y_trans2: y_trans2,
+        x_trans: x_trans_left,
+        y_trans: y_trans_up,
+        y_trans2: y_trans_bottom,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
-       min_y: get_min_value(this.props.historical_data),
-       max_y: get_max_value(this.props.historical_data), 
+       min_y: get_min_value(this.props.data.historical_data),
+       max_y: get_max_value(this.props.data.historical_data), 
        y_number: 12,
     };
   }
@@ -92,35 +90,34 @@ export class KeywordPlot extends React.PureComponent {
   }
   
   updateWindowDimensions() {
-    
-    let div_width2 = this.divRef.current.clientWidth;
+    let svg_width = this.divRef.current.clientWidth;
 
-    let x_trans = this.props.x_trans;
-    let y_trans = this.props.y_trans;
-    let x_trans2 = this.props.x_trans2;
-    let y_trans2 = this.props.y_trans2;
+    let x_trans_left = this.props.x_trans;
+    let y_trans_up = this.props.y_trans;
+    let x_trans_right = this.props.x_trans2;
+    let y_trans_bottom = this.props.y_trans2;
 
-    let div_width = div_width2 - x_trans - x_trans2;
-    let height = this.props.height - y_trans - y_trans2;
+    let plot_width = svg_width - x_trans_left - x_trans_right;
+    let plot_height = this.props.height - y_trans_up - y_trans_bottom;
 
     this.setState({
       dimensions: {
-        width2: div_width2,
-        width: div_width,
-        height: height,
-        x_trans: x_trans,
-        y_trans: y_trans,
-        x_trans2: x_trans2,
-        y_trans2: y_trans2,
+        width2: svg_width,
+        width: plot_width,
+        height: plot_height,
+        x_trans: x_trans_left,
+        y_trans: y_trans_up,
+        x_trans2: x_trans_right,
+        y_trans2: y_trans_bottom,
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
-       scaled_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series),
+       scaled_data: this.scale_data_mocks(this.props.data, this.props.ranges, plot_width, plot_height, this.props.number_of_series),
     });
   }
 
-  scale_data_mocks(data, forecasted_data, ranges, width, height , number_of_series){
-    return scale_data_mocks(data, forecasted_data, ranges, width, height , number_of_series)
+  scale_data_mocks(data, ranges, width, height, number_of_series){
+    return scale_data_mocks(data, ranges, width, height, number_of_series)
   }
 
   get_data_map_area_DATES(data, forecasted_data, array_length_dates, number_of_series){
