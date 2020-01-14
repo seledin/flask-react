@@ -201,14 +201,16 @@ class App extends React.PureComponent {
                     </div>
               </div>
               <div className="tables">
-                <Row>
+                <div>
+                {/* <Row> */}
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
                     </div>
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
                     </div>
-                </Row>
+                {/* </Row> */}
+                </div>
                 <Row>
                   {/* <KeywordPlot height={500} width={500} radius={50} color={"red"} /> */}
                   {/* <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} /> */}
