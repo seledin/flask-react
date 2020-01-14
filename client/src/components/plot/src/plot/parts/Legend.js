@@ -1,17 +1,24 @@
 import React from 'react';
 import { capitalizeString } from "./functions";
 
-export const Legend = props => {
-  return (
-    <g>{prepare_legend(props.dimensions, props.colors, props.keywords)}</g>
-  )
-};
+export class Legend extends React.PureComponent {	
 
-export default Legend
+    constructor(props) {
+      super(props);
+    }
+  
+    render() {
+        return (
+            <g>prepare_legend(props.dimensions, props.colors, props.keywords)</g>
+        )
+    }
+}
+
+export default Legend;
 
 
 
-   function prepare_legend(dimensions, colors, keywords){
+function prepare_legend(dimensions, colors, keywords) {
 
     let legend = [];
     let keyword_sizes = []

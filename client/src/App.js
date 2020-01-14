@@ -202,14 +202,14 @@ class App extends React.PureComponent {
               </div>
               <div className="tables">
                 <div>
-                {/* <Row> */}
+                <Row>
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
                     </div>
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
                     </div>
-                {/* </Row> */}
+                </Row>
                 </div>
                 <Row>
                   {/* <KeywordPlot height={500} width={500} radius={50} color={"red"} /> */}
@@ -319,14 +319,14 @@ class App extends React.PureComponent {
 
   get_dimensions(width){
     let height = width/(ratio);
-    let x_trans = this.state.x_trans;
+    let x_trans_left = this.state.x_trans;
     let y_trans = this.state.y_trans;
     let x_trans2 = this.state.x_trans;
     let y_trans2 = this.state.y_trans;
 
     if(width>1800){
       height = height;
-      x_trans = 80;
+      x_trans_left = 80;
       y_trans = 80;
       x_trans2 = 50;
       y_trans2 = 80;
@@ -334,7 +334,7 @@ class App extends React.PureComponent {
 
     if(width<=1800){
       height = (1.2)*width/(ratio);
-      x_trans = 80;
+      x_trans_left = 80;
       y_trans = 80;
       x_trans2 = 50;
       y_trans2 = 80;
@@ -342,7 +342,7 @@ class App extends React.PureComponent {
 
     if(width<=1600){
       height = (1.4)*width/(ratio);
-      x_trans = 80;
+      x_trans_left = 80;
       y_trans = 80;
       x_trans2 = 50;
       y_trans2 = 80;
@@ -350,7 +350,7 @@ class App extends React.PureComponent {
     
     if(width<=1400){
       height = (1.6)*width/(ratio);
-      x_trans = 70;
+      x_trans_left = 70;
       y_trans = 70;
       x_trans2 = 50;
       y_trans2 = 70;
@@ -358,7 +358,7 @@ class App extends React.PureComponent {
 
     if(width<=1200){
       height = (1.8)*width/(ratio);
-      x_trans = 60;
+      x_trans_left = 60;
       y_trans = 60;
       x_trans2 = 50;
       y_trans2 = 70;
@@ -374,7 +374,7 @@ class App extends React.PureComponent {
 
     if(width<=700) {
       height = (4)*width/(ratio);
-      x_trans = 60;
+      x_trans_left = 60;
       y_trans = 20;
       x_trans2 = 50;
       y_trans2 = this.state.keywords.length*14 + 80;
@@ -382,7 +382,7 @@ class App extends React.PureComponent {
 
     let sizes = {
       height: height,
-      x_trans: x_trans,
+      x_trans: x_trans_left,
       y_trans: y_trans,
       x_trans2: x_trans2,
       y_trans2: y_trans2

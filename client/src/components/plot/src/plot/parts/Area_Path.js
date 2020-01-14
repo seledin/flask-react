@@ -1,18 +1,5 @@
 import React from 'react';
 
-// export const Area_Path = props => {
-//   console.log("path")
-//   if(props.style === "dash"){
-//     return (
-//       <g>{area_path(props.data, props.color, 4)}</g>
-//     );
-//   } else {
-//     return (
-//       <g>{area_path(props.data, props.color, 0, props.slice)}</g>
-//     );
-//   }
-// };
-
 export class Area_Path extends React.PureComponent {	
 
   constructor(props) {

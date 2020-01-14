@@ -1,35 +1,40 @@
 import React from 'react';
 
-export const AxisY = props => {
+export class AxisY extends React.PureComponent {	
 
-  let result = [];
-  let upper_index = props.upper_bound/10;
-  let lower_index = props.lower_bound/10;
-
-  let lines_number = upper_index - lower_index;
-
-  let frame = props.dimensions.height / lines_number;
-
-  let x = 0;
-  let y = 0;
-
-  for(let i=lower_index; i<=upper_index; i++){
-    result.push(make_y_tick(-20, props.dimensions.height - frame*(i -lower_index),i * 10));
+  constructor(props) {
+    super(props);
   }
 
-  let line = `M ${x} ${y} L ${x} ${y + props.dimensions.height}`;
+  render(){
+    let result = [];
+    let upper_index = this.props.upper_bound/10;
+    let lower_index = this.props.lower_bound/10;
 
-  return (
-    <g>
-      <g transform={`translate(${-(props.dimensions.x_trans/2 + 10)},${props.dimensions.height/2})`}><text x="0" textAnchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>{props.y_label}</tspan></text></g>
-      {get_y_ticks(props.dimensions.height, props.y_number)}
-      {result}
-      <path d={line} fill="none" class="plot_line" data-z-index="0" />
-      
-    </g>
-  )
+    let lines_number = upper_index - lower_index;
 
-};
+    let frame = this.props.dimensions.height / lines_number;
+
+    let x = 0;
+    let y = 0;
+
+    for(let i=lower_index; i<=upper_index; i++){
+      result.push(make_y_tick(-20, this.props.dimensions.height - frame*(i -lower_index),i * 10));
+    }
+
+    let line = `M ${x} ${y} L ${x} ${y + this.props.dimensions.height}`;
+
+    return (
+      <g>
+        <g transform={`translate(${-(this.props.dimensions.x_trans/2 + 10)},${this.props.dimensions.height/2})`}><text x="0" textAnchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>{this.props.y_label}</tspan></text></g>
+        { get_y_ticks(this.props.dimensions.height, this.props.y_number) }
+        { result }
+        <path d={line} fill="none" class="plot_line" data-z-index="0" />
+        
+      </g>
+    )
+  }
+}
 
 export default AxisY
 

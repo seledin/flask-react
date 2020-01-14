@@ -1,21 +1,27 @@
 import React from 'react';
 
-export const AxisX = props => {
+export class AxisX extends React.PureComponent {	
 
-  let ticks = props.ticks + 1;
-    
-  if(props.dimensions.width<=700){
-    ticks = 6 + 1;
+  constructor(props) {
+    super(props);
   }
 
+  render(){
+    let ticks = this.props.ticks + 1;
+    
+    if(this.props.dimensions.width<=700){
+      ticks = 6 + 1;
+    }
 
-  return (
-    <g>
-        {get_ticks(props.dimensions.width, props.dimensions.height, ticks)}
-        {prepare_x_axis(props.dimensions.width, props.dimensions.height, ticks, props.dates, props.x_label, props.dimensions.y_trans2)}
-    </g>
-  )
-};
+    return (
+      <g>
+          { get_ticks(this.props.dimensions.width, this.props.dimensions.height, ticks) }
+          { prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, ticks, this.props.dates, this.props.x_label, this.props.dimensions.y_trans2) }
+      </g>
+    )
+  }
+
+}
 
 export default AxisX
 
@@ -63,10 +69,10 @@ function prepare_x_axis(width, height, ticks_number, data_mock, title, y_trans){
 
   let height_trans = y_trans
 
-  if(width>700){
-      result.push(<text key={height} x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
-  }else{
-      result.push(<text key={height} x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
+  if(width>700) {
+      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
+  } else {
+      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
   }
   result.push(<path key={height} d={line} fill="none" class="plot_line" data-z-index="0" />)
 
