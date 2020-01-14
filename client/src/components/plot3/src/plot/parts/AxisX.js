@@ -24,7 +24,7 @@ export default AxisX
 function make_x_tick(x, y) {
 
     let line = `M ${x} ${y} L ${x} ${y + 10}`;
-    return <path class="plot_xmark" d={line} data-z-index="0" />
+    return <path key={x} class="plot_xmark" d={line} data-z-index="0" />
 }
 
 function get_ticks(width, height, ticks_number){
@@ -51,11 +51,11 @@ function prepare_x_axis(width, height, ticks_number, data_mock, title, y_trans){
 
   if(width<=700){
       for(let i=0; i<ticks_number; i++){
-          result.push(<text x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate_monthly(data_mock[data_frame*i][1])}</text>)
+          result.push(<text key={i} x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate_monthly(data_mock[data_frame*i][1])}</text>)
       }
   }else{
       for(let i=0; i<ticks_number; i++){
-          result.push(<text x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate(data_mock[data_frame*i][1])}</text>)
+          result.push(<text key={i} x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate(data_mock[data_frame*i][1])}</text>)
       }
   }
 
@@ -64,11 +64,11 @@ function prepare_x_axis(width, height, ticks_number, data_mock, title, y_trans){
   let height_trans = y_trans
 
   if(width>700){
-      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
+      result.push(<text key={height} x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
   }else{
-      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
+      result.push(<text key={height} x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
   }
-  result.push(<path d={line} fill="none" class="plot_line" data-z-index="0" />)
+  result.push(<path key={height} d={line} fill="none" class="plot_line" data-z-index="0" />)
 
   return result 
 

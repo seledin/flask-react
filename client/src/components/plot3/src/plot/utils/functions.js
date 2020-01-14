@@ -281,32 +281,32 @@ function titleCase(str) {
     return splitStr.join(' '); 
  }
 
-export function get_historical_dates(){
-    let dates = []
-    dates.push(Date.UTC(2010, 0, 18))
-    dates.push(Date.UTC(2010, 1, 18))
-    dates.push( Date.UTC(2010, 2, 18))
-    dates.push(Date.UTC(2010, 3, 18))
-    dates.push( Date.UTC(2010, 4, 18))
-    dates.push( Date.UTC(2010, 5, 18))
-    dates.push( Date.UTC(2010, 6, 18))
-    dates.push( Date.UTC(2010, 7, 18))
-    // dates.push(Date.UTC(2010, 8, 18))
-    // dates.push( Date.UTC(2010, 9, 18))
-    // dates.push( Date.UTC(2010, 10, 18))
+// export function get_historical_dates(){
+//     let dates = []
+//     dates.push(Date.UTC(2010, 0, 18))
+//     dates.push(Date.UTC(2010, 1, 18))
+//     dates.push( Date.UTC(2010, 2, 18))
+//     dates.push(Date.UTC(2010, 3, 18))
+//     dates.push( Date.UTC(2010, 4, 18))
+//     dates.push( Date.UTC(2010, 5, 18))
+//     dates.push( Date.UTC(2010, 6, 18))
+//     dates.push( Date.UTC(2010, 7, 18))
+//     // dates.push(Date.UTC(2010, 8, 18))
+//     // dates.push( Date.UTC(2010, 9, 18))
+//     // dates.push( Date.UTC(2010, 10, 18))
     
-    return dates;
-}
+//     return dates;
+// }
 
-export function get_forecasted_dates(){
-    let dates = []
-    // dates.push( Date.UTC(2010, 7, 18))
-    dates.push(Date.UTC(2010, 8, 18))
-    dates.push( Date.UTC(2010, 9, 18))
+// export function get_forecasted_dates(){
+//     let dates = []
+//     // dates.push( Date.UTC(2010, 7, 18))
+//     dates.push(Date.UTC(2010, 8, 18))
+//     dates.push( Date.UTC(2010, 9, 18))
 
-    return dates;
+//     return dates;
 
-}
+// }
 
 export function get_min_value(data){
     // let min_result = data[0][0][3];

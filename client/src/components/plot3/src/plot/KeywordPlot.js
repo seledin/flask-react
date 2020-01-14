@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_historical_dates, get_forecasted_dates, get_random_mock_area_array_dates, get_min_value, get_max_value} from './utils/functions'
+import { get_random_colors, get_box_height, get_data_mocks_area_DATES, scale_data_mocks, get_data_map_area_DATES, get_min_value, get_max_value } from './utils/functions'
 import { appConfig } from './utils/config.js';
 
 import AxisX from './parts/AxisX';
@@ -14,26 +14,9 @@ import Plot from './parts/Plot';
 
 
 let dimensions = appConfig.dimensions;
-// let ranges = appConfig.ranges_dates;
-// let number_of_plots = appConfig.number_of_plots;
 let array_length_dates = appConfig.array_length_dates + appConfig.array_length_dates_forecast;
 
-// dimensions.box_height = get_box_height(number_of_plots);
-
-let historical_mock1 = get_random_mock_area_array_dates(get_historical_dates(),10,30)
-let historical_mock2 = get_random_mock_area_array_dates(get_historical_dates(),40,80)
-
-let forecasted_mock1 = get_random_mock_area_array_dates(get_forecasted_dates(),10,30)
-let forecasted_mock2 = get_random_mock_area_array_dates(get_forecasted_dates(),40,80)
-
-let historical_data_mock = [historical_mock1, historical_mock2]
-let forecasted_data_mock = [forecasted_mock1, forecasted_mock2]
-
-for (let i=0;i<historical_data_mock.length; i++){
-  forecasted_data_mock[i].unshift(historical_data_mock[i][historical_data_mock[i].length - 1])
-}
-
-export class KeywordPlot extends React.Component {	
+export class KeywordPlot extends React.PureComponent {	
 
   constructor(props) {
     super(props);
@@ -47,16 +30,12 @@ export class KeywordPlot extends React.Component {
     let y_trans2 = 85;
 
     let width = window.innerWidth*(0.6) - 2*x_trans;
-    // let height = this.props.height - 2*y_trans;
     let height = this.props.height - y_trans - y_trans2;
 
     this.divRef = React.createRef();
 
     let min_y = get_min_value(this.props.historical_data);
     let max_y = get_max_value(this.props.historical_data);
-
-    // console.log("ranges")
-    // console.log(this.props.ranges)
 
     this.state = {
         title: this.props.options.title,
@@ -73,14 +52,10 @@ export class KeywordPlot extends React.Component {
           visibility: "hidden",
           colors: get_random_colors(this.props.number_of_series),
         },
-       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[0],
-       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[1],
-
-      //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[0],
-      //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, width, height, 2)[1],
-
+    //    scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[0],
+    //    scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series)[1],
+       scaled_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, width, height, this.props.number_of_series),
        data_map_area_DATES: this.get_data_map_area_DATES(this.props.historical_data, this.props.forecasted_data, array_length_dates, this.props.number_of_series),
-      //  data_map_area_DATES: this.get_data_map_area_DATES(historical_data_mock, forecasted_data_mock, array_length_dates, 2),
 
        colors: this.get_random_colors(this.props.number_of_series),
        info_box_height: this.get_box_height(this.props.number_of_series),
@@ -127,11 +102,6 @@ export class KeywordPlot extends React.Component {
 
     let div_width = div_width2 - x_trans - x_trans2;
     let height = this.props.height - y_trans - y_trans2;
-    // let height = this.props.height - 2*y_trans;
-
-    // console.log("$$")
-    // console.log(height)
-    // console.log(y_trans2)
 
     this.setState({
       dimensions: {
@@ -145,14 +115,7 @@ export class KeywordPlot extends React.Component {
         historical_data_length: appConfig.array_length_dates,
         forecasted_data_length: appConfig.array_length_dates_forecast,
        },
-       scaled_historical_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series)[0],
-       scaled_forecasted_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series)[1],
-       min_y: get_min_value(this.props.historical_data),
-       max_y: get_max_value(this.props.historical_data), 
-
-      //  scaled_historical_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[0],
-      //  scaled_forecasted_data: this.scale_data_mocks(historical_data_mock, forecasted_data_mock, ranges, div_width, height, 2)[1],
-       
+       scaled_data: this.scale_data_mocks(this.props.historical_data, this.props.forecasted_data, this.props.ranges, div_width, height, this.props.number_of_series),
     });
   }
 
@@ -332,17 +295,17 @@ export class KeywordPlot extends React.Component {
 
   render() {
 
-    let area_paths = this.state.scaled_historical_data.map(( entity, index ) => {
-      return (
-        <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"none"} slice={4}/>
-      );
-    });
-
-    let area_paths_future = this.state.scaled_forecasted_data.map(( entity, index ) => {
-      return (
-        <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"dash"} />
-      );
-    });
+    let area_paths = this.state.scaled_data[0].map(( entity, index ) => {
+        return (
+          <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"none"} slice={4}/>
+        );
+      });
+  
+      let area_paths_future = this.state.scaled_data[1].map(( entity, index ) => {
+        return (
+          <Area_Path key={index} data={entity} color={this.state.colors[index]} style={"dash"} />
+        );
+      });
 
     let v_b = "0 0 " + this.state.dimensions.width2 + " " + this.props.height;
     let v_trans = "translate(" + this.state.dimensions.x_trans + "," + this.state.dimensions.y_trans + ")";

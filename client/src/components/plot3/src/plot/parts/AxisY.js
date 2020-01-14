@@ -21,7 +21,7 @@ export const AxisY = props => {
 
   return (
     <g>
-      <g transform={`translate(${-(props.dimensions.x_trans/2 + 10)},${props.dimensions.height/2})`}><text x="0" text-anchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>{props.y_label}</tspan></text></g>
+      <g transform={`translate(${-(props.dimensions.x_trans/2 + 10)},${props.dimensions.height/2})`}><text x="0" textAnchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>{props.y_label}</tspan></text></g>
       {get_y_ticks(props.dimensions.height, props.y_number)}
       {result}
       <path d={line} fill="none" class="plot_line" data-z-index="0" />
@@ -34,7 +34,7 @@ export const AxisY = props => {
 export default AxisY
 
 function make_y_tick(x, y, value) {
-  return <text x={x} text-anchor="end" class="plot_ytick" y={y}>{value}</text>
+  return <text x={x} textAnchor="end" class="plot_ytick" y={y}>{value}</text>
 }
 
 function make_yy_tick(x, y) {

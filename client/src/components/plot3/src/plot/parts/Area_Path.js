@@ -25,7 +25,7 @@ const svgPath = (points, command, color, dash) => {
   : `${acc} ${bezierCommand(point, i, a)}`
   , '')
 
-  return <path d={d} fill="none" stroke={color} stroke-width="2"  data-z-index="0" stroke-dasharray={dash} pointer-events="none" />
+  return <path d={d} fill="none" stroke={color} strokeWidth="2"  data-z-index="0" stroke-dasharray={dash} pointer-events="none" />
 }
 
 const areaPath = (points, command, color) => {
