@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 
-import { capitalizeString } from '../components/plot3/src/plot/parts/functions';
+import { capitalizeString } from './plot/src/plot/parts/functions';
 
 class TableComponent extends Component {	
 

@@ -6,11 +6,11 @@ import Login from './components/Login';
 import Table from './components/Table';
 import Chart from './components/Chart';
 // import Test_Plot_Dates from './Test_Plot_Dates';
-import KeywordPlot from './components/plot3';
-import { get_min_value, get_max_value} from './components/plot3/src/plot/parts/functions';
+import KeywordPlot from './components/plot';
+import { get_min_value, get_max_value} from './components/plot/src/plot/parts/functions';
 // import { get_min_value, get_max_value} from './utils_dates22/functions';
 import { appConfig } from './config.js';
-import { capitalizeString } from './components/plot3/src/plot/parts/functions';
+import { capitalizeString } from './components/plot/src/plot/parts/functions';
 // import { capitalizeString } from "./utils_dates22/functions";
 
 import Loader from "react-loader-spinner";
@@ -78,8 +78,8 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-      let url = appConfig.KEYWORDS_NEW;
-      // let url = "/api"
+      // let url = appConfig.KEYWORDS_NEW;
+      let url = "/api"
 
       this.setState({
         fetching_results: true,
