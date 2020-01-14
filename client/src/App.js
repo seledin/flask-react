@@ -74,8 +74,8 @@ class App extends React.PureComponent {
 
     fetchData(keywords, state, selected_time_frame){
 
-      let url = appConfig.KEYWORDS_NEW;
-      // let url = "/api"
+      // let url = appConfig.KEYWORDS_NEW;
+      let url = "/api"
 
       this.setState({
         fetching_results: true,
