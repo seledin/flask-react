@@ -3,6 +3,7 @@ from flask_cors import CORS
 from methods import keyword_forecaster_v1, keyword_historical, keyword_forecasted, keyword_rankers
 import pandas as pd
 import json
+import multiprocessing as mp
 
 # set the project root directory as the static folder, you can set others.
 app = Flask(__name__,
@@ -100,6 +101,11 @@ def get_rankers():
     result = pd.concat([t1, t2], ignore_index=True)
 
     return t2.to_json(orient='columns', date_format='iso')
+
+@app.route('/cores', methods=['POST'])
+def get_cores():
+    print(mp.cpu_count())
+    return "ok"
 
 if __name__ == '__main__':
     app.run()

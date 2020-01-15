@@ -9,7 +9,7 @@ export class Legend extends React.PureComponent {
   
     render() {
         return (
-            <g>prepare_legend(props.dimensions, props.colors, props.keywords)</g>
+            <g>{prepare_legend(props.dimensions, props.colors, props.keywords)}</g>
         )
     }
 }
