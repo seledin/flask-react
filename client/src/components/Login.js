@@ -16,7 +16,8 @@ class LoginComponent extends Component {
     };
   }
 
-  handleClick(){
+  handleClick(event){
+    event.preventDefault();
     if(this.state.username === "user" && this.state.password === "user"){
       this.props.callbackFromLogin(this.state);
     }
@@ -48,12 +49,12 @@ class LoginComponent extends Component {
             <Form onSubmit={this.handleClick}>
               <Form.Group controlId="formBasicUsername">
                   <Form.Label>Username</Form.Label>
-                  <Form.Control type="text" placeholder="Enter username" value={this.state.keywords} onChange={this.handleChangeLogin}/>
+                  <Form.Control type="text" placeholder="Enter username" value={this.state.keywords} onChange={this.handleChangeLogin} className="input_username" />
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" value={this.state.keywords} onChange={this.handleChangePassword}/>
+                  <Form.Control type="password" placeholder="Password" value={this.state.keywords} onChange={this.handleChangePassword} className="input_password" />
               </Form.Group>
               <Button variant="primary" type="submit">
                   Login

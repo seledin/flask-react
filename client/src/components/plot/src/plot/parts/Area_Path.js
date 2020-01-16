@@ -33,7 +33,7 @@ const svgPath = (points, command, color, dash) => {
   : `${acc} ${bezierCommand(point, i, a)}`
   , '')
 
-  return <path d={d} fill="none" stroke={color} strokeWidth="2"  data-z-index="0" stroke-dasharray={dash} pointer-events="none" />
+  return <path d={d} fill="none" key={color} stroke={color} strokeWidth="2" data-z-index="0" strokeDasharray={dash} pointerEvents="none" />
 }
 
 const areaPath = (points, command, color) => {
@@ -58,7 +58,7 @@ const areaPath = (points, command, color) => {
   let d = d1 + d3;
 //////////////////////////////////////////
 
-  return <path d={d} fill={color} stroke={color} stroke-width="2" data-z-index="0" pointer-events="none" opacity="0.35" />
+  return <path d={d} fill={color} stroke={color} strokeWidth="2" data-z-index="0" pointerEvents="none" opacity="0.35" />
 }
 
 

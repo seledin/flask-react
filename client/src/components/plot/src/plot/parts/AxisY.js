@@ -26,10 +26,10 @@ export class AxisY extends React.PureComponent {
 
     return (
       <g>
-        <g transform={`translate(${-(this.props.dimensions.x_trans/2 + 10)},${this.props.dimensions.height/2})`}><text x="0" textAnchor="middle" transform="rotate(-90 0,0)" class="plot_yaxis_title" y="0"><tspan>{this.props.y_label}</tspan></text></g>
+        <g transform={`translate(${-(this.props.dimensions.x_trans/2 + 10)},${this.props.dimensions.height/2})`}><text x="0" textAnchor="middle" transform="rotate(-90 0,0)" className="plot_yaxis_title" y="0"><tspan>{this.props.y_label}</tspan></text></g>
         { get_y_ticks(this.props.dimensions.height, this.props.y_number) }
         { result }
-        <path d={line} fill="none" class="plot_line" data-z-index="0" />
+        <path d={line} fill="none" className="plot_line" data-z-index="0" />
         
       </g>
     )
@@ -39,13 +39,13 @@ export class AxisY extends React.PureComponent {
 export default AxisY
 
 function make_y_tick(x, y, value) {
-  return <text x={x} textAnchor="end" class="plot_ytick" y={y}>{value}</text>
+  return <text x={x} textAnchor="end" className="plot_ytick" y={y} key={value}>{value}</text>
 }
 
 function make_yy_tick(x, y) {
 
   let line = `M ${x-10} ${y} L ${x} ${y}`;
-  return <path d={line} fill="none" class="plot_line" data-z-index="0" />
+  return <path key={y} d={line} fill="none" className="plot_line" data-z-index="0" />
 }
 
 function get_y_ticks (height, lines_number) {

@@ -12,7 +12,7 @@ import { capitalizeString } from './components/plot/src/plot/parts/functions';
 
 import Loader from "react-loader-spinner";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/plot.css';
+import './styles/styles.css';
 
 let dimensions = appConfig.dimensions;
 
@@ -32,7 +32,7 @@ class App extends React.PureComponent {
 
       this.state = {
         username: "user",
-        authenticated: true,
+        authenticated: false,
         displayResults: false,
         region_state: "US",
         selected_time_frame: "today 5-y",
@@ -142,6 +142,12 @@ class App extends React.PureComponent {
       });
     }
 
+    toLoginCallback =() => {
+      this.setState({
+        authenticated: true,
+      });
+    }
+
     render() {
 
       let ranges =  {
@@ -201,20 +207,22 @@ class App extends React.PureComponent {
                     </div>
               </div>
               <div className="tables">
-                <div>
-                <Row>
+                <div className="row">
+                {/* <Row> */}
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
                     </div>
                     <div className="table-responsive result_table">
                         <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
                     </div>
-                </Row>
+                {/* </Row> */}
                 </div>
-                <Row>
-                  {/* <KeywordPlot height={500} width={500} radius={50} color={"red"} /> */}
-                  {/* <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} /> */}
-                </Row>
+                <div className="row">
+                  {/* <Row> */}
+                    {/* <KeywordPlot height={500} width={500} radius={50} color={"red"} /> */}
+                    {/* <KeywordPlot options={this.state.options} ranges={ranges} historical_data={this.state.historical_data} forecasted_data={this.state.forecasted_data} number_of_series={this.state.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} /> */}
+                  {/* </Row> */}
+                </div>
               </div>
             </div>  ) : (
             
@@ -320,48 +328,48 @@ class App extends React.PureComponent {
   get_dimensions(width){
     let height = width/(ratio);
     let x_trans_left = this.state.x_trans;
-    let y_trans = this.state.y_trans;
-    let x_trans2 = this.state.x_trans;
-    let y_trans2 = this.state.y_trans;
+    let y_trans_up = this.state.y_trans;
+    let x_trans_right = this.state.x_trans;
+    let y_trans_bottom = this.state.y_trans;
 
     if(width>1800){
       height = height;
       x_trans_left = 80;
-      y_trans = 80;
-      x_trans2 = 50;
-      y_trans2 = 80;
+      y_trans_up = 80;
+      x_trans_right = 50;
+      y_trans_bottom = 80;
     }
 
     if(width<=1800){
       height = (1.2)*width/(ratio);
       x_trans_left = 80;
-      y_trans = 80;
-      x_trans2 = 50;
-      y_trans2 = 80;
+      y_trans_up = 80;
+      x_trans_right = 50;
+      y_trans_bottom = 80;
     }
 
     if(width<=1600){
       height = (1.4)*width/(ratio);
       x_trans_left = 80;
-      y_trans = 80;
-      x_trans2 = 50;
-      y_trans2 = 80;
+      y_trans_up = 80;
+      x_trans_right = 50;
+      y_trans_bottom = 80;
     }
     
     if(width<=1400){
       height = (1.6)*width/(ratio);
       x_trans_left = 70;
-      y_trans = 70;
-      x_trans2 = 50;
-      y_trans2 = 70;
+      y_trans_up = 70;
+      x_trans_right = 50;
+      y_trans_bottom = 70;
     }
 
     if(width<=1200){
       height = (1.8)*width/(ratio);
       x_trans_left = 60;
-      y_trans = 60;
-      x_trans2 = 50;
-      y_trans2 = 70;
+      y_trans_up = 60;
+      x_trans_right = 50;
+      y_trans_bottom = 70;
     }
 
     // if(width<=800){
@@ -375,17 +383,17 @@ class App extends React.PureComponent {
     if(width<=700) {
       height = (4)*width/(ratio);
       x_trans_left = 60;
-      y_trans = 20;
-      x_trans2 = 50;
-      y_trans2 = this.state.keywords.length*14 + 80;
+      y_trans_up = 20;
+      x_trans_right = 50;
+      y_trans_bottom = this.state.keywords.length*14 + 80;
     }
 
     let sizes = {
       height: height,
       x_trans: x_trans_left,
-      y_trans: y_trans,
-      x_trans2: x_trans2,
-      y_trans2: y_trans2
+      y_trans: y_trans_up,
+      x_trans2: x_trans_right,
+      y_trans2: y_trans_bottom
     }
 
     return sizes;

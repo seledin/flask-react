@@ -7,20 +7,12 @@ export class AxisX extends React.PureComponent {
   }
 
   render(){
-    let ticks = this.props.ticks + 1;
-    
-    if(this.props.dimensions.width<=700){
-      ticks = 6 + 1;
-    }
-
     return (
       <g>
-          { get_ticks(this.props.dimensions.width, this.props.dimensions.height, ticks) }
-          { prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, ticks, this.props.dates, this.props.x_label, this.props.dimensions.y_trans2) }
+        { prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, this.props.ticks, this.props.dates, this.props.x_label, this.props.dimensions.y_trans2) }
       </g>
     )
   }
-
 }
 
 export default AxisX
@@ -28,56 +20,51 @@ export default AxisX
 
 
 function make_x_tick(x, y) {
-
-    let line = `M ${x} ${y} L ${x} ${y + 10}`;
-    return <path key={x} class="plot_xmark" d={line} data-z-index="0" />
+  let line = `M ${x} ${y} L ${x} ${y + 10}`;
+  return <path key={x} className="plot_xmark" d={line} data-z-index="0" />
 }
 
-function get_ticks(width, height, ticks_number){
-    let result = [];
-
-    let frame = width / (ticks_number - 1);
-
-    for (let i=0; i<ticks_number; i++){
-        let point = frame * i;
-        result.push(make_x_tick(point, height))
-    }
-
-    return result;
-}
-
-
-function prepare_x_axis(width, height, ticks_number, data_mock, title, y_trans){
+function prepare_x_axis(width, height, ticks, data_mock, title, y_trans){
   let result = []
+
+  let ticks_number = ticks + 1;
+    
+  if(width<=700) {
+    ticks_number = 6 + 1;
+  }
 
   let length = Object.keys(data_mock).length;
   let data_frame = Math.floor(length/(ticks_number-1));
 
   let frame = width / (ticks_number - 1)
 
+  for (let i=0; i<ticks_number; i++){
+    let point = frame * i;
+    result.push(make_x_tick(point, height))
+  }
+
   if(width<=700){
-      for(let i=0; i<ticks_number; i++){
-          result.push(<text key={i} x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate_monthly(data_mock[data_frame*i][1])}</text>)
-      }
-  }else{
-      for(let i=0; i<ticks_number; i++){
-          result.push(<text key={i} x={frame*i} class="plot_xtick" text-anchor="middle" y={height + 25}>{formatDate(data_mock[data_frame*i][1])}</text>)
-      }
+    for(let i=0; i<ticks_number; i++){
+      result.push(<text key={i} x={frame*i} className="plot_xtick" textAnchor="middle" y={height + 25}>{formatDate_monthly(data_mock[data_frame*i][1])}</text>)
+    }
+  } else {
+    for(let i=0; i<ticks_number; i++){
+      result.push(<text key={i} x={frame*i} className="plot_xtick" textAnchor="middle" y={height + 25}>{formatDate(data_mock[data_frame*i][1])}</text>)
+    }
   }
 
   let line = `M 0 ${height} H ${width}`;
-
   let height_trans = y_trans
 
   if(width>700) {
-      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
+    result.push(<text x={width/2} key={9911141} textAnchor="middle" className="plot_xaxis_title" y={height + height_trans - 30}><tspan>{title}</tspan></text>)
   } else {
-      result.push(<text x={width/2} text-anchor="middle" class="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
+    result.push(<text x={width/2} key={2} textAnchor="middle" className="plot_xaxis_title" y={height +40}><tspan>{title}</tspan></text>)
   }
-  result.push(<path key={height} d={line} fill="none" class="plot_line" data-z-index="0" />)
+
+  result.push(<path key={height} d={line} fill="none" className="plot_line" data-z-index="0" />)
 
   return result 
-
 }
 
 

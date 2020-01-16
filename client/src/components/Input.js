@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { USA_STATES } from '../states.js';
 
 const time_frames = [

@@ -13,7 +13,7 @@ body {
 
 .loginform{
   margin: 0 auto;
-  width: 30%;
+  width: 25%;
   margin-top: 9%;
 }
 
@@ -43,7 +43,6 @@ body {
 }
 
 .tables{
-  padding-left: 1%;
   padding-right: 1%;
 }
 
@@ -69,3 +68,33 @@ th {
 tr {
   height: 0.5em;
 }
+
+@media (max-width: 1400px) {
+  .loginform{
+    margin: 0 auto;
+    width: 30%;
+    margin-top: 7%;
+  }
+}
+
+@media (max-width: 800px) {
+  .loginform{
+    text-align: center;
+    margin: 0 auto;
+    width: 98%;
+    margin-top: 1%;
+  }
+
+  .input_username {
+    text-align-last: center;
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .input_password {
+    text-align-last: center;
+    text-align: center;
+    font-size: 1em;
+  }
+}
+

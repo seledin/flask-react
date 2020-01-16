@@ -9,7 +9,7 @@ export class Legend extends React.PureComponent {
   
     render() {
         return (
-            <g>{prepare_legend(props.dimensions, props.colors, props.keywords)}</g>
+            <g>{ prepare_legend(this.props.dimensions, this.props.colors, this.props.keywords) }</g>
         )
     }
 }
@@ -32,8 +32,8 @@ function prepare_legend(dimensions, colors, keywords) {
     
             legend.push(
               <g key={i} data-z-index="1" transform={`translate(${translation},3)`}>
-                  <path fill="none" d="M 0 11 L 30 11" stroke={colors[i]} stroke-width="0"></path>
-                  <text x="35" textAnchor="start" data-z-index="0" y="15" fontSize="12px" stroke="#6c757d" stroke-width="0">{capitalizeString(keywords[i])}</text>
+                  <path fill="none" d="M 0 11 L 30 11" stroke={colors[i]} strokeWidth="0"></path>
+                  <text x="35" textAnchor="start" data-z-index="0" y="15" fontSize="12px" stroke="#6c757d" strokeWidth="0">{capitalizeString(keywords[i])}</text>
               </g>
         );
 
@@ -47,7 +47,7 @@ function prepare_legend(dimensions, colors, keywords) {
         height_trans = dimensions.height + dimensions.y_trans - 25;
     
         return (
-            <g transform={`translate(${width_trans}, ${height_trans})`} class="plot_legend" >
+            <g transform={`translate(${width_trans}, ${height_trans})`} className="plot_legend" >
                 {legend}
             </g>)
         

@@ -220,11 +220,6 @@ class Chart extends React.PureComponent {
                 },
 
               ],
-
-              legend: {
-                enabled: true
-              },
-            
               drilldown: {
                 activeDataLabelStyle: {
                   color: "#FFFFFF",
@@ -342,10 +337,6 @@ class Chart extends React.PureComponent {
               showInLegend: false
             },
           ],
-
-          legend: {
-            enabled: false
-          },
         
           drilldown: {
             activeDataLabelStyle: {

@@ -1,7 +1,3 @@
-
-let w = 1100;
-let h = 400;
-
 export const appConfig = {
 
 

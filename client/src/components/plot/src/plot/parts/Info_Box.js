@@ -40,9 +40,9 @@ function get_info_box(info_box, box_width, box_height, keywords){
   let date = formatDate(info_box.value_x)
 
   return (
-  <g transform={`translate(${info_box.pos_x}, ${info_box.pos_y})`} data-z-index="1" class="plot_info_box" visibility={info_box.visibility}>
+  <g transform={`translate(${info_box.pos_x}, ${info_box.pos_y})`} data-z-index="1" className="plot_info_box" visibility={info_box.visibility}>
     <rect x="0" y="0" width={box_width} height={box_height}  />   
-    <g class="plot_info_box_header">
+    <g className="plot_info_box_header">
       <text x="5" y="25">Date: {date}</text>
     </g>
     {y_data}

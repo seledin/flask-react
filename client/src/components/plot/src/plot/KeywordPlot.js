@@ -11,6 +11,7 @@ import Pointer_Line from './parts/Pointer_Line';
 import Info_Box from './parts/Info_Box';
 import Area_Path from './parts/Area_Path';
 import Plot from './parts/Plot';
+import './css/plot.css';
 
 
 let dimensions = appConfig.dimensions;

@@ -25,16 +25,16 @@ class TableComponent extends Component {
     var tableRows = this.props.tableData.data.map(( entity, index ) => {
       let cells = entity.map((e,i) => {
 
-        if(e !== null){
-          if(i>0){
+        if(e !== null) {
+          if(i>0) {
             return <td key = {i}>{e.toFixed(2)}</td>
-          }else{
+          } else {
             return <td key = {i}>{capitalizeString(e)}</td>
           }
-        }else{
-          if(i>0){
+        } else {
+          if(i>0) {
             return <td key = {i}>{"0.00"}</td>
-          }else{
+          } else {
             return <td key = {i}>{"0.00"}</td>
           }
         }

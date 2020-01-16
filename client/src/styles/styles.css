@@ -1,0 +1,276 @@
+.main{
+    background: slategrey;
+}
+
+.plot{
+    /* background: skyblue; */
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 
+.plot_info_box_header text{
+    pointer-events: none;
+    stroke-width: 0;
+    font-size:0.9em;
+    stroke: #212529;
+    cursor:default;
+    fill:#333333;
+}
+
+.plot_pointer_line {
+    stroke: #db0b0b;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.plot_legend {
+    stroke: #343640;
+    font-size: 12px;
+}
+
+.plot_legend path {
+    stroke-width: 2;
+}
+
+.plot_legend text {
+    color: #333333;
+    font-size: 12px;
+    fill: #333333;
+    font-weight: 100;
+}
+
+.plot_line{
+    stroke: grey;
+    pointer-events: none;
+} */
+
+.results_div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.result_table{
+    padding-left: 1%;
+    padding-left: 1%;
+    margin: 0 auto;
+    width: 50%
+}
+
+.spinner{
+    text-align:center;
+}
+
+.input_bar{
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+}
+
+.map_div{
+    width: 39%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.keyword_div{
+    width: 49%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.state_select_div{
+    margin-left: auto;
+    margin-right: 0;
+    width: 24%
+}
+
+.timeframe_div{
+    margin-left: auto;
+    margin-right: 0;
+    width: 24%
+}
+
+#plot_div{
+    margin-left: auto;
+    margin-right: 0;
+    width: 59%
+}
+
+@media (max-width: 1400px) {
+    .result_table{
+        margin: 0auto;
+        width: 100%
+    }
+
+    .map_div{
+        width: 100%;
+        margin-bottom: 1%;
+    }
+    
+    #plot_div{
+        margin: 0auto;
+        width: 100%
+    }
+
+    .keyword_div{
+        width: 100%;
+        padding-bottom: 1%;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+    .timeframe_div{
+        width: 50%;
+        padding-right: 1%;
+    }
+
+    .state_select_div{
+        width: 50%;
+        padding-left: 1%;
+    }
+
+    .input_keywords{
+        text-align: center;
+    }
+
+    .input_timeframe{
+        text-align-last: center; text-align: center;
+    }
+
+    .input_state{
+        text-align-last: center; text-align: center;
+    }
+
+    .input_button{
+        padding-top: 1%
+    }
+
+    .plot_legend {
+        stroke: #343640;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .plot_title {
+        font-size: 14px;
+    }
+
+    .plot_xaxis_title {
+        font-size: 12px;
+    }
+
+    .plot_xaxis_title{
+        font-size:12px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .input_bar{
+        margin: 0;
+    }
+
+    .table td, .table th {
+        padding: 0.5em;
+        line-height: 1.2;
+        font-size: 14px;
+    }
+
+    .plot_ytick{
+        font-size: 11px;
+    }
+
+    .plot_xtick{
+        font-size: 11px;
+    }
+
+    .keyword_div{
+        width: 100%;
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+    .state_select_div{
+        width: 100%;
+        /* padding: 0%; */
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+    
+    .timeframe_div{
+        width: 100%;
+        /* padding-right: 0%; */
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+    
+    #plot_div{
+        width: 100%;
+    }
+
+    .input_title{
+        width: 100%;
+    }
+
+    .input_title label{
+        margin-top: .5rem;
+    }
+
+    /* .input_title {
+        text-align: center;
+        display: block;
+        width: 100%;
+    } */
+
+    .input_title label h5{
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
+
+    .input_button{
+        padding-top: 1%;
+        width: 100%;
+    }
+
+    .btn, .btn-group {
+        width:100%;
+    }
+
+    .input_keywords{
+        text-align: center;
+    }
+
+    .input_timeframe{
+        text-align-last: center; text-align: center;
+    }
+
+    .input_state{
+        text-align-last: center; text-align: center;
+    }
+
+    .theader{
+        text-align: center;
+        vertical-align: top;
+    }
+
+    .plot_legend text{
+        stroke: #343640;
+        font-size: 12px;
+    }
+}
