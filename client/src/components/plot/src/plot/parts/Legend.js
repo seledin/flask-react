@@ -23,7 +23,7 @@ function prepare_legend(dimensions, colors, keywords) {
     let legend = [];
     let keyword_sizes = []
 
-    if (dimensions.width2>700){
+    if (dimensions.svg_width>700){
         for(let i=0; i<colors.length; i++){
             let l = calculate_translate_for_legend(keywords[i].length);
             
@@ -41,9 +41,9 @@ function prepare_legend(dimensions, colors, keywords) {
         }
 
         let translation = keyword_sizes.reduce((a, b) => a + b, 0);
-        let width_trans = (dimensions.width2)/2 - translation/2 - dimensions.x_trans;
+        let width_trans = (dimensions.svg_width)/2 - translation/2 - dimensions.x_trans;
         let height_trans = dimensions.height + dimensions.y_trans/2;
-        height_trans = dimensions.height + dimensions.y_trans - dimensions.y_trans2;
+        height_trans = dimensions.height + dimensions.y_trans - dimensions.y_trans_bottom;
         height_trans = dimensions.height + dimensions.y_trans - 25;
     
         return (

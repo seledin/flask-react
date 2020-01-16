@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from "./components/Header"
 import Input from './components/Input'
-import { Row } from 'react-bootstrap';
 import Login from './components/Login';
 import Table from './components/Table';
 import Chart from './components/Chart';
@@ -38,9 +37,9 @@ class App extends React.PureComponent {
         selected_time_frame: "today 5-y",
         keywords: [],
         options: {
-          title: "Trends Forecast",
-          x_label: "Date",
-          y_label: "Search interest (%)",
+          // title: "Trends Forecast",
+          // x_label: "Date",
+          // y_label: "Search interest (%)",
           dimensions: dimensions,
         },
         data: [],
@@ -99,20 +98,20 @@ class App extends React.PureComponent {
             let sizes = this.get_dimensions(width);
       
             this.setState({
-                keywords: keywords,
-                displayResults: true,
-                region_state: state,
-                selected_time_frame: selected_time_frame,
-                displayResults: true,
-                data: this.get_data(keywords, result),
-                rate_table_data: this.getRateTableData(result.growth_rate_result),
-                growth_table_data: this.getGrowthTableData(result.projected_growth_result),
-                div_height: sizes.height,
-                x_trans: sizes.x_trans,
-                y_trans: sizes.y_trans,
-                x_trans2: sizes.x_trans2,
-                y_trans2: sizes.y_trans2,
-                fetching_results: false
+              keywords: keywords,
+              displayResults: true,
+              region_state: state,
+              selected_time_frame: selected_time_frame,
+              displayResults: true,
+              data: this.get_data(keywords, result),
+              rate_table_data: this.getRateTableData(result.growth_rate_result),
+              growth_table_data: this.getGrowthTableData(result.projected_growth_result),
+              div_height: sizes.height,
+              x_trans: sizes.x_trans_left,
+              y_trans: sizes.y_trans_up,
+              x_trans_right: sizes.x_trans_right,
+              y_trans_bottom: sizes.y_trans_bottom,
+              fetching_results: false
             });
           }).catch(function(error) {
           
@@ -135,10 +134,10 @@ class App extends React.PureComponent {
 
       this.setState({
         div_height: sizes.height,
-        x_trans: sizes.x_trans,
-        y_trans: sizes.y_trans,
-        x_trans2: sizes.x_trans2,
-        y_trans2: sizes.y_trans2,
+        x_trans: sizes.x_trans_left,
+        y_trans: sizes.y_trans_up,
+        x_trans_right: sizes.x_trans_right,
+        y_trans_bottom: sizes.y_trans_bottom,
       });
     }
 
@@ -157,6 +156,23 @@ class App extends React.PureComponent {
         min_y: -10,
       }
 
+      let plot_settings = {
+        title: "Trends Forecast",
+        x_label: "Date",
+        y_label: "Search interest (%)",
+        // number_of_series: this.state.data.forecasted_data.length,
+        number_of_series: this.state.keywords.length,
+        keywords: this.state.keywords,
+
+        height: this.state.div_height,
+        x_trans_left: this.state.x_trans,
+        y_trans_up: this.state.y_trans,
+        x_trans_right: this.state.x_trans_right,
+        y_trans_bottom: this.state.y_trans_bottom,
+
+        ranges: ranges
+      }
+
       if(this.state.displayResults) {
         let min_y = get_min_value(this.state.data.historical_data);
         let max_y = get_max_value(this.state.data.historical_data);
@@ -171,12 +187,13 @@ class App extends React.PureComponent {
           min_y: lower_bound,
         }
 
-        // console.log("ranges")
-        // console.log(ranges)
+        plot_settings.ranges = {
+          max_x: (this.state.data.historical_data[0].length + this.state.data.forecasted_data[0].length),
+          min_x: 0,
+          max_y: upper_bound,
+          min_y: lower_bound,
+        }
       }
-
-        // console.log(this.state.keywords.length)
-
 
       if (this.state.authenticated) {
         return (
@@ -191,7 +208,7 @@ class App extends React.PureComponent {
               
             } */}
 
-            {(this.state.displayResults) ? (
+            { (this.state.displayResults) ? (
             
             <div>
               <Header username={this.state.username} />
@@ -199,23 +216,21 @@ class App extends React.PureComponent {
               <Input callbackFromParent={this.fetchCallback}/>
 
               <div className="results_div">
-                    <div className="map_div">
-                      <Chart callbackFromApp={this.mapCallback} height={this.state.div_height} />
-                    </div>
-                    <div id="plot_div"> 
-                        <KeywordPlot options={this.state.options} ranges={ranges} data={this.state.data} number_of_series={this.state.data.forecasted_data.length} keywords={this.state.keywords} height={this.state.div_height} x_trans={this.state.x_trans} y_trans={this.state.y_trans} x_trans2={this.state.x_trans2} y_trans2={this.state.y_trans2} />
-                    </div>
+                <div className="map_div">
+                  <Chart callbackFromApp={this.mapCallback} height={this.state.div_height} />
+                </div>
+                <div id="plot_div"> 
+                  <KeywordPlot plot_settings={plot_settings} data={this.state.data} />
+                </div>
               </div>
               <div className="tables">
                 <div className="row">
-                {/* <Row> */}
-                    <div className="table-responsive result_table">
-                        <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
-                    </div>
-                    <div className="table-responsive result_table">
-                        <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
-                    </div>
-                {/* </Row> */}
+                  <div className="table-responsive result_table">
+                    <Table tableData={this.state.rate_table_data} title={"Growth Rate"}/>
+                  </div>
+                  <div className="table-responsive result_table">
+                    <Table tableData={this.state.growth_table_data} title={"Projected growth"} />
+                  </div>
                 </div>
                 <div className="row">
                   {/* <Row> */}
@@ -228,13 +243,15 @@ class App extends React.PureComponent {
             
             <div>
               <Header username={this.state.username} />
-              <Input callbackFromParent={this.fetchCallback}/>
+              <Input callbackFromParent={this.fetchCallback} />
 
               <div className="intro">
+
               </div>
+
               {this.state.fetching_results ? (    
                 <div className="spinner">
-                  <Loader type="Oval" color="#007bff" height={200} width={200} timeout={30000}/>
+                  <Loader type="Oval" color="#007bff" height={200} width={200} timeout={30000} />
                 </div>   
                 ) : (<div></div>) }
             </div>
@@ -243,15 +260,16 @@ class App extends React.PureComponent {
           </div>
         </div>
       );
-        } else {
-          return (
+      } else {
+        return (
           <div ref={this.myRef}>
-              <Login callbackFromLogin={this.toLoginCallback}/>
-          </div>);      
-        }
+            <Login callbackFromLogin={this.toLoginCallback} />
+          </div>
+        );      
+      }
     }
     
-    getGrowthTableData(data){
+    getGrowthTableData(data) {
       let headers = HEADERS_PROJECTED_GROWTH;
       
       let arr = Object.keys(data["Keyword"]).map(
@@ -268,7 +286,7 @@ class App extends React.PureComponent {
       return result;
     }
     
-    getRateTableData(data){
+    getRateTableData(data) {
       let headers = HEADERS_GROWTH_RATES;
       let table_headers = ["Growth Rate 1", "Growth Rate 2", "Growth Rate 3", "Growth Rate 4", "Growth Rate 5"]
   
@@ -286,16 +304,15 @@ class App extends React.PureComponent {
       return result;
     }
 
+    get_data(keywords, result) {
+      let historical_data = []
+      let forecasted_data = []
 
-  get_data(keywords, result){
-    let historical_data = []
-    let forecasted_data = []
-
-    for (let keyword in keywords) {  
+      for (let keyword in keywords) {  
         let index = 0;
         let k_w = keywords[keyword]
-        let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
 
+        let arr = Object.keys(result[k_w][MA_Day_5+k_w]).map(
           function(key){
             if(index<4) {
               return [index++, new Date(key).valueOf(), result[k_w][k_w][key], result[k_w][LOWER_BAND+k_w][key], result[k_w][UPPER_BAND+k_w][key]]
@@ -304,10 +321,10 @@ class App extends React.PureComponent {
             }
           }
         );
+
         historical_data.push(arr)
 
         arr = Object.keys(result[keywords[keyword] + "F"][keywords[keyword]]).map(
-        
           function(key){
             if(index<4) {
               return [index++, new Date(key).valueOf(), result[keywords[keyword] + "F"][k_w][key], result[keywords[keyword] + "F"][LOWER_BAND+k_w][key], result[keywords[keyword] + "F"][UPPER_BAND+k_w][key]]            
@@ -317,22 +334,22 @@ class App extends React.PureComponent {
           }
         );
         forecasted_data.push(arr)
+      }
+
+      return {
+        historical_data: historical_data,
+        forecasted_data: forecasted_data
+      }
     }
 
-    return {
-      historical_data: historical_data,
-      forecasted_data: forecasted_data
-    }
-  }
-
-  get_dimensions(width){
+  get_dimensions(width) {
     let height = width/(ratio);
     let x_trans_left = this.state.x_trans;
     let y_trans_up = this.state.y_trans;
     let x_trans_right = this.state.x_trans;
     let y_trans_bottom = this.state.y_trans;
 
-    if(width>1800){
+    if(width>1800) {
       height = height;
       x_trans_left = 80;
       y_trans_up = 80;
@@ -340,7 +357,7 @@ class App extends React.PureComponent {
       y_trans_bottom = 80;
     }
 
-    if(width<=1800){
+    if(width<=1800) {
       height = (1.2)*width/(ratio);
       x_trans_left = 80;
       y_trans_up = 80;
@@ -348,7 +365,7 @@ class App extends React.PureComponent {
       y_trans_bottom = 80;
     }
 
-    if(width<=1600){
+    if(width<=1600) {
       height = (1.4)*width/(ratio);
       x_trans_left = 80;
       y_trans_up = 80;
@@ -356,7 +373,7 @@ class App extends React.PureComponent {
       y_trans_bottom = 80;
     }
     
-    if(width<=1400){
+    if(width<=1400) {
       height = (1.6)*width/(ratio);
       x_trans_left = 70;
       y_trans_up = 70;
@@ -364,7 +381,7 @@ class App extends React.PureComponent {
       y_trans_bottom = 70;
     }
 
-    if(width<=1200){
+    if(width<=1200) {
       height = (1.8)*width/(ratio);
       x_trans_left = 60;
       y_trans_up = 60;
@@ -390,10 +407,10 @@ class App extends React.PureComponent {
 
     let sizes = {
       height: height,
-      x_trans: x_trans_left,
-      y_trans: y_trans_up,
-      x_trans2: x_trans_right,
-      y_trans2: y_trans_bottom
+      x_trans_left: x_trans_left,
+      y_trans_up: y_trans_up,
+      x_trans_right: x_trans_right,
+      y_trans_bottom: y_trans_bottom
     }
 
     return sizes;

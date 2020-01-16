@@ -9,7 +9,7 @@ export class AxisX extends React.PureComponent {
   render(){
     return (
       <g>
-        { prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, this.props.ticks, this.props.dates, this.props.x_label, this.props.dimensions.y_trans2) }
+        { prepare_x_axis(this.props.dimensions.width, this.props.dimensions.height, this.props.ticks, this.props.dates, this.props.x_label, this.props.dimensions.y_trans_bottom) }
       </g>
     )
   }
