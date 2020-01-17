@@ -23,42 +23,53 @@ const HEADERS_GROWTH_RATES = ["Growth_Rate_0_1", "Growth_Rate_0_2", "Growth_Rate
 const HEADERS_PROJECTED_GROWTH = ["Projected growth in 5 weeks for US (for all keywords) [%]", "Projected growth in 5 weeks for US (for one keyword) [%]"];
 const ratio = 4.5;
 
+const SECONDS_NUMBER = 60;
+
 class App extends React.PureComponent {
   
     constructor(props){
       super(props);
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+      this.handleMouseMove = this.handleMouseMove.bind(this);
+      this.handleHoverOff = this.handleHoverOff.bind(this);
+
+      this.timer = 0;
+      this.startTimer = this.startTimer.bind(this);
+      this.countDown = this.countDown.bind(this);
 
       this.state = {
         username: "user",
         authenticated: false,
         displayResults: false,
-        region_state: "US",
-        selected_time_frame: "today 5-y",
-        keywords: [],
         options: {
           // title: "Trends Forecast",
           // x_label: "Date",
           // y_label: "Search interest (%)",
           dimensions: dimensions,
         },
+        region_state: "US",
+        selected_time_frame: "today 5-y",
+        keywords: [],
         data: [],
         rate_table_data: [],
         growth_table_data: [],
+        fetching_results: false,
         x_trans: 85,
         y_trans: 85,
-        fetching_results: false,
+        time: {},
+        seconds: SECONDS_NUMBER,
       };
 
       this.myRef = React.createRef();
+      // this.startTimer();
     }
 
     fetchCallback = (keywords, selected_state_name, selected_time_frame) => {
-        this.setState({
-            displayResults: false,
-        });
-  
-        this.fetchData(keywords, selected_state_name, selected_time_frame)
+      this.setState({
+          displayResults: false,
+      });
+
+      this.fetchData(keywords, selected_state_name, selected_time_frame)
     }
 
     mapCallback = (state) => {
@@ -92,40 +103,101 @@ class App extends React.PureComponent {
           keywords: keywords, region_state: state, time_frame: selected_time_frame
         }),
       }).then(res => res.json())
-          .then(
-          (result) => {
-            let width = this.myRef.current.offsetWidth;
-            let sizes = this.get_dimensions(width);
-      
-            this.setState({
-              keywords: keywords,
-              displayResults: true,
-              region_state: state,
-              selected_time_frame: selected_time_frame,
-              displayResults: true,
-              data: this.get_data(keywords, result),
-              rate_table_data: this.getRateTableData(result.growth_rate_result),
-              growth_table_data: this.getGrowthTableData(result.projected_growth_result),
-              div_height: sizes.height,
-              x_trans: sizes.x_trans_left,
-              y_trans: sizes.y_trans_up,
-              x_trans_right: sizes.x_trans_right,
-              y_trans_bottom: sizes.y_trans_bottom,
-              fetching_results: false
-            });
-          }).catch(function(error) {
-          
-          })
-    }
+        .then(
+        (result) => {
+          let width = this.myRef.current.offsetWidth;
+          let sizes = this.get_dimensions(width);
+    
+          this.setState({
+            keywords: keywords,
+            displayResults: true,
+            region_state: state,
+            selected_time_frame: selected_time_frame,
+            displayResults: true,
+            data: this.get_data(keywords, result),
+            rate_table_data: this.getRateTableData(result.growth_rate_result),
+            growth_table_data: this.getGrowthTableData(result.projected_growth_result),
+            div_height: sizes.height,
+            x_trans: sizes.x_trans_left,
+            y_trans: sizes.y_trans_up,
+            x_trans_right: sizes.x_trans_right,
+            y_trans_bottom: sizes.y_trans_bottom,
+            fetching_results: false
+          });
+        }).catch(function(error) {
+        
+        })
+      }
 
     componentDidMount() {
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
       this.myRef.current.focus();
+
+      let timeLeftVar = this.secondsToTime(this.state.seconds);
+      this.setState({ time: timeLeftVar });
+
+      // this.countDown();
+      if(this.state.authenticated) {
+        this.startTimer();
+      }
     }
 
     componentWillUnmount() {
       window.removeEventListener('resize', this.updateWindowDimensions);
+      if(!this.state.authenticated) {
+        this.setState({
+          seconds: SECONDS_NUMBER,
+        })
+      }
+    }
+
+    startTimer() {
+      if(this.state.seconds === 0){
+        this.setState({
+          authenticated: false,
+          seconds: SECONDS_NUMBER,
+        })
+      }
+      console.log(this.timer)
+      if (this.timer == 0 && this.state.seconds > 0) {
+        this.timer = setInterval(this.countDown, 1000);
+      }
+    }
+
+    secondsToTime(secs){
+      let hours = Math.floor(secs / (60 * 60));
+  
+      let divisor_for_minutes = secs % (60 * 60);
+      let minutes = Math.floor(divisor_for_minutes / 60);
+  
+      let divisor_for_seconds = divisor_for_minutes % 60;
+      let seconds = Math.ceil(divisor_for_seconds);
+  
+      let obj = {
+        "h": hours,
+        "m": minutes,
+        "s": seconds
+      };
+      return obj;
+    }
+
+    countDown() {
+      // Remove one second, set state so a re-render happens.
+      let seconds = this.state.seconds - 1;
+      this.setState({
+        time: this.secondsToTime(seconds),
+        seconds: seconds,
+      });
+      
+      // Check if we're at zero.
+      if (seconds == 0) { 
+        clearInterval(this.timer);
+        this.setState({
+          authenticated: false,
+          seconds: SECONDS_NUMBER,
+        })
+      }
     }
     
     updateWindowDimensions() {
@@ -142,10 +214,32 @@ class App extends React.PureComponent {
     }
 
     toLoginCallback =() => {
+      console.log("! " + this.state.seconds)
+      this.timer=0;
       this.setState({
         authenticated: true,
+        seconds: SECONDS_NUMBER,
+        
       });
+      // if(this.state.authenticated) {
+        this.startTimer();
+      // }
     }
+
+    // onDragEndCircle = () => {
+    handleMouseMove= () => {
+      this.timer = 0;
+      this.setState({
+        seconds: SECONDS_NUMBER,
+      });
+      console.log("mouse moving")
+    }
+
+    handleHoverOff(event) {
+      console.log("mouse leaving")
+    }
+
+
 
     render() {
 
@@ -197,7 +291,11 @@ class App extends React.PureComponent {
 
       if (this.state.authenticated) {
         return (
-          <div ref={this.myRef}>
+          <div ref={this.myRef} onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff}>
+            {/* <div>
+              <button onClick={this.startTimer}>Start</button> m: {this.state.time.m} s: {this.state.time.s}
+            </div> */}
+            
             <div className="main_results">
 
             {/* {this.state.keywords.length<=5 ? (<div>
@@ -262,7 +360,7 @@ class App extends React.PureComponent {
       );
       } else {
         return (
-          <div ref={this.myRef}>
+          <div ref={this.myRef} onMouseMove={this.handleMouseMove} onMouseLeave={this.handleHoverOff}>
             <Login callbackFromLogin={this.toLoginCallback} />
           </div>
         );      
