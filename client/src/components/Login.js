@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button,Form } from 'react-bootstrap';
+import logo from '../assets/logo.png';
 
 
 class LoginComponent extends Component {	
@@ -39,29 +40,37 @@ class LoginComponent extends Component {
   render() {
 
     return (
-		<div className="loginform">
-        <h2>Login page</h2>
-        <br/>
+    <div>
 
-        <h5>Username: user</h5>
-        <h5>Password: user</h5>
-        <br/>
-            <Form onSubmit={this.handleClick}>
-              <Form.Group controlId="formBasicUsername">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="text" placeholder="Enter username" value={this.state.keywords} onChange={this.handleChangeLogin} className="input_username" />
-              </Form.Group>
+      <div className="loginform">
+      <div className="logo">
+        <img src={logo} className="kloud9" />
+      </div>
 
-              <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" value={this.state.keywords} onChange={this.handleChangePassword} className="input_password" />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                  Login
-              </Button>
-            </Form>
+      <h2>Login page</h2>
+      <br/>
 
-		</div>
+      <h5>Username: user</h5>
+      <h5>Password: user</h5>
+      <br/>
+          <Form onSubmit={this.handleClick}>
+            <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Enter username" value={this.state.keywords} onChange={this.handleChangeLogin} className="input_username" />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={this.state.keywords} onChange={this.handleChangePassword} className="input_password" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Login
+            </Button>
+          </Form>
+
+      </div>
+    </div>
+
 		);
 
   }
