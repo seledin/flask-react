@@ -138,9 +138,9 @@ class App extends React.PureComponent {
       this.setState({ time: timeLeftVar });
 
       // this.countDown();
-      if(this.state.authenticated) {
-        this.startTimer();
-      }
+      // if(this.state.authenticated) {
+      //   this.startTimer();
+      // }
     }
 
     componentWillUnmount() {
@@ -222,7 +222,7 @@ class App extends React.PureComponent {
         
       });
       // if(this.state.authenticated) {
-        this.startTimer();
+        // this.startTimer();
       // }
     }
 
@@ -232,11 +232,11 @@ class App extends React.PureComponent {
       this.setState({
         seconds: SECONDS_NUMBER,
       });
-      console.log("mouse moving")
+      // console.log("mouse moving")
     }
 
     handleHoverOff(event) {
-      console.log("mouse leaving")
+      // console.log("mouse leaving")
     }
 
 
