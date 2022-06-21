@@ -8,7 +8,7 @@ MarkupSafe==1.0
 psycopg2==2.7.4
 six==1.11.0
 Werkzeug==0.14.1
-numpy==1.17.4
+numpy==1.22.0
 pytrends==4.7.2
 pandas==0.25.3
 pystan==2.19.1.1
